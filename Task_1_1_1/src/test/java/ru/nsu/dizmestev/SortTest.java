@@ -21,21 +21,21 @@ class SortTest {
     }
 
     @Test
-    void sort3() {
+    void sort_sorted() {
         int[] array = {1, 2, 3, 4, 5};
         Sort.sort(array);
         assertArrayEquals(new int[] {1, 2, 3, 4, 5}, array);
     }
 
     @Test
-    void sort4() {
+    void sort_below_zero() {
         int[] array = {-1, -2, -3, -4, -5};
         Sort.sort(array);
         assertArrayEquals(new int[] {-5, -4, -3, -2, -1}, array);
     }
 
     @Test
-    void sort5() {
+    void sort_repetitions() {
         int[] array = {1, 2, 1, 1, 2};
         Sort.sort(array);
         assertArrayEquals(new int[] {1, 1, 1, 2, 2}, array);
