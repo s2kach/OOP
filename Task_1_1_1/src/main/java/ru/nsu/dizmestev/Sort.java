@@ -38,6 +38,9 @@ public class Sort {
      * @param array array to sort
      */
     public static void sort(int[] array) {
+        if (array == null) {
+            return;
+        }
         int len = array.length;
 
         for (int i = len / 2 - 1; i >= 0; i--) {

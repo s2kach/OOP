@@ -41,6 +41,23 @@ class SortTest {
         assertArrayEquals(new int[] {1, 1, 1, 2, 2}, array);
     }
 
+    @Test
+    void sort_empty() {
+        int[] array = {};
+        Sort.sort(array);
+        assertArrayEquals(new int[] {}, array);
+    }
 
+    @Test
+    void sort_null() {
+        Sort.sort(null);
+    }
+
+    @Test
+    void sort_one_elem() {
+        int[] array = {1};
+        Sort.sort(array);
+        assertArrayEquals(new int[] {1}, array);
+    }
 
 }
