@@ -1,12 +1,15 @@
 package ru.nsu.dizmestev;
 
+/**
+ * This class provides a method to sort an array using HeapSort.
+ */
 public class Sort {
     /**
-     * Recoursive building a heap in array
+     * Builds a heap in array.
      *
-     * @param array  all elements
-     * @param n      size
-     * @param ind    current index
+     * @param array all elements
+     * @param n     size
+     * @param ind   current index
      */
     private static void heapify(int[] array, int n, int ind) {
         while (true) {
@@ -19,22 +22,20 @@ public class Sort {
             if (right < n && array[right] > array[toswap]) {
                 toswap = right;
             }
-            if (toswap != ind) {
-                int temp = array[ind];
-                array[ind] = array[toswap];
-                array[toswap] = temp;
-                ind = toswap;
-            }
-            else {
+            if (toswap == ind) {
                 break;
             }
+            int temp = array[ind];
+            array[ind] = array[toswap];
+            array[toswap] = temp;
+            ind = toswap;
         }
     }
 
     /**
-     * Sorting function using heaps
+     * Sorting function using heaps.
      *
-     * @param array array
+     * @param array array to sort
      */
     public static void sort(int[] array) {
         int len = array.length;
