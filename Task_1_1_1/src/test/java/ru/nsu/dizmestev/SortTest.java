@@ -3,6 +3,7 @@ package ru.nsu.dizmestev;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import org.junit.jupiter.api.Test;
+import java.util.Random;
 
 class SortTest {
 
@@ -60,4 +61,21 @@ class SortTest {
         assertArrayEquals(new int[] {1}, array);
     }
 
+    @Test
+    void checktime() {
+        System.out.printf("================================================================\n");
+        for (int size = 100; size <= 10000000; size*=10) {
+            Random random = new Random();
+            int[] array = new int[size];
+            System.out.printf("Size: %d\n", size);
+            for (int i = 0; i < size; i++) {
+                array[i] = random.nextInt(size);
+            }
+
+            long timeStart = System.nanoTime();
+            Sort.sort(array);
+            System.out.printf("Sorted in %.10f seconds\n", (double) (System.nanoTime() - timeStart) / 1000000000);
+            System.out.printf("================================================================\n");
+        }
+    }
 }
