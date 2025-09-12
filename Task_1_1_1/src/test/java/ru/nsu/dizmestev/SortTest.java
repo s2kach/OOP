@@ -2,8 +2,8 @@ package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import org.junit.jupiter.api.Test;
 import java.util.Random;
+import org.junit.jupiter.api.Test;
 
 class SortTest {
 
@@ -22,49 +22,49 @@ class SortTest {
     }
 
     @Test
-    void sort_sorted() {
+    void sortSorted() {
         int[] array = {1, 2, 3, 4, 5};
         Sort.sort(array);
         assertArrayEquals(new int[] {1, 2, 3, 4, 5}, array);
     }
 
     @Test
-    void sort_below_zero() {
+    void sortBelowZero() {
         int[] array = {-1, -2, -3, -4, -5};
         Sort.sort(array);
         assertArrayEquals(new int[] {-5, -4, -3, -2, -1}, array);
     }
 
     @Test
-    void sort_repetitions() {
+    void sortRepetitions() {
         int[] array = {1, 2, 1, 1, 2};
         Sort.sort(array);
         assertArrayEquals(new int[] {1, 1, 1, 2, 2}, array);
     }
 
     @Test
-    void sort_empty() {
+    void sortEmpty() {
         int[] array = {};
         Sort.sort(array);
         assertArrayEquals(new int[] {}, array);
     }
 
     @Test
-    void sort_null() {
+    void sortNull() {
         Sort.sort(null);
     }
 
     @Test
-    void sort_one_elem() {
+    void sortOneElem() {
         int[] array = {1};
         Sort.sort(array);
         assertArrayEquals(new int[] {1}, array);
     }
 
     @Test
-    void checktime() {
+    void checkTime() {
         System.out.printf("================================================================\n");
-        for (int size = 100; size <= 10000000; size*=10) {
+        for (int size = 100; size <= 10000000; size *= 10) {
             Random random = new Random();
             int[] array = new int[size];
             System.out.printf("Size: %d\n", size);
@@ -74,7 +74,8 @@ class SortTest {
 
             long timeStart = System.nanoTime();
             Sort.sort(array);
-            System.out.printf("Sorted in %.10f seconds\n", (double) (System.nanoTime() - timeStart) / 1000000000);
+            System.out.printf("Sorted in %.10f seconds\n",
+                    (double) (System.nanoTime() - timeStart) / 1000000000);
             System.out.printf("================================================================\n");
         }
     }
