@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.dizmestev","l":"Sort"},{"p":"ru.nsu.dizmestev","l":"Sort_checktime"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.dizmestev","l":"Sort"}];updateSearchResults();
