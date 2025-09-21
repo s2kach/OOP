@@ -1,6 +1,7 @@
 package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -33,5 +34,36 @@ class HandTest {
         hand.addCard(new Card(Suit.DIAMONDS, Rank.JACK));
         // 10 + 10 + 10 = 30 (>21)
         assertEquals(30, hand.calculateScore());
+    }
+
+    @Test
+    void testMultipleAcesScoring() {
+        Hand hand = new Hand();
+        hand.addCard(new Card(Suit.HEARTS, Rank.ACE));
+        hand.addCard(new Card(Suit.SPADES, Rank.ACE));
+        hand.addCard(new Card(Suit.DIAMONDS, Rank.NINE));
+
+        // ACE(11) + ACE(1) + NINE(9) = 21
+        assertEquals(21, hand.calculateScore());
+    }
+
+    @Test
+    void testBlackjackWithTwoCards() {
+        Hand hand = new Hand();
+        hand.addCard(new Card(Suit.HEARTS, Rank.ACE));
+        hand.addCard(new Card(Suit.SPADES, Rank.KING));
+
+        assertTrue(hand.hasBlackjack());
+    }
+
+    @Test
+    void testNonBlackjackWith21Points() {
+        Hand hand = new Hand();
+        hand.addCard(new Card(Suit.HEARTS, Rank.ACE));
+        hand.addCard(new Card(Suit.SPADES, Rank.FIVE));
+        hand.addCard(new Card(Suit.DIAMONDS, Rank.FIVE));
+
+        // 21 очко, но не блэкджек (3 карты)
+        assertFalse(hand.hasBlackjack());
     }
 }

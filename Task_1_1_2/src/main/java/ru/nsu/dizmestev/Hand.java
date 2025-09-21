@@ -58,7 +58,7 @@ public class Hand {
      * @return набрали 21
      */
     public boolean hasBlackjack() {
-        return calculateScore() == 21;
+        return cards.size() == 2 && calculateScore() == 21;
     }
 
     /**
