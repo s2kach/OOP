@@ -11,6 +11,7 @@ public abstract class Participant {
 
     /**
      * Получить руку с картами.
+     *
      * @return объект руки
      */
     public Hand getHand() {
@@ -19,6 +20,7 @@ public abstract class Participant {
 
     /**
      * Добавить карту в руку.
+     *
      * @param card карта для добавления
      */
     public void takeCard(Card card) {
@@ -27,6 +29,7 @@ public abstract class Participant {
 
     /**
      * Будем ли добирать карту.
+     *
      * @return true если берём
      */
     public abstract boolean shouldTakeCard();

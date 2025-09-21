@@ -4,19 +4,20 @@ package ru.nsu.dizmestev;
  * Масть карты.
  */
 public enum Suit {
-    /** Червы */
+    /** Червы. */
     HEARTS("Червы"),
-    /** Бубны */
+    /** Бубны. */
     DIAMONDS("Бубны"),
-    /** Трефы */
+    /** Трефы. */
     CLUBS("Трефы"),
-    /** Пики */
+    /** Пики. */
     SPADES("Пики");
 
     private final String name;
 
     /**
      * Записать название масти.
+     *
      * @param name масть
      */
     Suit(String name) {
@@ -25,6 +26,7 @@ public enum Suit {
 
     /**
      * Получить масть.
+     *
      * @return масть
      */
     public String getName() {

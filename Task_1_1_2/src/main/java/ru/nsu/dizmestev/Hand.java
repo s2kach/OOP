@@ -5,12 +5,14 @@ import java.util.List;
 
 /**
  * Рука игрока или дилера.
+ *
  */
 public class Hand {
     private final List<Card> cards = new ArrayList<>();
 
     /**
      * Добавить карту в руку.
+     *
      * @param card карта из колоды
      */
     public void addCard(Card card) {
@@ -19,6 +21,7 @@ public class Hand {
 
     /**
      * Посчитать стоимость карт с учетом тузов либо 1 либо 11.
+     *
      * @return счёт
      */
     public int calculateScore() {
@@ -27,7 +30,9 @@ public class Hand {
 
         for (Card card : cards) {
             score += card.getValue();
-            if (card.getValue() == 11) aces++;
+            if (card.getValue() == 11) {
+                aces++;
+            }
         }
 
         while (score > 21 && aces > 0) {
@@ -40,6 +45,7 @@ public class Hand {
 
     /**
      * Получить список всех карт.
+     *
      * @return список
      */
     public List<Card> getCards() {
@@ -48,6 +54,7 @@ public class Hand {
 
     /**
      * Это блекджек.
+     *
      * @return набрали 21
      */
     public boolean hasBlackjack() {
@@ -56,6 +63,7 @@ public class Hand {
 
     /**
      * Текстовое значение карт.
+     *
      * @return строка
      */
     @Override

@@ -17,6 +17,7 @@ public class Game {
 
     /**
      * Создаём игрока и дилера.
+     *
      * @param numberOfDecks записали кол-во колод
      */
     public Game(int numberOfDecks) {
@@ -42,7 +43,8 @@ public class Game {
                 if (input.equalsIgnoreCase("q") || input.isEmpty()) {
                     validInput = true;
                 } else {
-                    System.out.print("Неверный ввод. Пожалуйста, просто нажмите Enter или введите 'q': ");
+                    System.out.print("Неверный ввод. Пожалуйста, просто нажмите Enter " +
+                            "или введите 'q': ");
                 }
             }
 
@@ -181,6 +183,7 @@ public class Game {
 
     /**
      * Выводим текущие карты.
+     *
      * @param showDealerCards показываем карту диллера или нет
      */
     private void printHands(boolean showDealerCards) {

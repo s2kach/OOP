@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Main {
     /**
      * Вход в программу.
+     *
      * @param args аргументы не нужны будут
      */
     public static void main(String[] args) {

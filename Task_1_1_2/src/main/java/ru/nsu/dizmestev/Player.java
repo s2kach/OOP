@@ -10,6 +10,7 @@ public class Player extends Participant {
 
     /**
      * Будет ли брать карту зависит от ответа в консоли.
+     *
      * @return true если согласился брать
      */
     @Override
