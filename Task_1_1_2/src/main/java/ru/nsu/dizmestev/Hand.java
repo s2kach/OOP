@@ -1,6 +1,7 @@
 package ru.nsu.dizmestev;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -8,6 +9,7 @@ import java.util.List;
  *
  */
 public class Hand {
+    private final int BLACK_JACK_NUMBER = 21;
     private final List<Card> cards = new ArrayList<>();
 
     /**
@@ -35,7 +37,7 @@ public class Hand {
             }
         }
 
-        while (score > 21 && aces > 0) {
+        while (score > BLACK_JACK_NUMBER && aces > 0) {
             score -= 10;
             aces--;
         }
@@ -44,12 +46,45 @@ public class Hand {
     }
 
     /**
-     * Получить список всех карт.
+     * Получить первую карту в руке.
      *
-     * @return список
+     * @return первая карта
      */
-    public List<Card> getCards() {
-        return new ArrayList<>(cards);
+    public Card getFirstCard() {
+        if (cards.isEmpty()) {
+            throw new IllegalStateException("В руке нет карт");
+        }
+        return cards.get(0);
+    }
+
+    /**
+     * Получить вторую карту в руке.
+     *
+     * @return вторая карта
+     */
+    public Card getSecondCard() {
+        if (cards.size() < 2) {
+            throw new IllegalStateException("В руке меньше двух карт");
+        }
+        return cards.get(1);
+    }
+
+    /**
+     * Получить количество карт в руке.
+     *
+     * @return количество карт
+     */
+    public int getCardCount() {
+        return cards.size();
+    }
+
+    /**
+     * Получить все карты в виде неизменяемого списка (только для отладки и тестирования).
+     *
+     * @return неизменяемый список карт
+     */
+    public List<Card> getAllCards() {
+        return Collections.unmodifiableList(cards);
     }
 
     /**
@@ -58,16 +93,19 @@ public class Hand {
      * @return набрали 21
      */
     public boolean hasBlackjack() {
-        return cards.size() == 2 && calculateScore() == 21;
+        return cards.size() == 2 && calculateScore() == BLACK_JACK_NUMBER;
     }
 
     /**
-     * Текстовое значение карт.
+     * Текстовое представление карт с скрытием карты диллера при небходимости.
      *
-     * @return строка
+     * @param hideSecondCard скрывать ли вторую карту
+     * @return форматированная строка
      */
-    @Override
-    public String toString() {
+    public String toString(boolean hideSecondCard) {
+        if (hideSecondCard && cards.size() >= 2) {
+            return "[" + getFirstCard() + ", <закрытая карта>]";
+        }
         return cards.toString();
     }
 

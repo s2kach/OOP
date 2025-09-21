@@ -17,7 +17,7 @@ public class Main {
 
         System.out.println("Добро пожаловать в Блэкджек!");
 
-        int deckCount = 1; // значение по умолчанию
+        int deckCount = 1;
         boolean validInput = false;
 
         while (!validInput) {
@@ -32,12 +32,13 @@ public class Main {
                 }
             } else {
                 System.out.println("Неверный ввод. Пожалуйста, введите число.");
-                scanner.next(); // Очищаем некорректный ввод
+                scanner.next();
             }
         }
-        scanner.nextLine(); // Очистка буфера
+        scanner.nextLine();
 
-        Game game = new Game(deckCount);
+        DeckProvider provider = new RandomDeckProvider(deckCount);
+        Game game = new Game(provider, scanner);
         game.start();
         scanner.close();
     }

@@ -6,7 +6,16 @@ import java.util.Scanner;
  * Игрок.
  */
 public class Player extends Participant {
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
+
+    /**
+     * Конструктор для сканнера.
+     *
+     * @param scanner сканер
+     */
+    public Player(Scanner scanner) {
+        this.scanner = scanner;
+    }
 
     /**
      * Будет ли брать карту зависит от ответа в консоли.

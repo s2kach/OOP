@@ -6,23 +6,26 @@ import java.util.Scanner;
  * Основной класс игры.
  */
 public class Game {
+    private final int BLACK_JACK_NUMBER = 21;
     private Deck deck;
     private final Player player;
     private final Dealer dealer;
     private int playerWins = 0;
     private int dealerWins = 0;
     private int roundNumber = 1;
-    private final int numberOfDecks;
-    private final Scanner scanner = new Scanner(System.in);
+    private final DeckProvider deckProvider;
+    private final Scanner scanner;
 
     /**
      * Создаём игрока и дилера.
      *
-     * @param numberOfDecks записали кол-во колод
+     * @param deckProvider провайдер колоды
+     * @param scanner сканер из мейна
      */
-    public Game(int numberOfDecks) {
-        this.numberOfDecks = numberOfDecks;
-        this.player = new Player();
+    public Game(DeckProvider deckProvider, Scanner scanner) {
+        this.deckProvider = deckProvider;
+        this.scanner = scanner;
+        this.player = new Player(scanner);
         this.dealer = new Dealer();
     }
 
@@ -58,8 +61,8 @@ public class Game {
     /**
      * Раунд игры.
      */
-    private void startRound() {
-        deck = new Deck(this.numberOfDecks);
+    public void startRound() {
+        deck = deckProvider.getDeck();
         System.out.println("\n===============================================================");
         System.out.println("Раунд " + roundNumber);
         System.out.println("===============================================================");
@@ -82,7 +85,7 @@ public class Game {
         playerTurn();
 
         // Если игрок не перебрал - ход дилера
-        if (player.getHand().calculateScore() <= 21) {
+        if (player.getHand().calculateScore() <= BLACK_JACK_NUMBER) {
             dealerTurn();
         }
 
@@ -130,7 +133,7 @@ public class Game {
             printHands(false);
 
 
-            if (player.getHand().calculateScore() > 21) {
+            if (player.getHand().calculateScore() > BLACK_JACK_NUMBER) {
                 System.out.println("Перебор! Вы проиграли раунд.");
                 break;
             }
@@ -145,7 +148,7 @@ public class Game {
         System.out.println("Ход дилера");
         System.out.println("----====----");
 
-        Card hiddenCard = dealer.getHand().getCards().get(1);
+        Card hiddenCard = dealer.getHand().getSecondCard();
         System.out.println("Дилер открывает закрытую карту " + hiddenCard);
 
         while (dealer.shouldTakeCard()) {
@@ -164,10 +167,10 @@ public class Game {
         int playerScore = player.getHand().calculateScore();
         int dealerScore = dealer.getHand().calculateScore();
 
-        if (playerScore > 21) {
+        if (playerScore > BLACK_JACK_NUMBER) {
             dealerWins++;
             System.out.println("Дилер выиграл раунд!");
-        } else if (dealerScore > 21) {
+        } else if (dealerScore > BLACK_JACK_NUMBER) {
             playerWins++;
             System.out.println("Вы выиграли раунд!");
         } else if (playerScore > dealerScore) {
@@ -189,18 +192,34 @@ public class Game {
     private void printHands(boolean showDealerCards) {
         System.out.println("----------------------------------");
         System.out.print("Ваши карты: ");
-        System.out.print(player.getHand().getCards());
+        System.out.print(player.getHand().toString(false));
         System.out.println(" > " + player.getHand().calculateScore());
 
         System.out.print("Карты дилера: ");
+        System.out.print(dealer.getHand().toString(!showDealerCards));
         if (showDealerCards) {
-            System.out.print(dealer.getHand().getCards());
             System.out.println(" > " + dealer.getHand().calculateScore());
         } else {
-            // Показываем только первую карту дилера
-            System.out.print("[" + dealer.getHand().getCards().get(0) + ", <закрытая карта>]");
             System.out.println();
         }
         System.out.println("----------------------------------");
+    }
+
+    /**
+     * Получить флаг о победе игрока.
+     *
+     * @return 1 если победил
+     */
+    public int getPlayerWins() {
+        return playerWins;
+    }
+
+    /**
+     * Получить флаг о победе дилера.
+     *
+     * @return 1 если победил
+     */
+    public int getDealerWins() {
+        return dealerWins;
     }
 }
