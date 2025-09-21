@@ -43,8 +43,8 @@ public class Game {
                 if (input.equalsIgnoreCase("q") || input.isEmpty()) {
                     validInput = true;
                 } else {
-                    System.out.print("Неверный ввод. Пожалуйста, просто нажмите Enter " +
-                            "или введите 'q': ");
+                    System.out.print("Неверный ввод. Пожалуйста, просто нажмите Enter "
+                            + "или введите 'q': ");
                 }
             }
 

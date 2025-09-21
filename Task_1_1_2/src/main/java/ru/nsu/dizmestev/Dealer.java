@@ -1,11 +1,12 @@
 package ru.nsu.dizmestev;
 
 /**
- * Дилер
+ * Дилер.
  */
 public class Dealer extends Participant {
     /**
      * Нужно ли добирать.
+     *
      * @return добираем если нет хотя бы 17
      */
     @Override

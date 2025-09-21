@@ -14,6 +14,7 @@ public class Deck {
 
     /**
      * Создание колоды и перемешивание.
+     *
      * @param numberOfDecks сколько колод будет
      */
     public Deck(int numberOfDecks) {
@@ -36,6 +37,7 @@ public class Deck {
 
     /**
      * Достать одну карту.
+     *
      * @return достаём из стека карту если она есть
      */
     public Card drawCard() {
@@ -47,6 +49,7 @@ public class Deck {
 
     /**
      * Размер колоды (для тестов).
+     *
      * @return вернули размер
      */
     public int size() {

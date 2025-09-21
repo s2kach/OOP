@@ -18,7 +18,7 @@ class DeckTest {
     @Test
     void testDeckCreation2() {
         Deck deck = new Deck(8);
-        assertEquals(52*8, deck.size());
+        assertEquals(52 * 8, deck.size());
     }
 
     @Test
