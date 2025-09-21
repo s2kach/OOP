@@ -103,6 +103,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Создание колоды и перемешивание.</div>
 </dd>
+<dt><a href="ru/nsu/dizmestev/DeckProvider.html" class="type-name-link" title="interface in ru.nsu.dizmestev">DeckProvider</a> - Interface in <a href="ru/nsu/dizmestev/package-summary.html">ru.nsu.dizmestev</a></dt>
+<dd>
+<div class="block">Провайдер колоды карт для тестирования.</div>
+</dd>
 <dt><a href="ru/nsu/dizmestev/Suit.html#DIAMONDS" class="member-name-link">DIAMONDS</a> - Enum constant in enum class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Suit.html" title="enum class in ru.nsu.dizmestev">Suit</a></dt>
 <dd>
 <div class="block">Бубны.</div>
@@ -129,6 +133,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Пятерка.</div>
 </dd>
+<dt><a href="ru/nsu/dizmestev/FixedDeckProvider.html" class="type-name-link" title="class in ru.nsu.dizmestev">FixedDeckProvider</a> - Class in <a href="ru/nsu/dizmestev/package-summary.html">ru.nsu.dizmestev</a></dt>
+<dd>
+<div class="block">Провайдер фиксированной колоды для тестирования.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/FixedDeckProvider.html#%3Cinit%3E(java.util.List)" class="member-name-link">FixedDeckProvider(List&lt;Card&gt;)</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/FixedDeckProvider.html" title="class in ru.nsu.dizmestev">FixedDeckProvider</a></dt>
+<dd>
+<div class="block">Конструктор получающй карты.</div>
+</dd>
 <dt><a href="ru/nsu/dizmestev/Rank.html#FOUR" class="member-name-link">FOUR</a> - Enum constant in enum class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Rank.html" title="enum class in ru.nsu.dizmestev">Rank</a></dt>
 <dd>
 <div class="block">Четверка.</div>
@@ -140,13 +152,33 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Основной класс игры.</div>
 </dd>
-<dt><a href="ru/nsu/dizmestev/Game.html#%3Cinit%3E(int)" class="member-name-link">Game(int)</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Game.html" title="class in ru.nsu.dizmestev">Game</a></dt>
+<dt><a href="ru/nsu/dizmestev/Game.html#%3Cinit%3E(ru.nsu.dizmestev.DeckProvider,java.util.Scanner)" class="member-name-link">Game(DeckProvider, Scanner)</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Game.html" title="class in ru.nsu.dizmestev">Game</a></dt>
 <dd>
 <div class="block">Создаём игрока и дилера.</div>
 </dd>
-<dt><a href="ru/nsu/dizmestev/Hand.html#getCards()" class="member-name-link">getCards()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Hand.html" title="class in ru.nsu.dizmestev">Hand</a></dt>
+<dt><a href="ru/nsu/dizmestev/Hand.html#getAllCards()" class="member-name-link">getAllCards()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Hand.html" title="class in ru.nsu.dizmestev">Hand</a></dt>
 <dd>
-<div class="block">Получить список всех карт.</div>
+<div class="block">Получить все карты в виде неизменяемого списка (только для отладки и тестирования).</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/Hand.html#getCardCount()" class="member-name-link">getCardCount()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Hand.html" title="class in ru.nsu.dizmestev">Hand</a></dt>
+<dd>
+<div class="block">Получить количество карт в руке.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/Game.html#getDealerWins()" class="member-name-link">getDealerWins()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Game.html" title="class in ru.nsu.dizmestev">Game</a></dt>
+<dd>
+<div class="block">Получить флаг о победе дилера.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/DeckProvider.html#getDeck()" class="member-name-link">getDeck()</a> - Method in interface ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/DeckProvider.html" title="interface in ru.nsu.dizmestev">DeckProvider</a></dt>
+<dd>
+<div class="block">Получить колоду карт.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/FixedDeckProvider.html#getDeck()" class="member-name-link">getDeck()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/FixedDeckProvider.html" title="class in ru.nsu.dizmestev">FixedDeckProvider</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/dizmestev/RandomDeckProvider.html#getDeck()" class="member-name-link">getDeck()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/RandomDeckProvider.html" title="class in ru.nsu.dizmestev">RandomDeckProvider</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/dizmestev/Hand.html#getFirstCard()" class="member-name-link">getFirstCard()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Hand.html" title="class in ru.nsu.dizmestev">Hand</a></dt>
+<dd>
+<div class="block">Получить первую карту в руке.</div>
 </dd>
 <dt><a href="ru/nsu/dizmestev/Participant.html#getHand()" class="member-name-link">getHand()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Participant.html" title="class in ru.nsu.dizmestev">Participant</a></dt>
 <dd>
@@ -159,6 +191,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="ru/nsu/dizmestev/Suit.html#getName()" class="member-name-link">getName()</a> - Method in enum class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Suit.html" title="enum class in ru.nsu.dizmestev">Suit</a></dt>
 <dd>
 <div class="block">Получить масть.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/Game.html#getPlayerWins()" class="member-name-link">getPlayerWins()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Game.html" title="class in ru.nsu.dizmestev">Game</a></dt>
+<dd>
+<div class="block">Получить флаг о победе игрока.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/Hand.html#getSecondCard()" class="member-name-link">getSecondCard()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Hand.html" title="class in ru.nsu.dizmestev">Hand</a></dt>
+<dd>
+<div class="block">Получить вторую карту в руке.</div>
 </dd>
 <dt><a href="ru/nsu/dizmestev/Card.html#getValue()" class="member-name-link">getValue()</a> - Method in record class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Card.html" title="class in ru.nsu.dizmestev">Card</a></dt>
 <dd>
@@ -240,8 +280,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Игрок.</div>
 </dd>
-<dt><a href="ru/nsu/dizmestev/Player.html#%3Cinit%3E()" class="member-name-link">Player()</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Player.html" title="class in ru.nsu.dizmestev">Player</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/dizmestev/Player.html#%3Cinit%3E(java.util.Scanner)" class="member-name-link">Player(Scanner)</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Player.html" title="class in ru.nsu.dizmestev">Player</a></dt>
+<dd>
+<div class="block">Конструктор для сканнера.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:Q">Q</h2>
 <dl class="index">
@@ -252,6 +294,14 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:R">R</h2>
 <dl class="index">
+<dt><a href="ru/nsu/dizmestev/RandomDeckProvider.html" class="type-name-link" title="class in ru.nsu.dizmestev">RandomDeckProvider</a> - Class in <a href="ru/nsu/dizmestev/package-summary.html">ru.nsu.dizmestev</a></dt>
+<dd>
+<div class="block">Провайдер случайной колоды.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/RandomDeckProvider.html#%3Cinit%3E(int)" class="member-name-link">RandomDeckProvider(int)</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/RandomDeckProvider.html" title="class in ru.nsu.dizmestev">RandomDeckProvider</a></dt>
+<dd>
+<div class="block">Конструктор получающий количество колод.</div>
+</dd>
 <dt><a href="ru/nsu/dizmestev/Card.html#rank()" class="member-name-link">rank()</a> - Method in record class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Card.html" title="class in ru.nsu.dizmestev">Card</a></dt>
 <dd>
 <div class="block">Returns the value of the <a href="./ru/nsu/dizmestev/Card.html#param-rank"><code>rank</code></a> record component.</div>
@@ -281,10 +331,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Будет ли брать карту зависит от ответа в консоли.</div>
 </dd>
-<dt><a href="ru/nsu/dizmestev/Deck.html#shuffle()" class="member-name-link">shuffle()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Deck.html" title="class in ru.nsu.dizmestev">Deck</a></dt>
-<dd>
-<div class="block">Перемешать используя метод из collections.</div>
-</dd>
 <dt><a href="ru/nsu/dizmestev/Rank.html#SIX" class="member-name-link">SIX</a> - Enum constant in enum class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Rank.html" title="enum class in ru.nsu.dizmestev">Rank</a></dt>
 <dd>
 <div class="block">Шестерка.</div>
@@ -300,6 +346,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="ru/nsu/dizmestev/Game.html#start()" class="member-name-link">start()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Game.html" title="class in ru.nsu.dizmestev">Game</a></dt>
 <dd>
 <div class="block">Начало игры.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/Game.html#startRound()" class="member-name-link">startRound()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Game.html" title="class in ru.nsu.dizmestev">Game</a></dt>
+<dd>
+<div class="block">Раунд игры.</div>
 </dd>
 <dt><a href="ru/nsu/dizmestev/Card.html#suit()" class="member-name-link">suit()</a> - Method in record class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Card.html" title="class in ru.nsu.dizmestev">Card</a></dt>
 <dd>
@@ -328,9 +378,9 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
-<dt><a href="ru/nsu/dizmestev/Hand.html#toString()" class="member-name-link">toString()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Hand.html" title="class in ru.nsu.dizmestev">Hand</a></dt>
+<dt><a href="ru/nsu/dizmestev/Hand.html#toString(boolean)" class="member-name-link">toString(boolean)</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Hand.html" title="class in ru.nsu.dizmestev">Hand</a></dt>
 <dd>
-<div class="block">Текстовое значение карт.</div>
+<div class="block">Текстовое представление карт с скрытием карты диллера при небходимости.</div>
 </dd>
 <dt><a href="ru/nsu/dizmestev/Rank.html#TWO" class="member-name-link">TWO</a> - Enum constant in enum class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Rank.html" title="enum class in ru.nsu.dizmestev">Rank</a></dt>
 <dd>

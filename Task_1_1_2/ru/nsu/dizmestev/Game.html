@@ -88,7 +88,8 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int)" class="member-name-link">Game</a><wbr>(int&nbsp;numberOfDecks)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(ru.nsu.dizmestev.DeckProvider,java.util.Scanner)" class="member-name-link">Game</a><wbr>(<a href="DeckProvider.html" title="interface in ru.nsu.dizmestev">DeckProvider</a>&nbsp;deckProvider,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html" title="class or interface in java.util" class="external-link">Scanner</a>&nbsp;scanner)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Создаём игрока и дилера.</div>
 </div>
@@ -106,10 +107,25 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDealerWins()" class="member-name-link">getDealerWins</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Получить флаг о победе дилера.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlayerWins()" class="member-name-link">getPlayerWins</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Получить флаг о победе игрока.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#start()" class="member-name-link">start</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Начало игры.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#startRound()" class="member-name-link">startRound</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Раунд игры.</div>
 </div>
 </div>
 </div>
@@ -129,13 +145,15 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(int)">
+<section class="detail" id="&lt;init&gt;(ru.nsu.dizmestev.DeckProvider,java.util.Scanner)">
 <h3>Game</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Game</span><wbr><span class="parameters">(int&nbsp;numberOfDecks)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Game</span><wbr><span class="parameters">(<a href="DeckProvider.html" title="interface in ru.nsu.dizmestev">DeckProvider</a>&nbsp;deckProvider,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html" title="class or interface in java.util" class="external-link">Scanner</a>&nbsp;scanner)</span></div>
 <div class="block">Создаём игрока и дилера.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>numberOfDecks</code> - записали кол-во колод</dd>
+<dd><code>deckProvider</code> - провайдер колоды</dd>
+<dd><code>scanner</code> - сканер из мейна</dd>
 </dl>
 </section>
 </li>
@@ -152,6 +170,35 @@ loadScripts(document, 'script');</script>
 <h3>start</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">start</span>()</div>
 <div class="block">Начало игры.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="startRound()">
+<h3>startRound</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">startRound</span>()</div>
+<div class="block">Раунд игры.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getPlayerWins()">
+<h3>getPlayerWins</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getPlayerWins</span>()</div>
+<div class="block">Получить флаг о победе игрока.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>1 если победил</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getDealerWins()">
+<h3>getDealerWins</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getDealerWins</span>()</div>
+<div class="block">Получить флаг о победе дилера.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>1 если победил</dd>
+</dl>
 </section>
 </li>
 </ul>
