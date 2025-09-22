@@ -60,11 +60,11 @@ class GameTest {
                 new Card(Suit.HEARTS, Rank.TEN) // Дилер берет эту карту и перебирает
         );
 
-        String input = "0\n"; // Игрок останавливается
+        String input = "0\nq\n"; // Игрок останавливается
         Scanner scanner = new Scanner(input);
         DeckProvider provider = new FixedDeckProvider(cards);
         Game game = new Game(provider, scanner);
-        game.startRound();
+        game.start();
         assertEquals(1, game.getPlayerWins());
         assertEquals(0, game.getDealerWins());
         scanner.close();
