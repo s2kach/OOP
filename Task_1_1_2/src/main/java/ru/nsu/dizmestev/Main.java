@@ -13,6 +13,12 @@ public class Main {
      * @param args аргументы не нужны будут
      */
     public static void main(String[] args) {
+        startGame();
+    }
+    /**
+     * Метод для начала игры.
+     */
+    public static void startGame() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Добро пожаловать в Блэкджек!");
