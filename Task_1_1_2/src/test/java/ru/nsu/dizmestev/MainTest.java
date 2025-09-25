@@ -1,6 +1,7 @@
 package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
