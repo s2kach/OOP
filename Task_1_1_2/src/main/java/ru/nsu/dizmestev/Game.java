@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Основной класс игры.
  */
 public class Game {
-    private final int BLACK_JACK_NUMBER = 21;
+    private static final int BLACKJACK_NUMBER = 21;
     private Deck deck;
     private final Player player;
     private final Dealer dealer;
@@ -85,7 +85,7 @@ public class Game {
         playerTurn();
 
         // Если игрок не перебрал - ход дилера
-        if (player.getHand().calculateScore() <= BLACK_JACK_NUMBER) {
+        if (player.getHand().calculateScore() <= BLACKJACK_NUMBER) {
             dealerTurn();
         }
 
@@ -133,7 +133,7 @@ public class Game {
             printHands(false);
 
 
-            if (player.getHand().calculateScore() > BLACK_JACK_NUMBER) {
+            if (player.getHand().calculateScore() > BLACKJACK_NUMBER) {
                 System.out.println("Перебор! Вы проиграли раунд.");
                 break;
             }
@@ -167,10 +167,10 @@ public class Game {
         int playerScore = player.getHand().calculateScore();
         int dealerScore = dealer.getHand().calculateScore();
 
-        if (playerScore > BLACK_JACK_NUMBER) {
+        if (playerScore > BLACKJACK_NUMBER) {
             dealerWins++;
             System.out.println("Дилер выиграл раунд!");
-        } else if (dealerScore > BLACK_JACK_NUMBER) {
+        } else if (dealerScore > BLACKJACK_NUMBER) {
             playerWins++;
             System.out.println("Вы выиграли раунд!");
         } else if (playerScore > dealerScore) {

@@ -2,11 +2,9 @@ package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Scanner;
-
 import org.junit.jupiter.api.Test;
 
 class PlayerTest {

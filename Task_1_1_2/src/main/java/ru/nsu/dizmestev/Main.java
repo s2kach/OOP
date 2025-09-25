@@ -7,6 +7,7 @@ import java.util.Scanner;
  * Вход в программу будет с этого класса.
  */
 public class Main {
+
     /**
      * Вход в программу.
      *
@@ -15,6 +16,7 @@ public class Main {
     public static void main(String[] args) {
         startGame();
     }
+
     /**
      * Метод для начала игры.
      */

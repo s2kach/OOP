@@ -9,7 +9,7 @@ import java.util.List;
  *
  */
 public class Hand {
-    private final int BLACK_JACK_NUMBER = 21;
+    private static final int BLACKJACK_NUMBER = 21;
     private final List<Card> cards = new ArrayList<>();
 
     /**
@@ -37,7 +37,7 @@ public class Hand {
             }
         }
 
-        while (score > BLACK_JACK_NUMBER && aces > 0) {
+        while (score > BLACKJACK_NUMBER && aces > 0) {
             score -= 10;
             aces--;
         }
@@ -93,7 +93,7 @@ public class Hand {
      * @return набрали 21
      */
     public boolean hasBlackjack() {
-        return cards.size() == 2 && calculateScore() == BLACK_JACK_NUMBER;
+        return cards.size() == 2 && calculateScore() == BLACKJACK_NUMBER;
     }
 
     /**
