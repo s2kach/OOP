@@ -74,15 +74,16 @@ public abstract class Expression {
             String valueStr = parts[1].trim();
 
             if (varName.isEmpty()) {
-                throw new IllegalArgumentException("Имя переменной не может быть пустым в присваивании: " + assignment);
+                throw new IllegalArgumentException("Имя переменной не может быть пустым в присваивании: "
+                        + assignment);
             }
 
             try {
                 int value = Integer.parseInt(valueStr);
                 vars.put(varName, value);
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Неверный числовой формат в присваивании: " + assignment
-                        + ". Значение должно быть целым числом.");
+                throw new IllegalArgumentException("Неверный числовой формат в присваивании: "
+                        + assignment + ". Значение должно быть целым числом.");
             }
         }
 
@@ -135,7 +136,8 @@ public abstract class Expression {
     private static Expression parseComplexExpression(String content) {
         int operatorIndex = findOperatorIndex(content);
         if (operatorIndex == -1) {
-            throw new IllegalArgumentException("Не найден оператор в выражении: " + content);
+            throw new IllegalArgumentException("Не найден оператор в выражении: "
+                    + content);
         }
 
         char operator = content.charAt(operatorIndex);
@@ -143,8 +145,8 @@ public abstract class Expression {
         String rightStr = content.substring(operatorIndex + 1).trim();
 
         if (leftStr.isEmpty() || rightStr.isEmpty()) {
-            throw new IllegalArgumentException("Неполное выражение для оператора " + operator +
-                    ": " + content);
+            throw new IllegalArgumentException("Неполное выражение для оператора "
+                    + operator + ": " + content);
         }
 
         Expression left = parseExpression(leftStr);
@@ -155,7 +157,8 @@ public abstract class Expression {
             case '-': return new Sub(left, right);
             case '*': return new Mul(left, right);
             case '/': return new Div(left, right);
-            default: throw new IllegalArgumentException("Неизвестный оператор: " + operator);
+            default: throw new IllegalArgumentException("Неизвестный оператор: "
+                    + operator);
         }
     }
 
@@ -169,8 +172,12 @@ public abstract class Expression {
         int bracketCount = 0;
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            if (c == '(') bracketCount++;
-            else if (c == ')') bracketCount--;
+            if (c == '(') {
+                bracketCount++;
+            }
+            else if (c == ')') {
+                bracketCount--;
+            }
             else if (bracketCount == 0 && (c == '+' || c == '-' || c == '*' || c == '/')) {
                 return i;
             }
@@ -193,8 +200,8 @@ public abstract class Expression {
             if (isValidVariableName(str)) {
                 return new Variable(str);
             } else {
-                throw new IllegalArgumentException("Неверный формат выражения: " + str +
-                        ". Ожидается число или переменная.");
+                throw new IllegalArgumentException("Неверный формат выражения: "
+                        + str + ". Ожидается число или переменная.");
             }
         }
     }
