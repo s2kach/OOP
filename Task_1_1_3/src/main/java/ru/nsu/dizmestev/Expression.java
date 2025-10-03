@@ -74,8 +74,8 @@ public abstract class Expression {
             String valueStr = parts[1].trim();
 
             if (varName.isEmpty()) {
-                throw new IllegalArgumentException("Имя переменной не может быть пустым в присваивании: "
-                        + assignment);
+                throw new IllegalArgumentException("Имя переменной не может быть"
+                        + " пустым в присваивании: " + assignment);
             }
 
             try {
@@ -174,11 +174,9 @@ public abstract class Expression {
             char c = str.charAt(i);
             if (c == '(') {
                 bracketCount++;
-            }
-            else if (c == ')') {
+            } else if (c == ')') {
                 bracketCount--;
-            }
-            else if (bracketCount == 0 && (c == '+' || c == '-' || c == '*' || c == '/')) {
+            } else if (bracketCount == 0 && (c == '+' || c == '-' || c == '*' || c == '/')) {
                 return i;
             }
         }
