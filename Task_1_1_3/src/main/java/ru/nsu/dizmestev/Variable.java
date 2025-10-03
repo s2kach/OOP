@@ -12,7 +12,7 @@ public class Variable extends Expression {
      * Создает новую переменную.
      *
      * @param name Имя переменной.
-     * @throws IllegalArgumentException Если имя переменной null, пустое или содержит некорректные символы.
+     * @throws IllegalArgumentException Если имя переменной не подходит.
      */
     public Variable(String name) {
         if (name == null || name.trim().isEmpty()) {
@@ -23,7 +23,8 @@ public class Variable extends Expression {
         for (int i = 0; i < trimmedName.length(); i++) {
             char c = trimmedName.charAt(i);
             if (!Character.isLetter(c)) {
-                throw new IllegalArgumentException("Имя переменной может содержать только буквы: " + name);
+                throw new IllegalArgumentException("Имя переменной может содержать только буквы: "
+                        + name);
             }
         }
 
@@ -62,7 +63,8 @@ public class Variable extends Expression {
     @Override
     public int evaluate(Map<String, Integer> vars) {
         if (!vars.containsKey(name)) {
-            throw new IllegalArgumentException("Переменная '" + name + "' не найдена в заданных значениях.");
+            throw new IllegalArgumentException("Переменная '"
+                    + name + "' не найдена в заданных значениях.");
         }
         return vars.get(name);
     }

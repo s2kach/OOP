@@ -1,14 +1,17 @@
 package ru.nsu.dizmestev;
 
 import java.util.Map;
+
 /**
  * Класс для представления числовых констант в выражениях.
  */
 public class Number extends Expression {
+
     private final int value;
 
     /**
      * Создает новую числовую константу.
+     *
      * @param value Значение числа.
      */
     public Number(int value) {
@@ -17,6 +20,7 @@ public class Number extends Expression {
 
     /**
      * Возвращает строковое представление числа.
+     *
      * @return Строковое представление числа.
      */
     @Override
@@ -27,8 +31,9 @@ public class Number extends Expression {
     /**
      * Вычисляет производную числовой константы.
      * Производная константы всегда равна нулю.
+     *
      * @param var Имя переменной (игнорируется для чисел).
-     * @return Новый объект Number с значением 0.
+     * @return Новый объект Number со значением 0.
      */
     @Override
     public Expression derivative(String var) {
@@ -37,6 +42,7 @@ public class Number extends Expression {
 
     /**
      * Возвращает значение числовой константы.
+     *
      * @param vars Карта значений переменных (игнорируется для чисел).
      * @return Значение числа.
      */

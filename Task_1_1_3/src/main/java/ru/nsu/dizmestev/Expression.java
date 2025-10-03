@@ -66,8 +66,8 @@ public abstract class Expression {
 
             String[] parts = trimmedAssignment.split("=");
             if (parts.length != 2) {
-                throw new IllegalArgumentException("Неверный формат присваивания: " + assignment +
-                        ". Ожидается формат: variable = value");
+                throw new IllegalArgumentException("Неверный формат присваивания: " + assignment
+                        + ". Ожидается формат: variable = value");
             }
 
             String varName = parts[0].trim();
@@ -81,8 +81,8 @@ public abstract class Expression {
                 int value = Integer.parseInt(valueStr);
                 vars.put(varName, value);
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Неверный числовой формат в присваивании: " + assignment +
-                        ". Значение должно быть целым числом.");
+                throw new IllegalArgumentException("Неверный числовой формат в присваивании: " + assignment
+                        + ". Значение должно быть целым числом.");
             }
         }
 
