@@ -83,7 +83,7 @@ public abstract class Expression {
                 vars.put(varName, value);
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Неверный числовой формат в присваивании: "
-                        + assignment + ". Значение должно быть целым числом.");
+                        + assignment + ". Значение должно быть целым числом.", e);
             }
         }
 
