@@ -23,7 +23,7 @@ class DivTest {
 
     @Test
     void testCreateWithNullArgumentsThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ExpressionParseException.class, () -> {
             new Div(null, new Number(1));
         });
     }
@@ -57,7 +57,7 @@ class DivTest {
     void testEvaluateDivisionByZeroThrowsException() {
         Div div = new Div(new Number(10), new Number(0));
         Map<String, Integer> vars = new HashMap<>();
-        assertThrows(ArithmeticException.class, () -> {
+        assertThrows(ExpressionEvaluateException.class, () -> {
             div.evaluate(vars);
         });
     }

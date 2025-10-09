@@ -14,11 +14,11 @@ public class Add extends Expression {
      *
      * @param left Левое выражение.
      * @param right Правое выражение.
-     * @throws IllegalArgumentException Если left или right равны null.
+     * @throws ExpressionParseException Если left или right равны null.
      */
     public Add(Expression left, Expression right) {
         if (left == null || right == null) {
-            throw new IllegalArgumentException("Аргументы операции сложения не могут быть null.");
+            throw new ExpressionParseException("Аргументы операции сложения не могут быть null.");
         }
         this.left = left;
         this.right = right;

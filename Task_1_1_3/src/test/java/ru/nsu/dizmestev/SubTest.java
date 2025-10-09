@@ -23,7 +23,7 @@ class SubTest {
 
     @Test
     void testCreateWithNullArgumentsThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ExpressionParseException.class, () -> {
             new Sub(null, new Number(1));
         });
     }

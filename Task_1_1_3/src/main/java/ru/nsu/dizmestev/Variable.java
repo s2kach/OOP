@@ -12,18 +12,18 @@ public class Variable extends Expression {
      * Создает новую переменную.
      *
      * @param name Имя переменной.
-     * @throws IllegalArgumentException Если имя переменной не подходит.
+     * @throws ExpressionParseException Если имя переменной не подходит.
      */
     public Variable(String name) {
         if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Имя переменной не может быть пустым.");
+            throw new ExpressionParseException("Имя переменной не может быть пустым.");
         }
 
         String trimmedName = name.trim();
         for (int i = 0; i < trimmedName.length(); i++) {
             char c = trimmedName.charAt(i);
             if (!Character.isLetter(c)) {
-                throw new IllegalArgumentException("Имя переменной может содержать только буквы: "
+                throw new ExpressionParseException("Имя переменной может содержать только буквы: "
                         + name);
             }
         }
@@ -58,12 +58,12 @@ public class Variable extends Expression {
      *
      * @param vars Карта значений переменных.
      * @return Значение переменной из карты.
-     * @throws IllegalArgumentException Если переменная не найдена в карте значений.
+     * @throws ExpressionEvaluateException Если переменная не найдена в карте значений.
      */
     @Override
     public int evaluate(Map<String, Integer> vars) {
         if (!vars.containsKey(name)) {
-            throw new IllegalArgumentException("Переменная '"
+            throw new ExpressionEvaluateException("Переменная '"
                     + name + "' не найдена в заданных значениях.");
         }
         return vars.get(name);

@@ -23,7 +23,7 @@ class MulTest {
 
     @Test
     void testCreateWithNullArgumentsThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ExpressionParseException.class, () -> {
             new Mul(null, new Number(1));
         });
     }

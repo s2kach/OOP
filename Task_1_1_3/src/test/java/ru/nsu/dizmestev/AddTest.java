@@ -23,11 +23,11 @@ class AddTest {
 
     @Test
     void testCreateWithNullArgumentsThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ExpressionParseException.class, () -> {
             new Add(null, new Number(1));
         });
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ExpressionParseException.class, () -> {
             new Add(new Number(1), null);
         });
     }

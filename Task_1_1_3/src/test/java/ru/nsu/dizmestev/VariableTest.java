@@ -23,21 +23,21 @@ class VariableTest {
 
     @Test
     void testCreateVariableWithEmptyNameThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ExpressionParseException.class, () -> {
             new Variable("");
         });
     }
 
     @Test
     void testCreateVariableWithNullNameThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ExpressionParseException.class, () -> {
             new Variable(null);
         });
     }
 
     @Test
     void testCreateVariableWithInvalidNameThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ExpressionParseException.class, () -> {
             new Variable("x1");
         });
     }
@@ -66,12 +66,21 @@ class VariableTest {
     }
 
     @Test
+    void testEvaluateMultiLetters() {
+        Variable variable = new Variable("alpha");
+        Map<String, Integer> vars = new HashMap<>();
+        vars.put("alpha", 10);
+        int result = variable.evaluate(vars);
+        assertEquals(10, result);
+    }
+
+    @Test
     void testEvaluateMissingVariableThrowsException() {
         Variable variable = new Variable("z");
         Map<String, Integer> vars = new HashMap<>();
         vars.put("x", 10);
         vars.put("y", 20);
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ExpressionEvaluateException.class, () -> {
             variable.evaluate(vars);
         });
     }

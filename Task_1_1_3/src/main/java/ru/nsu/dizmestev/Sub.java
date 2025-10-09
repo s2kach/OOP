@@ -14,11 +14,11 @@ public class Sub extends Expression {
      *
      * @param left Левое выражение.
      * @param right Правое выражение.
-     * @throws IllegalArgumentException Если left или right равны null.
+     * @throws ExpressionParseException Если left или right равны null.
      */
     public Sub(Expression left, Expression right) {
         if (left == null || right == null) {
-            throw new IllegalArgumentException("Аргументы операции вычитания не могут быть null.");
+            throw new ExpressionParseException("Аргументы операции вычитания не могут быть null.");
         }
         this.left = left;
         this.right = right;

@@ -37,11 +37,11 @@ public abstract class Expression {
      *
      * @param varsStr Строка с значениями переменных в формате "var1 = value1; var2 = value2".
      * @return Результат вычисления выражения.
-     * @throws IllegalArgumentException Если строка с переменными имеет неверный формат.
+     * @throws ExpressionEvaluateException Если строка с переменными имеет неверный формат.
      */
     public int eval(String varsStr) {
         if (varsStr == null || varsStr.trim().isEmpty()) {
-            throw new IllegalArgumentException("Строка с переменными не может быть пустой.");
+            throw new ExpressionEvaluateException("Строка с переменными не может быть пустой.");
         }
         Map<String, Integer> vars = parseVariables(varsStr);
         return evaluate(vars);
@@ -52,7 +52,7 @@ public abstract class Expression {
      *
      * @param varsStr Строка со значениями переменных.
      * @return Карта с именами переменных и их значениями.
-     * @throws IllegalArgumentException Если строка имеет неверный формат.
+     * @throws ExpressionParseException Если строка имеет неверный формат.
      */
     private Map<String, Integer> parseVariables(String varsStr) {
         Map<String, Integer> vars = new HashMap<>();
@@ -66,7 +66,7 @@ public abstract class Expression {
 
             String[] parts = trimmedAssignment.split("=");
             if (parts.length != 2) {
-                throw new IllegalArgumentException("Неверный формат присваивания: " + assignment
+                throw new ExpressionParseException("Неверный формат присваивания: " + assignment
                         + ". Ожидается формат: variable = value");
             }
 
@@ -74,7 +74,7 @@ public abstract class Expression {
             String valueStr = parts[1].trim();
 
             if (varName.isEmpty()) {
-                throw new IllegalArgumentException("Имя переменной не может быть"
+                throw new ExpressionParseException("Имя переменной не может быть"
                         + " пустым в присваивании: " + assignment);
             }
 
@@ -82,13 +82,13 @@ public abstract class Expression {
                 int value = Integer.parseInt(valueStr);
                 vars.put(varName, value);
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Неверный числовой формат в присваивании: "
+                throw new ExpressionParseException("Неверный числовой формат в присваивании: "
                         + assignment + ". Значение должно быть целым числом.", e);
             }
         }
 
         if (vars.isEmpty()) {
-            throw new IllegalArgumentException("Не найдено корректных присваиваний переменных.");
+            throw new ExpressionParseException("Не найдено корректных присваиваний переменных.");
         }
 
         return vars;
@@ -99,11 +99,11 @@ public abstract class Expression {
      *
      * @param expressionStr Строка с математическим выражением.
      * @return Распарсенное выражение.
-     * @throws IllegalArgumentException Если строка выражения имеет неверный формат.
+     * @throws ExpressionParseException Если строка выражения имеет неверный формат.
      */
     public static Expression parse(String expressionStr) {
         if (expressionStr == null || expressionStr.trim().isEmpty()) {
-            throw new IllegalArgumentException("Строка выражения не может быть пустой.");
+            throw new ExpressionParseException("Строка выражения не может быть пустой.");
         }
 
         String trimmed = expressionStr.trim();
@@ -115,7 +115,7 @@ public abstract class Expression {
      *
      * @param str Строка для парсинга.
      * @return Распарсенное выражение.
-     * @throws IllegalArgumentException Если выражение имеет неверный формат.
+     * @throws ExpressionParseException Если выражение имеет неверный формат.
      */
     private static Expression parseExpression(String str) {
         if (str.startsWith("(") && str.endsWith(")")) {
@@ -131,12 +131,12 @@ public abstract class Expression {
      *
      * @param content Содержимое внутри скобок.
      * @return Распарсенное выражение.
-     * @throws IllegalArgumentException Если выражение имеет неверный формат.
+     * @throws ExpressionParseException Если выражение имеет неверный формат.
      */
     private static Expression parseComplexExpression(String content) {
         int operatorIndex = findOperatorIndex(content);
         if (operatorIndex == -1) {
-            throw new IllegalArgumentException("Не найден оператор в выражении: "
+            throw new ExpressionParseException("Не найден оператор в выражении: "
                     + content);
         }
 
@@ -145,7 +145,7 @@ public abstract class Expression {
         String rightStr = content.substring(operatorIndex + 1).trim();
 
         if (leftStr.isEmpty() || rightStr.isEmpty()) {
-            throw new IllegalArgumentException("Неполное выражение для оператора "
+            throw new ExpressionParseException("Неполное выражение для оператора "
                     + operator + ": " + content);
         }
 
@@ -157,7 +157,7 @@ public abstract class Expression {
             case '-': return new Sub(left, right);
             case '*': return new Mul(left, right);
             case '/': return new Div(left, right);
-            default: throw new IllegalArgumentException("Неизвестный оператор: "
+            default: throw new ExpressionParseException("Неизвестный оператор: "
                     + operator);
         }
     }
@@ -188,7 +188,7 @@ public abstract class Expression {
      *
      * @param str Строка для парсинга.
      * @return Распарсенное выражение.
-     * @throws IllegalArgumentException Если выражение имеет неверный формат.
+     * @throws ExpressionParseException Если выражение имеет неверный формат.
      */
     private static Expression parseSimpleExpression(String str) {
         try {
@@ -198,7 +198,7 @@ public abstract class Expression {
             if (isValidVariableName(str)) {
                 return new Variable(str);
             } else {
-                throw new IllegalArgumentException("Неверный формат выражения: "
+                throw new ExpressionParseException("Неверный формат выражения: "
                         + str + ". Ожидается число или переменная.");
             }
         }

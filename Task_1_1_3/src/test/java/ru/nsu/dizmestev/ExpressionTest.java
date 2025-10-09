@@ -21,21 +21,21 @@ class ExpressionTest {
 
     @Test
     void testParseInvalidExpressionThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ExpressionParseException.class, () -> {
             Expression.parse("(3+*2)");
         });
     }
 
     @Test
     void testParseEmptyExpressionThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ExpressionParseException.class, () -> {
             Expression.parse("");
         });
     }
 
     @Test
     void testParseNullExpressionThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ExpressionParseException.class, () -> {
             Expression.parse(null);
         });
     }
@@ -50,7 +50,7 @@ class ExpressionTest {
     @Test
     void testEvalWithEmptyVariablesThrowsException() {
         Expression expr = Expression.parse("(x+y)");
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ExpressionEvaluateException.class, () -> {
             expr.eval("");
         });
     }
@@ -58,7 +58,7 @@ class ExpressionTest {
     @Test
     void testEvalWithInvalidFormatThrowsException() {
         Expression expr = Expression.parse("(x+y)");
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(ExpressionParseException.class, () -> {
             expr.eval("x=5;y=");
         });
     }

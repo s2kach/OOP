@@ -14,11 +14,11 @@ public class Div extends Expression {
      *
      * @param left Левое выражение (числитель).
      * @param right Правое выражение (знаменатель).
-     * @throws IllegalArgumentException Если left или right равны null.
+     * @throws ExpressionParseException Если left или right равны null.
      */
     public Div(Expression left, Expression right) {
         if (left == null || right == null) {
-            throw new IllegalArgumentException("Аргументы операции деления не могут быть null.");
+            throw new ExpressionParseException("Аргументы операции деления не могут быть null.");
         }
         this.left = left;
         this.right = right;
@@ -57,13 +57,13 @@ public class Div extends Expression {
      *
      * @param vars Карта значений переменных.
      * @return Частное значений левого и правого выражений.
-     * @throws ArithmeticException Если знаменатель равен нулю.
+     * @throws ExpressionEvaluateException Если знаменатель равен нулю.
      */
     @Override
     public int evaluate(Map<String, Integer> vars) {
         int denominator = right.evaluate(vars);
         if (denominator == 0) {
-            throw new ArithmeticException("Деление на ноль в выражении: " + this.print());
+            throw new ExpressionEvaluateException("Деление на ноль в выражении: " + this.print());
         }
         return left.evaluate(vars) / denominator;
     }
