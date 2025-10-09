@@ -26,7 +26,8 @@ class ExpressionExceptionTest {
 
     @Test
     void testExpressionEvaluationExceptionWithMessage() {
-        ExpressionEvaluateException exception = new ExpressionEvaluateException("Ошибка вычисления");
+        ExpressionEvaluateException exception
+                = new ExpressionEvaluateException("Ошибка вычисления");
         assertEquals("Ошибка вычисления", exception.getMessage());
         assertTrue(exception instanceof ExpressionException);
     }
@@ -34,7 +35,8 @@ class ExpressionExceptionTest {
     @Test
     void testExpressionEvaluationExceptionWithMessageAndCause() {
         ArithmeticException cause = new ArithmeticException("Деление на ноль");
-        ExpressionEvaluateException exception = new ExpressionEvaluateException("Ошибка вычисления", cause);
+        ExpressionEvaluateException exception
+                = new ExpressionEvaluateException("Ошибка вычисления", cause);
 
         assertEquals("Ошибка вычисления", exception.getMessage());
         assertEquals(cause, exception.getCause());
