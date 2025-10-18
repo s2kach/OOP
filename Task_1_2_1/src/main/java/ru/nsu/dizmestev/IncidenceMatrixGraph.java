@@ -3,9 +3,9 @@ package ru.nsu.dizmestev;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Реализация графа через матрицу инцидентности.
@@ -25,13 +25,17 @@ public class IncidenceMatrixGraph implements Graph {
      */
     private int indexOf(String vertex) throws GraphException {
         int idx = vertices.indexOf(vertex);
-        if (idx == -1) throw new GraphException("Вершина не найдена: " + vertex);
+        if (idx == -1) {
+            throw new GraphException("Вершина не найдена: " + vertex);
+        }
         return idx;
     }
 
     @Override
     public void addVertex(String vertex) throws GraphException {
-        if (vertices.contains(vertex)) throw new GraphException("Вершина уже существует: " + vertex);
+        if (vertices.contains(vertex)) {
+            throw new GraphException("Вершина уже существует: " + vertex);
+        }
         vertices.add(vertex);
         List<Integer> newRow = new ArrayList<>(Collections.nCopies(edgeCount, 0));
         matrix.add(newRow);
@@ -48,7 +52,9 @@ public class IncidenceMatrixGraph implements Graph {
     public void addEdge(String from, String to) throws GraphException {
         int i = indexOf(from);
         int j = indexOf(to);
-        for (List<Integer> row : matrix) row.add(0);
+        for (List<Integer> row : matrix) {
+            row.add(0);
+        }
         matrix.get(i).set(edgeCount, 1);
         matrix.get(j).set(edgeCount, -1);
         edgeCount++;
@@ -65,8 +71,12 @@ public class IncidenceMatrixGraph implements Graph {
                 break;
             }
         }
-        if (removeIndex == -1) throw new GraphException("Ребро не найдено: " + from + " -> " + to);
-        for (List<Integer> row : matrix) row.remove(removeIndex);
+        if (removeIndex == -1) {
+            throw new GraphException("Ребро не найдено: " + from + " -> " + to);
+        }
+        for (List<Integer> row : matrix) {
+            row.remove(removeIndex);
+        }
         edgeCount--;
     }
 
@@ -77,7 +87,9 @@ public class IncidenceMatrixGraph implements Graph {
         for (int e = 0; e < edgeCount; e++) {
             if (matrix.get(idx).get(e) == 1) {
                 for (int k = 0; k < vertices.size(); k++) {
-                    if (matrix.get(k).get(e) == -1) neighbors.add(vertices.get(k));
+                    if (matrix.get(k).get(e) == -1) {
+                        neighbors.add(vertices.get(k));
+                    }
                 }
             }
         }
@@ -93,8 +105,12 @@ public class IncidenceMatrixGraph implements Graph {
                 if (parts.length == 1) {
                     addVertex(parts[0]);
                 } else if (parts.length == 2) {
-                    if (!vertices.contains(parts[0])) addVertex(parts[0]);
-                    if (!vertices.contains(parts[1])) addVertex(parts[1]);
+                    if (!vertices.contains(parts[0])) {
+                        addVertex(parts[0]);
+                    }
+                    if (!vertices.contains(parts[1])) {
+                        addVertex(parts[1]);
+                    }
                     addEdge(parts[0], parts[1]);
                 } else {
                     throw new GraphException("Некорректная строка: " + line);
@@ -108,14 +124,23 @@ public class IncidenceMatrixGraph implements Graph {
     @Override
     public List<String> topologicalSort() throws GraphException {
         AdjacencyListGraph temp = new AdjacencyListGraph();
-        for (String v : vertices) temp.addVertex(v);
+        for (String v : vertices) {
+            temp.addVertex(v);
+        }
         for (int e = 0; e < edgeCount; e++) {
-            String from = null, to = null;
+            String from = null;
+            String to = null;
             for (int i = 0; i < vertices.size(); i++) {
-                if (matrix.get(i).get(e) == 1) from = vertices.get(i);
-                if (matrix.get(i).get(e) == -1) to = vertices.get(i);
+                if (matrix.get(i).get(e) == 1) {
+                    from = vertices.get(i);
+                }
+                if (matrix.get(i).get(e) == -1) {
+                    to = vertices.get(i);
+                }
             }
-            if (from != null && to != null) temp.addEdge(from, to);
+            if (from != null && to != null) {
+                temp.addEdge(from, to);
+            }
         }
         return temp.topologicalSort();
     }
@@ -127,7 +152,10 @@ public class IncidenceMatrixGraph implements Graph {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof IncidenceMatrixGraph other)) return false;
+        if (!(obj instanceof IncidenceMatrixGraph)) {
+            return false;
+        }
+        IncidenceMatrixGraph other = (IncidenceMatrixGraph) obj;
         return vertices.equals(other.vertices) && matrix.equals(other.matrix);
     }
 }

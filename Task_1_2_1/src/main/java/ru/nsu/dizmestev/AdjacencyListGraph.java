@@ -9,8 +9,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Queue;
+import java.util.Set;
 
 /**
  * Реализация графа через список смежности.
@@ -18,6 +18,12 @@ import java.util.Queue;
 public class AdjacencyListGraph implements Graph {
     private final Map<String, Set<String>> adjacencyList = new HashMap<>();
 
+    /**
+     * Добавляет вершину в список смежности.
+     *
+     * @param vertex Вершина для добавления.
+     * @throws GraphException Если вершина уже существует или произошла ошибка.
+     */
     @Override
     public void addVertex(String vertex) throws GraphException {
         if (adjacencyList.containsKey(vertex)) {
@@ -71,8 +77,12 @@ public class AdjacencyListGraph implements Graph {
                 if (parts.length == 1) {
                     addVertex(parts[0]);
                 } else if (parts.length == 2) {
-                    if (!adjacencyList.containsKey(parts[0])) addVertex(parts[0]);
-                    if (!adjacencyList.containsKey(parts[1])) addVertex(parts[1]);
+                    if (!adjacencyList.containsKey(parts[0])) {
+                        addVertex(parts[0]);
+                    }
+                    if (!adjacencyList.containsKey(parts[1])) {
+                        addVertex(parts[1]);
+                    }
                     addEdge(parts[0], parts[1]);
                 } else {
                     throw new GraphException("Некорректная строка: " + line);
@@ -86,13 +96,21 @@ public class AdjacencyListGraph implements Graph {
     @Override
     public List<String> topologicalSort() throws GraphException {
         Map<String, Integer> indegree = new HashMap<>();
-        for (String v : adjacencyList.keySet()) indegree.put(v, 0);
-        for (Set<String> neighbors : adjacencyList.values())
-            for (String n : neighbors) indegree.put(n, indegree.get(n) + 1);
+        for (String v : adjacencyList.keySet()) {
+            indegree.put(v, 0);
+        }
+        for (Set<String> neighbors : adjacencyList.values()) {
+            for (String n : neighbors) {
+                indegree.put(n, indegree.get(n) + 1);
+            }
+        }
 
         Queue<String> queue = new LinkedList<>();
-        for (Map.Entry<String, Integer> e : indegree.entrySet())
-            if (e.getValue() == 0) queue.add(e.getKey());
+        for (Map.Entry<String, Integer> e : indegree.entrySet()) {
+            if (e.getValue() == 0) {
+                queue.add(e.getKey());
+            }
+        }
 
         List<String> result = new ArrayList<>();
         while (!queue.isEmpty()) {
@@ -100,7 +118,9 @@ public class AdjacencyListGraph implements Graph {
             result.add(v);
             for (String n : adjacencyList.get(v)) {
                 indegree.put(n, indegree.get(n) - 1);
-                if (indegree.get(n) == 0) queue.add(n);
+                if (indegree.get(n) == 0) {
+                    queue.add(n);
+                }
             }
         }
 
@@ -117,7 +137,9 @@ public class AdjacencyListGraph implements Graph {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof AdjacencyListGraph other)) return false;
+        if (!(obj instanceof AdjacencyListGraph other)) {
+            return false;
+        }
         return this.adjacencyList.equals(other.adjacencyList);
     }
 }
