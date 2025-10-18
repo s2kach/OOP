@@ -3,7 +3,13 @@ package ru.nsu.dizmestev;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
 /**
  * Реализация графа через матрицу смежности.
@@ -92,8 +98,12 @@ public class AdjacencyMatrixGraph implements Graph {
                 if (parts.length == 1) {
                     addVertex(parts[0]);
                 } else if (parts.length == 2) {
-                    if (!vertices.contains(parts[0])) addVertex(parts[0]);
-                    if (!vertices.contains(parts[1])) addVertex(parts[1]);
+                    if (!vertices.contains(parts[0])) {
+                        addVertex(parts[0]);
+                    }
+                    if (!vertices.contains(parts[1])) {
+                        addVertex(parts[1]);
+                    }
                     addEdge(parts[0], parts[1]);
                 } else {
                     throw new GraphException("Некорректная строка: " + line);
@@ -107,7 +117,9 @@ public class AdjacencyMatrixGraph implements Graph {
     @Override
     public List<String> topologicalSort() throws GraphException {
         Map<String, Integer> indegree = new HashMap<>();
-        for (String v : vertices) indegree.put(v, 0);
+        for (String v : vertices) {
+            indegree.put(v, 0);
+        }
         for (int i = 0; i < vertices.size(); i++) {
             for (int j = 0; j < vertices.size(); j++) {
                 if (matrix.get(i).get(j) == 1) {
@@ -117,7 +129,11 @@ public class AdjacencyMatrixGraph implements Graph {
         }
 
         Queue<String> queue = new LinkedList<>();
-        for (String v : vertices) if (indegree.get(v) == 0) queue.add(v);
+        for (String v : vertices) {
+            if (indegree.get(v) == 0) {
+                queue.add(v);
+            }
+        }
 
         List<String> sorted = new ArrayList<>();
         while (!queue.isEmpty()) {
@@ -127,12 +143,16 @@ public class AdjacencyMatrixGraph implements Graph {
             for (int j = 0; j < vertices.size(); j++) {
                 if (matrix.get(i).get(j) == 1) {
                     indegree.put(vertices.get(j), indegree.get(vertices.get(j)) - 1);
-                    if (indegree.get(vertices.get(j)) == 0) queue.add(vertices.get(j));
+                    if (indegree.get(vertices.get(j)) == 0) {
+                        queue.add(vertices.get(j));
+                    }
                 }
             }
         }
 
-        if (sorted.size() != vertices.size()) throw new GraphException("Граф содержит цикл.");
+        if (sorted.size() != vertices.size()) {
+            throw new GraphException("Граф содержит цикл.");
+        }
         return sorted;
     }
 
@@ -143,7 +163,9 @@ public class AdjacencyMatrixGraph implements Graph {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof AdjacencyMatrixGraph other)) return false;
+        if (!(obj instanceof AdjacencyMatrixGraph other)) {
+            return false;
+        }
         return vertices.equals(other.vertices) && matrix.equals(other.matrix);
     }
 }
