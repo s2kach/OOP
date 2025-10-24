@@ -67,20 +67,24 @@ loadScripts(document, 'script');</script>
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">ru.nsu.dizmestev</a></div>
-<h1 title="Class IncidenceMatrixGraph" class="title">Class IncidenceMatrixGraph</h1>
+<h1 title="Class IncidenceMatrixGraph" class="title">Class IncidenceMatrixGraph&lt;V extends <a href="Vertex.html" title="interface in ru.nsu.dizmestev">Vertex</a>&gt;</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">ru.nsu.dizmestev.IncidenceMatrixGraph</div>
+<div class="inheritance">ru.nsu.dizmestev.IncidenceMatrixGraph&lt;V&gt;</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
+<dt>Type Parameters:</dt>
+<dd><code>V</code> - Тип вершины.</dd>
+</dl>
+<dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a></code></dd>
+<dd><code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a>&lt;V&gt;</code></dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">IncidenceMatrixGraph</span>
+<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">IncidenceMatrixGraph&lt;V extends <a href="Vertex.html" title="interface in ru.nsu.dizmestev">Vertex</a>&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a></span></div>
+implements <a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a>&lt;V&gt;</span></div>
 <div class="block">Реализация графа через матрицу инцидентности.</div>
 </section>
 <section class="summary">
@@ -110,13 +114,13 @@ implements <a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a><
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addEdge(java.lang.String,java.lang.String)" class="member-name-link">addEdge</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;from,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;to)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addEdge(V,V)" class="member-name-link">addEdge</a><wbr>(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;from,
+ <a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;to)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Добавляет ребро между двумя вершинами.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addVertex(java.lang.String)" class="member-name-link">addVertex</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;vertex)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addVertex(V)" class="member-name-link">addVertex</a><wbr>(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;vertex)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Добавляет вершину в граф.</div>
 </div>
@@ -125,31 +129,31 @@ implements <a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a><
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Проверяет равенство двух графов.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNeighbors(java.lang.String)" class="member-name-link">getNeighbors</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;vertex)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNeighbors(V)" class="member-name-link">getNeighbors</a><wbr>(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;vertex)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Возвращает список соседей вершины.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#loadFromFile(java.lang.String)" class="member-name-link">loadFromFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;path)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getVertices()" class="member-name-link">getVertices</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Загружает граф из файла фиксированного формата (по одной вершине и ребру в строке).</div>
+<div class="block">Возвращает список всех вершин графа.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeEdge(java.lang.String,java.lang.String)" class="member-name-link">removeEdge</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;from,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;to)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#loadFromFile(java.lang.String)" class="member-name-link">loadFromFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;path)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Удаляет ребро между двумя вершинами.</div>
+<div class="block">Загружает граф из файла фиксированного формата (по одной вершине и ребру в строке).</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeVertex(java.lang.String)" class="member-name-link">removeVertex</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;vertex)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeEdge(V,V)" class="member-name-link">removeEdge</a><wbr>(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;from,
+ <a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;to)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Удаляет вершину из графа.</div>
+<div class="block">Удаляет ребро между двумя вершинами.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#topologicalSort()" class="member-name-link">topologicalSort</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeVertex(V)" class="member-name-link">removeVertex</a><wbr>(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;vertex)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Выполняет топологическую сортировку графа.</div>
+<div class="block">Удаляет вершину из графа.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
@@ -162,6 +166,9 @@ implements <a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a><
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-ru.nsu.dizmestev.Graph">Methods inherited from interface&nbsp;ru.nsu.dizmestev.<a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a></h3>
+<code><a href="Graph.html#topologicalSort()">topologicalSort</a></code></div>
 </section>
 </li>
 </ul>
@@ -188,15 +195,15 @@ implements <a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a><
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="addVertex(java.lang.String)">
-<h3>addVertex</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addVertex</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;vertex)</span>
+<section class="detail" id="addVertex(V)">
+<h3 id="addVertex(ru.nsu.dizmestev.Vertex)">addVertex</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addVertex</span><wbr><span class="parameters">(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;vertex)</span>
                throws <span class="exceptions"><a href="GraphException.html" title="class in ru.nsu.dizmestev">GraphException</a></span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Graph.html#addVertex(java.lang.String)">Graph</a></code></span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Graph.html#addVertex(V)">Graph</a></code></span></div>
 <div class="block">Добавляет вершину в граф.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="Graph.html#addVertex(java.lang.String)">addVertex</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a></code></dd>
+<dd><code><a href="Graph.html#addVertex(V)">addVertex</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a> extends <a href="Vertex.html" title="interface in ru.nsu.dizmestev">Vertex</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>vertex</code> - Вершина для добавления.</dd>
 <dt>Throws:</dt>
@@ -205,15 +212,15 @@ implements <a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a><
 </section>
 </li>
 <li>
-<section class="detail" id="removeVertex(java.lang.String)">
-<h3>removeVertex</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeVertex</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;vertex)</span>
+<section class="detail" id="removeVertex(V)">
+<h3 id="removeVertex(ru.nsu.dizmestev.Vertex)">removeVertex</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeVertex</span><wbr><span class="parameters">(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;vertex)</span>
                   throws <span class="exceptions"><a href="GraphException.html" title="class in ru.nsu.dizmestev">GraphException</a></span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Graph.html#removeVertex(java.lang.String)">Graph</a></code></span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Graph.html#removeVertex(V)">Graph</a></code></span></div>
 <div class="block">Удаляет вершину из графа.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="Graph.html#removeVertex(java.lang.String)">removeVertex</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a></code></dd>
+<dd><code><a href="Graph.html#removeVertex(V)">removeVertex</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a> extends <a href="Vertex.html" title="interface in ru.nsu.dizmestev">Vertex</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>vertex</code> - Вершина для удаления.</dd>
 <dt>Throws:</dt>
@@ -222,16 +229,16 @@ implements <a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a><
 </section>
 </li>
 <li>
-<section class="detail" id="addEdge(java.lang.String,java.lang.String)">
-<h3>addEdge</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addEdge</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;from,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;to)</span>
+<section class="detail" id="addEdge(V,V)">
+<h3 id="addEdge(ru.nsu.dizmestev.Vertex,ru.nsu.dizmestev.Vertex)">addEdge</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addEdge</span><wbr><span class="parameters">(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;from,
+ <a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;to)</span>
              throws <span class="exceptions"><a href="GraphException.html" title="class in ru.nsu.dizmestev">GraphException</a></span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Graph.html#addEdge(java.lang.String,java.lang.String)">Graph</a></code></span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Graph.html#addEdge(V,V)">Graph</a></code></span></div>
 <div class="block">Добавляет ребро между двумя вершинами.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="Graph.html#addEdge(java.lang.String,java.lang.String)">addEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a></code></dd>
+<dd><code><a href="Graph.html#addEdge(V,V)">addEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a> extends <a href="Vertex.html" title="interface in ru.nsu.dizmestev">Vertex</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>from</code> - Начальная вершина.</dd>
 <dd><code>to</code> - Конечная вершина.</dd>
@@ -241,16 +248,16 @@ implements <a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a><
 </section>
 </li>
 <li>
-<section class="detail" id="removeEdge(java.lang.String,java.lang.String)">
-<h3>removeEdge</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeEdge</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;from,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;to)</span>
+<section class="detail" id="removeEdge(V,V)">
+<h3 id="removeEdge(ru.nsu.dizmestev.Vertex,ru.nsu.dizmestev.Vertex)">removeEdge</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">removeEdge</span><wbr><span class="parameters">(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;from,
+ <a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;to)</span>
                 throws <span class="exceptions"><a href="GraphException.html" title="class in ru.nsu.dizmestev">GraphException</a></span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Graph.html#removeEdge(java.lang.String,java.lang.String)">Graph</a></code></span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Graph.html#removeEdge(V,V)">Graph</a></code></span></div>
 <div class="block">Удаляет ребро между двумя вершинами.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="Graph.html#removeEdge(java.lang.String,java.lang.String)">removeEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a></code></dd>
+<dd><code><a href="Graph.html#removeEdge(V,V)">removeEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a> extends <a href="Vertex.html" title="interface in ru.nsu.dizmestev">Vertex</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>from</code> - Начальная вершина.</dd>
 <dd><code>to</code> - Конечная вершина.</dd>
@@ -260,15 +267,15 @@ implements <a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a><
 </section>
 </li>
 <li>
-<section class="detail" id="getNeighbors(java.lang.String)">
-<h3>getNeighbors</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">getNeighbors</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;vertex)</span>
-                          throws <span class="exceptions"><a href="GraphException.html" title="class in ru.nsu.dizmestev">GraphException</a></span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Graph.html#getNeighbors(java.lang.String)">Graph</a></code></span></div>
+<section class="detail" id="getNeighbors(V)">
+<h3 id="getNeighbors(ru.nsu.dizmestev.Vertex)">getNeighbors</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&gt;</span>&nbsp;<span class="element-name">getNeighbors</span><wbr><span class="parameters">(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;vertex)</span>
+                     throws <span class="exceptions"><a href="GraphException.html" title="class in ru.nsu.dizmestev">GraphException</a></span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Graph.html#getNeighbors(V)">Graph</a></code></span></div>
 <div class="block">Возвращает список соседей вершины.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="Graph.html#getNeighbors(java.lang.String)">getNeighbors</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a></code></dd>
+<dd><code><a href="Graph.html#getNeighbors(V)">getNeighbors</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a> extends <a href="Vertex.html" title="interface in ru.nsu.dizmestev">Vertex</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>vertex</code> - Вершина, для которой ищутся соседи.</dd>
 <dt>Returns:</dt>
@@ -288,29 +295,26 @@ implements <a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a><
 <div class="block">Загружает граф из файла фиксированного формата (по одной вершине и ребру в строке).</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="Graph.html#loadFromFile(java.lang.String)">loadFromFile</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a></code></dd>
+<dd><code><a href="Graph.html#loadFromFile(java.lang.String)">loadFromFile</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a> extends <a href="Vertex.html" title="interface in ru.nsu.dizmestev">Vertex</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>path</code> - Путь к файлу.</dd>
 <dt>Throws:</dt>
 <dd><code><a href="GraphException.html" title="class in ru.nsu.dizmestev">GraphException</a></code> - Если произошла ошибка чтения или формат некорректен.</dd>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - Если произошла ошибка ввода-вывода.</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="topologicalSort()">
-<h3>topologicalSort</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">topologicalSort</span>()
-                             throws <span class="exceptions"><a href="GraphException.html" title="class in ru.nsu.dizmestev">GraphException</a></span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Graph.html#topologicalSort()">Graph</a></code></span></div>
-<div class="block">Выполняет топологическую сортировку графа.</div>
+<section class="detail" id="getVertices()">
+<h3>getVertices</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&gt;</span>&nbsp;<span class="element-name">getVertices</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="Graph.html#getVertices()">Graph</a></code></span></div>
+<div class="block">Возвращает список всех вершин графа.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="Graph.html#topologicalSort()">topologicalSort</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a></code></dd>
+<dd><code><a href="Graph.html#getVertices()">getVertices</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a> extends <a href="Vertex.html" title="interface in ru.nsu.dizmestev">Vertex</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>Список вершин в топологическом порядке.</dd>
-<dt>Throws:</dt>
-<dd><code><a href="GraphException.html" title="class in ru.nsu.dizmestev">GraphException</a></code> - Если граф содержит цикл.</dd>
+<dd>Список всех вершин.</dd>
 </dl>
 </section>
 </li>
@@ -322,7 +326,7 @@ implements <a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a><
 <div class="block">Преобразует граф в строковое представление.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="Graph.html#toString()">toString</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a></code></dd>
+<dd><code><a href="Graph.html#toString()">toString</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a> extends <a href="Vertex.html" title="interface in ru.nsu.dizmestev">Vertex</a>&gt;</code></dd>
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
 <dt>Returns:</dt>
@@ -338,7 +342,7 @@ implements <a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a><
 <div class="block">Проверяет равенство двух графов.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="Graph.html#equals(java.lang.Object)">equals</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a></code></dd>
+<dd><code><a href="Graph.html#equals(java.lang.Object)">equals</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.dizmestev">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a> extends <a href="Vertex.html" title="interface in ru.nsu.dizmestev">Vertex</a>&gt;</code></dd>
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
 <dt>Parameters:</dt>
