@@ -62,9 +62,6 @@ public class IncidenceMatrixGraph<V extends Vertex> implements Graph<V> {
 
     @Override
     public void addEdge(V from, V to) throws GraphException {
-        int i = indexOf(from);
-        int j = indexOf(to);
-
         if (from.equals(to)) {
             throw new GraphException("Нельзя добавить петлю из вершины в саму себя: " + from);
         }
@@ -72,6 +69,10 @@ public class IncidenceMatrixGraph<V extends Vertex> implements Graph<V> {
         for (List<Integer> row : matrix) {
             row.add(0);
         }
+
+        int i = indexOf(from);
+        int j = indexOf(to);
+
         matrix.get(i).set(edgeCount, 1);
         matrix.get(j).set(edgeCount, -1);
         edgeCount++;
