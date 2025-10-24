@@ -133,4 +133,9 @@ public class AdjacencyMatrixGraph<V extends Vertex> implements Graph<V> {
         AdjacencyMatrixGraph<?> other = (AdjacencyMatrixGraph<?>) obj;
         return vertices.equals(other.vertices) && matrix.equals(other.matrix);
     }
+
+    @Override
+    public int hashCode() {
+        return 31 * vertices.hashCode() + matrix.hashCode();
+    }
 }

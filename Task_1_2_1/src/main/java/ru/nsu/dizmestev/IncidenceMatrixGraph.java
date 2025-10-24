@@ -160,4 +160,9 @@ public class IncidenceMatrixGraph<V extends Vertex> implements Graph<V> {
         IncidenceMatrixGraph<?> other = (IncidenceMatrixGraph<?>) obj;
         return vertices.equals(other.vertices) && matrix.equals(other.matrix);
     }
+
+    @Override
+    public int hashCode() {
+        return 31 * vertices.hashCode() + matrix.hashCode();
+    }
 }

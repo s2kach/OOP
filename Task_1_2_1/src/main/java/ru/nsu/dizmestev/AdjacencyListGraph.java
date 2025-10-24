@@ -115,4 +115,9 @@ public class AdjacencyListGraph<V extends Vertex> implements Graph<V> {
         AdjacencyListGraph<?> other = (AdjacencyListGraph<?>) obj;
         return this.adjacencyList.equals(other.adjacencyList);
     }
+
+    @Override
+    public int hashCode() {
+        return adjacencyList.hashCode();
+    }
 }
