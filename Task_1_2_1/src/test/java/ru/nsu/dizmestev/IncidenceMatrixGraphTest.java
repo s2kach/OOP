@@ -57,7 +57,8 @@ public class IncidenceMatrixGraphTest {
         IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
         g.addVertex(createVertex("A"));
         g.addVertex(createVertex("B"));
-        assertThrows(GraphException.class, () -> g.removeEdge(createVertex("A"), createVertex("B")));
+        assertThrows(GraphException.class,
+                () -> g.removeEdge(createVertex("A"), createVertex("B")));
     }
 
     @Test
@@ -81,7 +82,8 @@ public class IncidenceMatrixGraphTest {
         g.addVertex(createVertex("C"));
         g.addEdge(createVertex("A"), createVertex("B"));
         g.addEdge(createVertex("B"), createVertex("C"));
-        assertEquals(List.of(createVertex("A"), createVertex("B"), createVertex("C")), g.topologicalSort());
+        assertEquals(List.of(createVertex("A"),
+                createVertex("B"), createVertex("C")), g.topologicalSort());
     }
 
     @Test

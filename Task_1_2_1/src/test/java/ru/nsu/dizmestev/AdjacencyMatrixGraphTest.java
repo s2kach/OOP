@@ -68,7 +68,8 @@ public class AdjacencyMatrixGraphTest {
         AdjacencyMatrixGraph<StringVertex> g = new AdjacencyMatrixGraph<>();
         g.addVertex(createVertex("A"));
         g.addVertex(createVertex("B"));
-        assertThrows(GraphException.class, () -> g.removeEdge(createVertex("A"), createVertex("B")));
+        assertThrows(GraphException.class,
+                () -> g.removeEdge(createVertex("A"), createVertex("B")));
     }
 
     @Test
