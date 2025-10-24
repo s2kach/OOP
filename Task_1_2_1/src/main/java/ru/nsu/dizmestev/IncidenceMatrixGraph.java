@@ -9,30 +9,33 @@ import java.util.List;
 
 /**
  * Реализация графа через матрицу инцидентности.
+ *
+ * @param <V> Тип вершины.
  */
-public class IncidenceMatrixGraph implements Graph {
+public class IncidenceMatrixGraph<V extends Vertex> implements Graph<V> {
 
-    private final List<String> vertices = new ArrayList<>();
+    private final List<V> vertices = new ArrayList<>();
     private final List<List<Integer>> matrix = new ArrayList<>();
     private int edgeCount = 0;
 
     /**
      * Возвращает индекс вершины.
      *
-     * @param vertex Имя вершины.
+     * @param vertex Вершина.
      * @return Индекс вершины.
      * @throws GraphException Если вершина не найдена.
      */
-    private int indexOf(String vertex) throws GraphException {
-        int idx = vertices.indexOf(vertex);
-        if (idx == -1) {
-            throw new GraphException("Вершина не найдена: " + vertex);
+    private int indexOf(V vertex) throws GraphException {
+        for (int i = 0; i < vertices.size(); i++) {
+            if (vertices.get(i).equals(vertex)) {
+                return i;
+            }
         }
-        return idx;
+        throw new GraphException("Вершина не найдена: " + vertex);
     }
 
     @Override
-    public void addVertex(String vertex) throws GraphException {
+    public void addVertex(V vertex) throws GraphException {
         if (vertices.contains(vertex)) {
             throw new GraphException("Вершина уже существует: " + vertex);
         }
@@ -42,16 +45,30 @@ public class IncidenceMatrixGraph implements Graph {
     }
 
     @Override
-    public void removeVertex(String vertex) throws GraphException {
+    public void removeVertex(V vertex) throws GraphException {
         int idx = indexOf(vertex);
+        for (int e = edgeCount - 1; e >= 0; e--) {
+            if (matrix.get(idx).get(e) != 0) {
+                for (List<Integer> row : matrix) {
+                    row.remove(e);
+                }
+                edgeCount--;
+            }
+        }
         vertices.remove(idx);
         matrix.remove(idx);
     }
 
+
     @Override
-    public void addEdge(String from, String to) throws GraphException {
+    public void addEdge(V from, V to) throws GraphException {
         int i = indexOf(from);
         int j = indexOf(to);
+
+        if (from.equals(to)) {
+            throw new GraphException("Нельзя добавить петлю из вершины в саму себя: " + from);
+        }
+
         for (List<Integer> row : matrix) {
             row.add(0);
         }
@@ -61,7 +78,7 @@ public class IncidenceMatrixGraph implements Graph {
     }
 
     @Override
-    public void removeEdge(String from, String to) throws GraphException {
+    public void removeEdge(V from, V to) throws GraphException {
         int i = indexOf(from);
         int j = indexOf(to);
         int removeIndex = -1;
@@ -81,9 +98,10 @@ public class IncidenceMatrixGraph implements Graph {
     }
 
     @Override
-    public List<String> getNeighbors(String vertex) throws GraphException {
+    public List<V> getNeighbors(V vertex) throws GraphException {
         int idx = indexOf(vertex);
-        List<String> neighbors = new ArrayList<>();
+        List<V> neighbors = new ArrayList<>();
+
         for (int e = 0; e < edgeCount; e++) {
             if (matrix.get(idx).get(e) == 1) {
                 for (int k = 0; k < vertices.size(); k++) {
@@ -103,15 +121,17 @@ public class IncidenceMatrixGraph implements Graph {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.trim().split(" ");
                 if (parts.length == 1) {
-                    addVertex(parts[0]);
+                    addVertex((V) new StringVertex(parts[0]));
                 } else if (parts.length == 2) {
-                    if (!vertices.contains(parts[0])) {
-                        addVertex(parts[0]);
+                    V fromVertex = (V) new StringVertex(parts[0]);
+                    V toVertex = (V) new StringVertex(parts[1]);
+                    if (!vertices.contains(fromVertex)) {
+                        addVertex(fromVertex);
                     }
-                    if (!vertices.contains(parts[1])) {
-                        addVertex(parts[1]);
+                    if (!vertices.contains(toVertex)) {
+                        addVertex(toVertex);
                     }
-                    addEdge(parts[0], parts[1]);
+                    addEdge(fromVertex, toVertex);
                 } else {
                     throw new GraphException("Некорректная строка: " + line);
                 }
@@ -122,27 +142,8 @@ public class IncidenceMatrixGraph implements Graph {
     }
 
     @Override
-    public List<String> topologicalSort() throws GraphException {
-        AdjacencyListGraph temp = new AdjacencyListGraph();
-        for (String v : vertices) {
-            temp.addVertex(v);
-        }
-        for (int e = 0; e < edgeCount; e++) {
-            String from = null;
-            String to = null;
-            for (int i = 0; i < vertices.size(); i++) {
-                if (matrix.get(i).get(e) == 1) {
-                    from = vertices.get(i);
-                }
-                if (matrix.get(i).get(e) == -1) {
-                    to = vertices.get(i);
-                }
-            }
-            if (from != null && to != null) {
-                temp.addEdge(from, to);
-            }
-        }
-        return temp.topologicalSort();
+    public List<V> getVertices() {
+        return new ArrayList<>(vertices);
     }
 
     @Override
@@ -155,7 +156,7 @@ public class IncidenceMatrixGraph implements Graph {
         if (!(obj instanceof IncidenceMatrixGraph)) {
             return false;
         }
-        IncidenceMatrixGraph other = (IncidenceMatrixGraph) obj;
+        IncidenceMatrixGraph<?> other = (IncidenceMatrixGraph<?>) obj;
         return vertices.equals(other.vertices) && matrix.equals(other.matrix);
     }
 }

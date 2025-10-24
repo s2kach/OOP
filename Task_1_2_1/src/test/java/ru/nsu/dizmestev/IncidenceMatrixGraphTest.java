@@ -16,150 +16,154 @@ import org.junit.jupiter.api.io.TempDir;
  */
 public class IncidenceMatrixGraphTest {
 
+    private StringVertex v(String name) {
+        return new StringVertex(name);
+    }
+
     @Test
     void testAddAndGetNeighbors() throws Exception {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        g.addVertex("A");
-        g.addVertex("B");
-        g.addEdge("A", "B");
-        assertEquals(List.of("B"), g.getNeighbors("A"));
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        g.addVertex(v("B"));
+        g.addEdge(v("A"), v("B"));
+        assertEquals(List.of(v("B")), g.getNeighbors(v("A")));
     }
 
     @Test
     void testAddDuplicateVertex() throws Exception {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        g.addVertex("A");
-        assertThrows(GraphException.class, () -> g.addVertex("A"));
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        assertThrows(GraphException.class, () -> g.addVertex(v("A")));
     }
 
     @Test
     void testRemoveNonExistentVertex() {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        assertThrows(GraphException.class, () -> g.removeVertex("A"));
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        assertThrows(GraphException.class, () -> g.removeVertex(v("A")));
     }
 
     @Test
     void testRemoveEdge() throws Exception {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        g.addVertex("A");
-        g.addVertex("B");
-        g.addEdge("A", "B");
-        g.removeEdge("A", "B");
-        assertEquals(List.of(), g.getNeighbors("A"));
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        g.addVertex(v("B"));
+        g.addEdge(v("A"), v("B"));
+        g.removeEdge(v("A"), v("B"));
+        assertEquals(List.of(), g.getNeighbors(v("A")));
     }
 
     @Test
     void testRemoveNonExistentEdge() throws Exception {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        g.addVertex("A");
-        g.addVertex("B");
-        assertThrows(GraphException.class, () -> g.removeEdge("A", "B"));
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        g.addVertex(v("B"));
+        assertThrows(GraphException.class, () -> g.removeEdge(v("A"), v("B")));
     }
 
     @Test
     void testAddEdgeWithNonExistentVertex() throws GraphException {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        g.addVertex("A");
-        assertThrows(GraphException.class, () -> g.addEdge("A", "B"));
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        assertThrows(GraphException.class, () -> g.addEdge(v("A"), v("B")));
     }
 
     @Test
     void testGetNeighborsNonExistentVertex() {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        assertThrows(GraphException.class, () -> g.getNeighbors("A"));
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        assertThrows(GraphException.class, () -> g.getNeighbors(v("A")));
     }
 
     @Test
     void testTopologicalSort() throws Exception {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        g.addVertex("A");
-        g.addVertex("B");
-        g.addVertex("C");
-        g.addEdge("A", "B");
-        g.addEdge("B", "C");
-        assertEquals(List.of("A", "B", "C"), g.topologicalSort());
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        g.addVertex(v("B"));
+        g.addVertex(v("C"));
+        g.addEdge(v("A"), v("B"));
+        g.addEdge(v("B"), v("C"));
+        assertEquals(List.of(v("A"), v("B"), v("C")), g.topologicalSort());
     }
 
     @Test
     void testTopologicalSortSingleVertex() throws Exception {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        g.addVertex("A");
-        List<String> sorted = g.topologicalSort();
-        assertEquals(List.of("A"), sorted);
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        List<StringVertex> sorted = g.topologicalSort();
+        assertEquals(List.of(v("A")), sorted);
     }
 
     @Test
     void testTopologicalSortMultipleRoots() throws Exception {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        g.addVertex("A");
-        g.addVertex("B");
-        g.addVertex("C");
-        g.addEdge("A", "C");
-        g.addEdge("B", "C");
-        List<String> sorted = g.topologicalSort();
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        g.addVertex(v("B"));
+        g.addVertex(v("C"));
+        g.addEdge(v("A"), v("C"));
+        g.addEdge(v("B"), v("C"));
+        List<StringVertex> sorted = g.topologicalSort();
         assertEquals(3, sorted.size());
-        assertTrue(sorted.indexOf("C") > sorted.indexOf("A"));
-        assertTrue(sorted.indexOf("C") > sorted.indexOf("B"));
+        assertTrue(sorted.indexOf(v("C")) > sorted.indexOf(v("A")));
+        assertTrue(sorted.indexOf(v("C")) > sorted.indexOf(v("B")));
     }
 
     @Test
     void testEquals() throws Exception {
-        IncidenceMatrixGraph g1 = new IncidenceMatrixGraph();
-        IncidenceMatrixGraph g2 = new IncidenceMatrixGraph();
-        g1.addVertex("X");
-        g2.addVertex("X");
+        IncidenceMatrixGraph<StringVertex> g1 = new IncidenceMatrixGraph<>();
+        IncidenceMatrixGraph<StringVertex> g2 = new IncidenceMatrixGraph<>();
+        g1.addVertex(v("X"));
+        g2.addVertex(v("X"));
         assertEquals(g1, g2);
     }
 
     @Test
     void testNotEquals() throws Exception {
-        IncidenceMatrixGraph g1 = new IncidenceMatrixGraph();
-        IncidenceMatrixGraph g2 = new IncidenceMatrixGraph();
-        g1.addVertex("A");
-        g2.addVertex("B");
+        IncidenceMatrixGraph<StringVertex> g1 = new IncidenceMatrixGraph<>();
+        IncidenceMatrixGraph<StringVertex> g2 = new IncidenceMatrixGraph<>();
+        g1.addVertex(v("A"));
+        g2.addVertex(v("B"));
         assertNotEquals(g1, g2);
     }
 
     @Test
     void testNotEqualsDifferentEdges() throws Exception {
-        IncidenceMatrixGraph g1 = new IncidenceMatrixGraph();
-        IncidenceMatrixGraph g2 = new IncidenceMatrixGraph();
-        g1.addVertex("A");
-        g1.addVertex("B");
-        g2.addVertex("A");
-        g2.addVertex("B");
-        g1.addEdge("A", "B");
+        IncidenceMatrixGraph<StringVertex> g1 = new IncidenceMatrixGraph<>();
+        IncidenceMatrixGraph<StringVertex> g2 = new IncidenceMatrixGraph<>();
+        g1.addVertex(v("A"));
+        g1.addVertex(v("B"));
+        g2.addVertex(v("A"));
+        g2.addVertex(v("B"));
+        g1.addEdge(v("A"), v("B"));
         assertNotEquals(g1, g2);
     }
 
     @Test
     void testCycleDetection() throws Exception {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        g.addVertex("A");
-        g.addVertex("B");
-        g.addEdge("A", "B");
-        g.addEdge("B", "A");
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        g.addVertex(v("B"));
+        g.addEdge(v("A"), v("B"));
+        g.addEdge(v("B"), v("A"));
         assertThrows(GraphException.class, g::topologicalSort);
     }
 
     @Test
     void testCycleDetectionThreeVertices() throws Exception {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        g.addVertex("A");
-        g.addVertex("B");
-        g.addVertex("C");
-        g.addEdge("A", "B");
-        g.addEdge("B", "C");
-        g.addEdge("C", "A");
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        g.addVertex(v("B"));
+        g.addVertex(v("C"));
+        g.addEdge(v("A"), v("B"));
+        g.addEdge(v("B"), v("C"));
+        g.addEdge(v("C"), v("A"));
         assertThrows(GraphException.class, g::topologicalSort);
     }
 
     @Test
     void testToString() throws Exception {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        g.addVertex("A");
-        g.addVertex("B");
-        g.addEdge("A", "B");
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        g.addVertex(v("B"));
+        g.addEdge(v("A"), v("B"));
         String result = g.toString();
         assertTrue(result.contains("A") && result.contains("B") && result.contains("Matrix"));
     }
@@ -170,12 +174,12 @@ public class IncidenceMatrixGraphTest {
         Path file = tempDir.resolve("test.txt");
         Files.writeString(file, content);
 
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
         g.loadFromFile(file.toString());
 
-        assertEquals(List.of("B"), g.getNeighbors("A"));
-        assertEquals(List.of("C"), g.getNeighbors("B"));
-        assertEquals(List.of(), g.getNeighbors("C"));
+        assertEquals(List.of(v("B")), g.getNeighbors(v("A")));
+        assertEquals(List.of(v("C")), g.getNeighbors(v("B")));
+        assertEquals(List.of(), g.getNeighbors(v("C")));
     }
 
     @Test
@@ -184,63 +188,91 @@ public class IncidenceMatrixGraphTest {
         Path file = tempDir.resolve("test.txt");
         Files.writeString(file, content);
 
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
         assertThrows(GraphException.class, () -> g.loadFromFile(file.toString()));
     }
 
     @Test
     void testLoadFromFileNonExistent() {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
         assertThrows(GraphException.class, () -> g.loadFromFile("nonexistent.txt"));
     }
 
     @Test
     void testRemoveVertexUpdatesEdges() throws Exception {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        g.addVertex("A");
-        g.addVertex("B");
-        g.addVertex("C");
-        g.addEdge("A", "B");
-        g.addEdge("A", "C");
-        g.addEdge("B", "C");
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        g.addVertex(v("B"));
+        g.addVertex(v("C"));
+        g.addEdge(v("A"), v("B"));
+        g.addEdge(v("A"), v("C"));
+        g.addEdge(v("B"), v("C"));
 
-        g.removeVertex("B");
+        g.removeVertex(v("B"));
 
-        assertEquals(List.of("C"), g.getNeighbors("A"));
-        assertEquals(List.of(), g.getNeighbors("C"));
+        assertEquals(List.of(v("C")), g.getNeighbors(v("A")));
+        assertEquals(List.of(), g.getNeighbors(v("C")));
     }
 
     @Test
     void testMultipleEdgesFromSameVertex() throws Exception {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        g.addVertex("A");
-        g.addVertex("B");
-        g.addVertex("C");
-        g.addEdge("A", "B");
-        g.addEdge("A", "C");
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        g.addVertex(v("B"));
+        g.addVertex(v("C"));
+        g.addEdge(v("A"), v("B"));
+        g.addEdge(v("A"), v("C"));
 
-        List<String> neighbors = g.getNeighbors("A");
+        List<StringVertex> neighbors = g.getNeighbors(v("A"));
         assertEquals(2, neighbors.size());
-        assertTrue(neighbors.contains("B") && neighbors.contains("C"));
+        assertTrue(neighbors.contains(v("B")) && neighbors.contains(v("C")));
     }
 
     @Test
     void testComplexGraphStructure() throws Exception {
-        IncidenceMatrixGraph g = new IncidenceMatrixGraph();
-        g.addVertex("A");
-        g.addVertex("B");
-        g.addVertex("C");
-        g.addVertex("D");
-        g.addEdge("A", "B");
-        g.addEdge("A", "C");
-        g.addEdge("B", "D");
-        g.addEdge("C", "D");
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        g.addVertex(v("B"));
+        g.addVertex(v("C"));
+        g.addVertex(v("D"));
+        g.addEdge(v("A"), v("B"));
+        g.addEdge(v("A"), v("C"));
+        g.addEdge(v("B"), v("D"));
+        g.addEdge(v("C"), v("D"));
 
-        List<String> sorted = g.topologicalSort();
+        List<StringVertex> sorted = g.topologicalSort();
         assertEquals(4, sorted.size());
-        assertTrue(sorted.indexOf("A") < sorted.indexOf("B"));
-        assertTrue(sorted.indexOf("A") < sorted.indexOf("C"));
-        assertTrue(sorted.indexOf("B") < sorted.indexOf("D"));
-        assertTrue(sorted.indexOf("C") < sorted.indexOf("D"));
+        assertTrue(sorted.indexOf(v("A")) < sorted.indexOf(v("B")));
+        assertTrue(sorted.indexOf(v("A")) < sorted.indexOf(v("C")));
+        assertTrue(sorted.indexOf(v("B")) < sorted.indexOf(v("D")));
+        assertTrue(sorted.indexOf(v("C")) < sorted.indexOf(v("D")));
+    }
+
+    @Test
+    void testGetVertices() throws Exception {
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+        g.addVertex(v("B"));
+        g.addVertex(v("C"));
+
+        List<StringVertex> vertices = g.getVertices();
+        assertEquals(3, vertices.size());
+        assertTrue(vertices.contains(v("A")));
+        assertTrue(vertices.contains(v("B")));
+        assertTrue(vertices.contains(v("C")));
+    }
+
+    @Test
+    void testEmptyGraph() throws Exception {
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        assertTrue(g.getVertices().isEmpty());
+    }
+
+    @Test
+    void testSelfLoopAddition() throws Exception {
+        IncidenceMatrixGraph<StringVertex> g = new IncidenceMatrixGraph<>();
+        g.addVertex(v("A"));
+
+        assertThrows(GraphException.class, () -> g.addEdge(v("A"), v("A")));
     }
 }
