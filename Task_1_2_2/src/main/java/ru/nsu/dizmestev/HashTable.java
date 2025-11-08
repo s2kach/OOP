@@ -331,7 +331,9 @@ public class HashTable<K, V> implements Iterable<HashTable.Entry<K, V>> {
          */
         @Override
         public Entry<K, V> next() {
-            if (!hasNext()) throw new NoSuchElementException();
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             return currentIterator.next();
         }
     }
