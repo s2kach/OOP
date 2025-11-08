@@ -157,7 +157,9 @@ public class HashTable<K, V> implements Iterable<HashTable.Entry<K, V>> {
         StringBuilder sb = new StringBuilder("{");
         boolean first = true;
         for (Entry<K, V> entry : this) {
-            if (!first) sb.append(", ");
+            if (!first) {
+                sb.append(", ");
+            }
             sb.append(entry.key).append("=").append(entry.value);
             first = false;
         }
@@ -173,9 +175,15 @@ public class HashTable<K, V> implements Iterable<HashTable.Entry<K, V>> {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof HashTable<?, ?> other)) return false;
-        if (size != other.size) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof HashTable<?, ?> other)) {
+            return false;
+        }
+        if (size != other.size) {
+            return false;
+        }
 
         for (Entry<K, V> entry : this) {
             boolean found = false;
@@ -187,7 +195,9 @@ public class HashTable<K, V> implements Iterable<HashTable.Entry<K, V>> {
                     break;
                 }
             }
-            if (!found) return false;
+            if (!found) {
+                return false;
+            }
         }
         return true;
     }
@@ -265,8 +275,12 @@ public class HashTable<K, V> implements Iterable<HashTable.Entry<K, V>> {
          */
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof Entry<?, ?> entry)) return false;
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof Entry<?, ?> entry)) {
+                return false;
+            }
             return Objects.equals(key, entry.key) && Objects.equals(value, entry.value);
         }
 
