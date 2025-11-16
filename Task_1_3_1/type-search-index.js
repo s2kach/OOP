@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.dizmestev","l":"ChunkReader"},{"p":"ru.nsu.dizmestev","l":"FileReadException"},{"p":"ru.nsu.dizmestev","l":"SearchException"},{"p":"ru.nsu.dizmestev","l":"SubstringFinder"},{"p":"ru.nsu.dizmestev","l":"TaskException"}];updateSearchResults();
