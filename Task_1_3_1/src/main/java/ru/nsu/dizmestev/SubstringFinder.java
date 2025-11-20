@@ -99,7 +99,7 @@ public class SubstringFinder {
 
                 if (currentBytePos + chunk.length > bytePosition) {
                     // Нашли чанк, содержащий позицию
-                    int remaining = (int)(bytePosition - currentBytePos);
+                    int remaining = (int) (bytePosition - currentBytePos);
                     return charCount + new String(chunk, 0,
                             remaining, StandardCharsets.UTF_8).length();
                 }
