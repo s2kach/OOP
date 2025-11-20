@@ -73,9 +73,14 @@ loadScripts(document, 'script');</script>
 <div class="inheritance">ru.nsu.dizmestev.ChunkReader</div>
 </div>
 <section class="class-description" id="class-description">
+<dl class="notes">
+<dt>All Implemented Interfaces:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Closeable.html" title="class or interface in java.io" class="external-link">Closeable</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/AutoCloseable.html" title="class or interface in java.lang" class="external-link">AutoCloseable</a></code></dd>
+</dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ChunkReader</span>
-<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
+implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Closeable.html" title="class or interface in java.io" class="external-link">Closeable</a></span></div>
 <div class="block">Класс для чтения файла небольшими частями.</div>
 </section>
 <section class="summary">
@@ -89,7 +94,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String,int)" class="member-name-link">ChunkReader</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filename,
- int&nbsp;bufferSize)</code></div>
+ int&nbsp;chunkSize)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Создаёт объект чтения файла частями.</div>
 </div>
@@ -107,15 +112,13 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/BufferedInputStream.html" title="class or interface in java.io" class="external-link">BufferedInputStream</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#openStream()" class="member-name-link">openStream</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Открывает поток для чтения файла.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#readChunk(java.io.BufferedInputStream)" class="member-name-link">readChunk</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/BufferedInputStream.html" title="class or interface in java.io" class="external-link">BufferedInputStream</a>&nbsp;stream)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#close()" class="member-name-link">close</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>byte[]</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#readChunk()" class="member-name-link">readChunk</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Читает следующую часть файла.</div>
+<div class="block">Читает очередной блок данных.</div>
 </div>
 </div>
 </div>
@@ -138,12 +141,15 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;(java.lang.String,int)">
 <h3>ChunkReader</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ChunkReader</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filename,
- int&nbsp;bufferSize)</span></div>
+ int&nbsp;chunkSize)</span>
+            throws <span class="exceptions"><a href="TaskException.html" title="class in ru.nsu.dizmestev">TaskException</a></span></div>
 <div class="block">Создаёт объект чтения файла частями.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>filename</code> - Имя файла.</dd>
-<dd><code>bufferSize</code> - Размер буфера в байтах.</dd>
+<dd><code>chunkSize</code> - Размер чанка.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="TaskException.html" title="class in ru.nsu.dizmestev">TaskException</a></code></dd>
 </dl>
 </section>
 </li>
@@ -156,32 +162,31 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="readChunk(java.io.BufferedInputStream)">
+<section class="detail" id="readChunk()">
 <h3>readChunk</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">readChunk</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/BufferedInputStream.html" title="class or interface in java.io" class="external-link">BufferedInputStream</a>&nbsp;stream)</span>
-                 throws <span class="exceptions"><a href="FileReadException.html" title="class in ru.nsu.dizmestev">FileReadException</a></span></div>
-<div class="block">Читает следующую часть файла.</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">byte[]</span>&nbsp;<span class="element-name">readChunk</span>()
+                 throws <span class="exceptions"><a href="TaskException.html" title="class in ru.nsu.dizmestev">TaskException</a></span></div>
+<div class="block">Читает очередной блок данных.</div>
 <dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>stream</code> - Поток чтения.</dd>
 <dt>Returns:</dt>
-<dd>Строку из следующего куска файла или null, если файл закончился.</dd>
+<dd>массив байт, либо null если файл закончился</dd>
 <dt>Throws:</dt>
-<dd><code><a href="FileReadException.html" title="class in ru.nsu.dizmestev">FileReadException</a></code> - Ошибка чтения файла.</dd>
+<dd><code><a href="TaskException.html" title="class in ru.nsu.dizmestev">TaskException</a></code> - при ошибке чтения</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="openStream()">
-<h3>openStream</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/BufferedInputStream.html" title="class or interface in java.io" class="external-link">BufferedInputStream</a></span>&nbsp;<span class="element-name">openStream</span>()
-                               throws <span class="exceptions"><a href="FileReadException.html" title="class in ru.nsu.dizmestev">FileReadException</a></span></div>
-<div class="block">Открывает поток для чтения файла.</div>
+<section class="detail" id="close()">
+<h3>close</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">close</span>()
+           throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
 <dl class="notes">
-<dt>Returns:</dt>
-<dd>Поток чтения.</dd>
+<dt>Specified by:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/AutoCloseable.html#close()" title="class or interface in java.lang" class="external-link">close</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/AutoCloseable.html" title="class or interface in java.lang" class="external-link">AutoCloseable</a></code></dd>
+<dt>Specified by:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Closeable.html#close()" title="class or interface in java.io" class="external-link">close</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Closeable.html" title="class or interface in java.io" class="external-link">Closeable</a></code></dd>
 <dt>Throws:</dt>
-<dd><code><a href="FileReadException.html" title="class in ru.nsu.dizmestev">FileReadException</a></code> - Ошибка открытия файла.</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code></dd>
 </dl>
 </section>
 </li>
