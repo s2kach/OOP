@@ -3,7 +3,7 @@ package ru.nsu.dizmestev;
 /**
  * Базовое исключение для всех ошибок в задании.
  */
-public class TaskException extends Exception {
+public class TaskException extends RuntimeException {
 
     /**
      * Создаёт исключение с сообщением.

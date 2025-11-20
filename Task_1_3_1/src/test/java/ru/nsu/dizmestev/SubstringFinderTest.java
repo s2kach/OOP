@@ -29,38 +29,61 @@ class SubstringFinderTest {
     }
 
     @Test
-    void testFindMultipleOccurrences() throws SearchException {
+    void testFindMultipleOccurrences() throws TaskException {
         SubstringFinder finder = new SubstringFinder();
-        List<Integer> result = finder.find(testFile.getAbsolutePath(), "бра");
-        assertEquals(List.of(1, 8), result);
+        List<Long> result = finder.find(testFile.getAbsolutePath(), "бра");
+        assertEquals(List.of(1L, 8L), result);
     }
 
     @Test
-    void testFindNoOccurrences() throws SearchException {
+    void testFindNoOccurrences() throws TaskException {
         SubstringFinder finder = new SubstringFinder();
-        List<Integer> result = finder.find(testFile.getAbsolutePath(), "нет");
+        List<Long> result = finder.find(testFile.getAbsolutePath(), "нет");
         assertTrue(result.isEmpty());
     }
 
     @Test
     void testEmptyTarget() {
         SubstringFinder finder = new SubstringFinder();
-        SearchException exception = assertThrows(SearchException.class,
+        TaskException exception = assertThrows(TaskException.class,
                 () -> finder.find(testFile.getAbsolutePath(), ""));
-        assertEquals("Строка поиска не может быть пустой.", exception.getMessage());
+        assertEquals("Пустая подстрока не допускается", exception.getMessage());
     }
 
     @Test
-    void testNullTarget() {
+    void testFindSingleCharacter() throws TaskException {
         SubstringFinder finder = new SubstringFinder();
-        SearchException exception = assertThrows(SearchException.class,
-                () -> finder.find(testFile.getAbsolutePath(), null));
-        assertEquals("Строка поиска не может быть пустой.", exception.getMessage());
+        List<Long> result = finder.find(testFile.getAbsolutePath(), "а");
+        assertEquals(List.of(0L, 3L, 5L, 7L, 10L), result);
     }
 
     @Test
-    void testFileNotFound() {
+    void testFindOverlappingOccurrences() throws TaskException, IOException {
+        File file = new File(tempDir, "overlap.txt");
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write("aaa".getBytes(StandardCharsets.UTF_8));
+        }
+
         SubstringFinder finder = new SubstringFinder();
-        assertThrows(SearchException.class, () -> finder.find("nonexistent.txt", "бра"));
+        List<Long> result = finder.find(file.getAbsolutePath(), "aa");
+        assertEquals(List.of(0L, 1L), result);
+    }
+
+    @Test
+    void testLargeFile() throws TaskException, IOException {
+        File largeFile = new File(tempDir, "large_test.txt");
+
+        String filler = "x".repeat(100 * 1024 * 1024); // 100MB
+        String target = "target";
+        String largeContent = filler + target;
+
+        try (FileOutputStream fos = new FileOutputStream(largeFile)) {
+            fos.write(largeContent.getBytes(StandardCharsets.UTF_8));
+        }
+
+        SubstringFinder finder = new SubstringFinder();
+        List<Long> result = finder.find(largeFile.getAbsolutePath(), target);
+
+        assertEquals(List.of(104857600L), result);
     }
 }

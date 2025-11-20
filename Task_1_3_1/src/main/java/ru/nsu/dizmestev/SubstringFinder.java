@@ -1,15 +1,16 @@
 package ru.nsu.dizmestev;
 
-import java.io.BufferedInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Класс для поиска всех вхождений подстроки в большом файле.
+ * Поиск подстроки в большом файле без загрузки файла полностью в память.
+ * Возвращает позиции в символах, а не в байтах.
  */
 public class SubstringFinder {
 
-    private static final int DEFAULT_BUFFER_SIZE = 4096;
+    private static final int DEFAULT_CHUNK_SIZE = 4096;
 
     /**
      * Ищет все вхождения подстроки в файле.
@@ -19,47 +20,97 @@ public class SubstringFinder {
      * @return Список индексов начала всех вхождений.
      * @throws SearchException Ошибка поиска или чтения данных.
      */
-    public List<Integer> find(String filename, String target) throws SearchException {
+    public List<Long> find(String filename, String target) throws SearchException {
         if (target == null || target.isEmpty()) {
-            throw new SearchException("Строка поиска не может быть пустой.");
+            throw new SearchException("Пустая подстрока не допускается");
         }
 
-        List<Integer> result = new ArrayList<>();
-        ChunkReader reader = new ChunkReader(filename, DEFAULT_BUFFER_SIZE);
+        byte[] pattern = target.getBytes(StandardCharsets.UTF_8);
+        int m = pattern.length;
 
-        String leftover = "";
-        int offset = 0;
+        if (m == 0) {
+            throw new SearchException("Пустая подстрока не допускается");
+        }
 
-        try (BufferedInputStream stream = reader.openStream()) {
+        List<Long> result = new ArrayList<>();
+
+        try (ChunkReader reader = new ChunkReader(filename, DEFAULT_CHUNK_SIZE)) {
+
+            byte[] overlap = new byte[0];
+            long globalByteOffset = 0;
+            long globalCharOffset = 0;
 
             while (true) {
-                String chunk = reader.readChunk(stream);
+                byte[] chunk = reader.readChunk();
                 if (chunk == null) {
                     break;
                 }
 
-                String text = leftover + chunk;
+                byte[] buffer = new byte[overlap.length + chunk.length];
+                System.arraycopy(overlap, 0, buffer, 0, overlap.length);
+                System.arraycopy(chunk, 0, buffer, overlap.length, chunk.length);
 
-                int index = text.indexOf(target);
-                while (index >= 0) {
-                    result.add(offset + index);
-                    index = text.indexOf(target, index + 1);
+                // Ищем совпадения в буфере
+                for (int i = 0; i + m <= buffer.length; i++) {
+                    boolean match = true;
+                    for (int j = 0; j < m; j++) {
+                        if (buffer[i + j] != pattern[j]) {
+                            match = false;
+                            break;
+                        }
+                    }
+                    if (match) {
+                        long bytePosition = globalByteOffset - overlap.length + i;
+                        long charPosition = calculateCharPosition(filename, bytePosition);
+                        result.add(charPosition);
+                    }
                 }
 
-                int overlap = target.length() - 1;
-                if (text.length() >= overlap) {
-                    leftover = text.substring(text.length() - overlap);
+                globalByteOffset += chunk.length;
+                globalCharOffset += new String(chunk, StandardCharsets.UTF_8).length();
+
+                if (buffer.length >= m - 1) {
+                    overlap = new byte[m - 1];
+                    System.arraycopy(buffer, buffer.length - (m - 1), overlap, 0, m - 1);
                 } else {
-                    leftover = text;
+                    overlap = buffer;
                 }
-
-                offset += chunk.length();
             }
-
         } catch (Exception e) {
-            throw new SearchException("Ошибка при выполнении поиска.", e);
+            throw new SearchException("Ошибка поиска подстроки", e);
         }
 
         return result;
+    }
+
+    /**
+     * Конвертирует позицию в байтах в позицию в символах для UTF-8.
+     */
+    private long calculateCharPosition(String filename, long bytePosition) throws TaskException {
+        try (ChunkReader reader = new ChunkReader(filename, DEFAULT_CHUNK_SIZE)) {
+            long currentBytePos = 0;
+            long charCount = 0;
+
+            while (true) {
+                byte[] chunk = reader.readChunk();
+                if (chunk == null) {
+                    break;
+                }
+
+                if (currentBytePos + chunk.length > bytePosition) {
+                    // Нашли чанк, содержащий позицию
+                    int remaining = (int)(bytePosition - currentBytePos);
+                    return charCount + new String(chunk, 0,
+                            remaining, StandardCharsets.UTF_8).length();
+                }
+
+                charCount += new String(chunk, StandardCharsets.UTF_8).length();
+                currentBytePos += chunk.length;
+            }
+
+            return charCount;
+        } catch (Exception e) {
+            throw new TaskException("Ошибка конвертации позиции", e);
+        }
     }
 }

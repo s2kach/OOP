@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,44 +29,42 @@ class ChunkReaderTest {
     }
 
     @Test
-    void testReadChunk() throws FileReadException, IOException {
-        ChunkReader reader = new ChunkReader(testFile.getAbsolutePath(), 1024);
-        try (BufferedInputStream stream = reader.openStream()) {
-            String chunk = reader.readChunk(stream);
-            assertEquals("line1\nline2\nline3", chunk);
+    void testReadChunk() throws TaskException, IOException {
+        try (ChunkReader reader = new ChunkReader(testFile.getAbsolutePath(), 1024)) {
+            byte[] chunk = reader.readChunk();
+            String content = new String(chunk, StandardCharsets.UTF_8);
+            assertEquals("line1\nline2\nline3", content);
         }
     }
 
     @Test
-    void testReadEmptyFile() throws IOException, FileReadException {
+    void testReadEmptyFile() throws IOException, TaskException {
         File emptyFile = new File(tempDir, "empty.txt");
         emptyFile.createNewFile();
 
-        ChunkReader reader = new ChunkReader(emptyFile.getAbsolutePath(), 1024);
-        try (BufferedInputStream stream = reader.openStream()) {
-            assertNull(reader.readChunk(stream));
+        try (ChunkReader reader = new ChunkReader(emptyFile.getAbsolutePath(), 1024)) {
+            assertNull(reader.readChunk());
         }
     }
 
     @Test
-    void testReadSmallChunks() throws FileReadException, IOException {
-        ChunkReader reader = new ChunkReader(testFile.getAbsolutePath(), 1);
-        try (BufferedInputStream stream = reader.openStream()) {
-            String chunk1 = reader.readChunk(stream);
-            String chunk2 = reader.readChunk(stream);
-            String chunk3 = reader.readChunk(stream);
+    void testReadSmallChunks() throws TaskException, IOException {
+        try (ChunkReader reader = new ChunkReader(testFile.getAbsolutePath(), 1)) {
+            byte[] chunk1 = reader.readChunk();
+            byte[] chunk2 = reader.readChunk();
+            byte[] chunk3 = reader.readChunk();
 
-            assertEquals("l", chunk1);
-            assertEquals("i", chunk2);
-            assertEquals("n", chunk3);
+            assertEquals('l', (char) chunk1[0]);
+            assertEquals('i', (char) chunk2[0]);
+            assertEquals('n', (char) chunk3[0]);
         }
     }
 
     @Test
-    void testOpenStreamNonExistentFile() {
-        ChunkReader reader = new ChunkReader("nonexistent.txt", 1024);
-        FileReadException exception = assertThrows(FileReadException.class, reader::openStream);
-        assertEquals("Не удалось открыть файл.", exception.getMessage());
+    void testNonExistentFile() {
+        TaskException exception = assertThrows(TaskException.class,
+                () -> new ChunkReader("nonexistent.txt", 1024));
+        assertEquals("Не удалось открыть файл: nonexistent.txt", exception.getMessage());
         assertNotNull(exception.getCause());
     }
 }

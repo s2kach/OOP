@@ -1,64 +1,67 @@
 package ru.nsu.dizmestev;
 
 import java.io.BufferedInputStream;
+import java.io.Closeable;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Класс для чтения файла небольшими частями.
  */
-public class ChunkReader {
+public class ChunkReader implements Closeable {
 
-    private final String filename;
-    private final int bufferSize;
+    private final BufferedInputStream stream;
+    private final int chunkSize;
 
     /**
      * Создаёт объект чтения файла частями.
      *
      * @param filename   Имя файла.
-     * @param bufferSize Размер буфера в байтах.
+     * @param chunkSize Размер чанка.
      */
-    public ChunkReader(String filename, int bufferSize) {
-        this.filename = filename;
-        this.bufferSize = bufferSize;
+    public ChunkReader(String filename, int chunkSize) throws TaskException {
+        if (chunkSize <= 0) {
+            throw new TaskException("Размер чанка должен быть положительным");
+        }
+
+        try {
+            this.stream = new BufferedInputStream(new FileInputStream(filename));
+            this.chunkSize = chunkSize;
+        } catch (IOException e) {
+            throw new TaskException("Не удалось открыть файл: " + filename, e);
+        }
     }
 
     /**
-     * Читает следующую часть файла.
+     * Читает очередной блок данных.
      *
-     * @param stream Поток чтения.
-     * @return Строку из следующего куска файла или null, если файл закончился.
-     * @throws FileReadException Ошибка чтения файла.
+     * @return массив байт, либо null если файл закончился
+     * @throws TaskException при ошибке чтения
      */
-    public String readChunk(BufferedInputStream stream) throws FileReadException {
-        byte[] buffer = new byte[bufferSize];
-
-        int read;
+    public byte[] readChunk() throws TaskException {
         try {
-            read = stream.read(buffer);
+            byte[] buffer = new byte[chunkSize];
+            int read = stream.read(buffer);
+
+            if (read == -1) {
+                return null;
+            }
+
+            if (read < chunkSize) {
+                byte[] exact = new byte[read];
+                System.arraycopy(buffer, 0, exact, 0, read);
+                return exact;
+            }
+
+            return buffer;
+
         } catch (IOException e) {
-            throw new FileReadException("Ошибка чтения файла.", e);
+            throw new FileReadException("Не удалось прочитать файл.", e);
         }
-
-        if (read == -1) {
-            return null;
-        }
-
-        return new String(buffer, 0, read, StandardCharsets.UTF_8);
     }
 
-    /**
-     * Открывает поток для чтения файла.
-     *
-     * @return Поток чтения.
-     * @throws FileReadException Ошибка открытия файла.
-     */
-    public BufferedInputStream openStream() throws FileReadException {
-        try {
-            return new BufferedInputStream(new FileInputStream(filename));
-        } catch (IOException e) {
-            throw new FileReadException("Не удалось открыть файл.", e);
-        }
+    @Override
+    public void close() throws IOException {
+        stream.close();
     }
 }
