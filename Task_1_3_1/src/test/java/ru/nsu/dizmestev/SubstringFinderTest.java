@@ -70,20 +70,26 @@ class SubstringFinderTest {
     }
 
     @Test
-    void testLargeFile() throws TaskException, IOException {
+    void testLargeFile() throws Exception {
         File largeFile = new File(tempDir, "large_test.txt");
 
-        String filler = "x".repeat(100 * 1024 * 1024); // 100MB
         String target = "target";
-        String largeContent = filler + target;
+        String filler = "x".repeat(1024 * 1024 * 16);
+        byte[] block = filler.getBytes(StandardCharsets.UTF_8); // 16MB
+        int blocksCount = 64 * 12; // 16MB * 64 * 12 = 12GB
 
         try (FileOutputStream fos = new FileOutputStream(largeFile)) {
-            fos.write(largeContent.getBytes(StandardCharsets.UTF_8));
+            for (int i = 0; i < blocksCount; i++) {
+                fos.write(block);
+            }
+            fos.write(target.getBytes(StandardCharsets.UTF_8));
         }
 
         SubstringFinder finder = new SubstringFinder();
         List<Long> result = finder.find(largeFile.getAbsolutePath(), target);
 
-        assertEquals(List.of(104857600L), result);
+        long expectedIndex = block.length * (long) blocksCount;
+        assertEquals(List.of(expectedIndex), result);
+        assertEquals(List.of(12884901888L), result); // для себя
     }
 }
