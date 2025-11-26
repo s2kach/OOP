@@ -14,6 +14,8 @@ public class StudentBook {
 
     /**
      * Создает пустую зачетную книжку.
+     *
+     * @param studyForm Форма обучения.
      */
     public StudentBook(StudyForm studyForm) {
         this.records = new ArrayList<AcademicRecord>();
@@ -42,9 +44,9 @@ public class StudentBook {
      * Вычисляет текущий средний балл.
      *
      * @return Средний балл.
-     * @throws Exception При отсутствии оценок.
+     * @throws EmptyRecordException При отсутствии оценок.
      */
-    public double calculateAverage() throws Exception {
+    public double calculateAverage() throws EmptyRecordException {
         if (records.isEmpty()) {
             throw new EmptyRecordException("Нет оценок для расчета.");
         }
@@ -59,7 +61,7 @@ public class StudentBook {
      * Проверяет возможность перевода на бюджет.
      *
      * @return Возможность перевода.
-     * @throws Exception При ошибке анализа.
+     * @throws AcademicBaseException При ошибке анализа.
      */
     public boolean canTransferToBudget() throws AcademicBaseException {
         try {
@@ -87,9 +89,9 @@ public class StudentBook {
      * Проверяет возможность получения красного диплома.
      *
      * @return Возможность получения.
-     * @throws Exception При ошибке анализа.
+     * @throws AcademicBaseException При ошибке анализа.
      */
-    public boolean canGetRedDiploma() throws DiplomaCheckException {
+    public boolean canGetRedDiploma() throws AcademicBaseException {
         try {
             if (records.isEmpty()) {
                 throw new EmptyRecordException("Нет оценок для анализа диплома.");
@@ -128,7 +130,7 @@ public class StudentBook {
      * Проверяет возможность получения повышенной стипендии.
      *
      * @return Возможность получения.
-     * @throws Exception При ошибке анализа.
+     * @throws AcademicBaseException При ошибке анализа.
      */
     public boolean canGetIncreasedScholarship(int currentSemester) throws AcademicBaseException {
         try {
