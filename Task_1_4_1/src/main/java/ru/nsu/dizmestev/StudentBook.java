@@ -129,9 +129,9 @@ public class StudentBook {
     /**
      * Проверяет возможность получения повышенной стипендии.
      *
+     * @param currentSemester Текущий семестр.
      * @return Возможность получения.
      * @throws AcademicBaseException При ошибке анализа.
-     * @param currentSemester Текущий семестр.
      */
     public boolean canGetIncreasedScholarship(int currentSemester) throws AcademicBaseException {
         try {
