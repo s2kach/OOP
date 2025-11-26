@@ -131,6 +131,7 @@ public class StudentBook {
      *
      * @return Возможность получения.
      * @throws AcademicBaseException При ошибке анализа.
+     * @param currentSemester Текущий семестр.
      */
     public boolean canGetIncreasedScholarship(int currentSemester) throws AcademicBaseException {
         try {
