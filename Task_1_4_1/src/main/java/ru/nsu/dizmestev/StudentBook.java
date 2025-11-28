@@ -2,6 +2,8 @@ package ru.nsu.dizmestev;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 
 /**
  * Реализация электронной зачетной книжки студента.
@@ -11,15 +13,21 @@ public class StudentBook {
     private final List<AcademicRecord> records;
     private StudyForm studyForm;
     private Grade graduationWorkGrade;
+    private final String studentId;
+    private final String studentName;
 
     /**
      * Создает пустую зачетную книжку.
      *
+     * @param studentId ID студента
+     * @param studentName Имя студента
      * @param studyForm Форма обучения.
      */
-    public StudentBook(StudyForm studyForm) {
-        this.records = new ArrayList<AcademicRecord>();
+    public StudentBook(String studentId, String studentName, StudyForm studyForm) {
+        this.records = new ArrayList<>();
         this.studyForm = studyForm;
+        this.studentId = studentId;
+        this.studentName = studentName;
     }
 
     /**
@@ -50,11 +58,12 @@ public class StudentBook {
         if (records.isEmpty()) {
             throw new EmptyRecordException("Нет оценок для расчета.");
         }
-        int sum = 0;
-        for (AcademicRecord r : records) {
-            sum += r.getGrade().getValue();
-        }
-        return (double) sum / records.size();
+
+        OptionalDouble average = records.stream()
+                .mapToInt(record -> record.getGrade().getValue())
+                .average();
+
+        return average.orElseThrow(() -> new EmptyRecordException("Нет оценок для расчета."));
     }
 
     /**
@@ -70,57 +79,41 @@ public class StudentBook {
             }
 
             int lastSemester = getLastSemester();
-            for (int semester = lastSemester; semester > lastSemester - 2; semester--) {
-                for (AcademicRecord r : records) {
-                    if (r.getSemester() == semester && r.getType() == ControlType.EXAM) {
-                        if (r.getGrade() == Grade.SATISFACTORY) {
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true;
+
+            boolean hasSatisfactoryInLastTwoSemesters = records.stream()
+                    .filter(record -> record.getSemester() >= lastSemester - 1
+                            && record.getSemester() <= lastSemester)
+                    .filter(record -> record.getType() == ControlType.EXAM)
+                    .anyMatch(record -> record.getGrade() == Grade.SATISFACTORY);
+
+            return !hasSatisfactoryInLastTwoSemesters;
         } catch (Exception e) {
             throw new AcademicBaseException("Ошибка проверки перевода.", e);
         }
     }
 
     /**
-     * Проверяет возможность получения красного диплома.
+     * Проверяет потенциальную возможность получения красного диплома.
+     * Исключаем все ситуации когда студент уже не может улучшить оценки в будущем.
      *
-     * @return Возможность получения.
+     * @return Потенциальная возможность получения.
      * @throws AcademicBaseException При ошибке анализа.
      */
     public boolean canGetRedDiploma() throws AcademicBaseException {
         try {
-            if (records.isEmpty()) {
-                throw new EmptyRecordException("Нет оценок для анализа диплома.");
+            boolean hasSatisfactory = records.stream()
+                    .anyMatch(record -> record.getGrade() == Grade.SATISFACTORY);
+
+            if (hasSatisfactory) {
+                return false;
             }
 
-            int lastSemester = getLastSemester();
-            List<AcademicRecord> diplomaRecords = new ArrayList<>();
-            for (AcademicRecord r : records) {
-                if (r.getSemester() == lastSemester) {
-                    diplomaRecords.add(r);
-                }
+            if (graduationWorkGrade != null && graduationWorkGrade != Grade.EXCELLENT) {
+                return false;
             }
 
-            if (diplomaRecords.isEmpty()) {
-                throw new EmptyRecordException("Нет оценок за последний семестр.");
-            }
+            return true;
 
-            int excellent = 0;
-            for (AcademicRecord r : diplomaRecords) {
-                if (r.getGrade() == Grade.SATISFACTORY) {
-                    return false;
-                }
-                if (r.getGrade() == Grade.EXCELLENT) {
-                    excellent++;
-                }
-            }
-
-            double percent = (double) excellent / diplomaRecords.size();
-            return graduationWorkGrade == Grade.EXCELLENT && percent >= 0.75;
         } catch (Exception e) {
             throw new DiplomaCheckException("Ошибка проверки диплома.", e);
         }
@@ -139,17 +132,18 @@ public class StudentBook {
                 return false;
             }
 
-            boolean hasRecordsInSemester = false;
-            for (AcademicRecord r : records) {
-                if (r.getSemester() == currentSemester) {
-                    hasRecordsInSemester = true;
-                    if (r.getGrade() != Grade.EXCELLENT) {
-                        return false;
-                    }
-                }
+            List<AcademicRecord> currentSemesterRecords = records.stream()
+                    .filter(record -> record.getSemester() == currentSemester)
+                    .collect(Collectors.toList());
+
+            if (currentSemesterRecords.isEmpty()) {
+                return false;
             }
 
-            return hasRecordsInSemester;
+            boolean allExcellent = currentSemesterRecords.stream()
+                    .allMatch(record -> record.getGrade() == Grade.EXCELLENT);
+
+            return allExcellent;
         } catch (Exception e) {
             throw new AcademicBaseException("Ошибка проверки стипендии.", e);
         }
@@ -161,12 +155,54 @@ public class StudentBook {
      * @return Номер семестра.
      */
     private int getLastSemester() {
-        int max = 0;
-        for (AcademicRecord r : records) {
-            if (r.getSemester() > max) {
-                max = r.getSemester();
-            }
-        }
-        return max;
+        return records.stream()
+                .mapToInt(AcademicRecord::getSemester)
+                .max()
+                .orElse(0);
+    }
+
+    /**
+     * Получить ID студента.
+     *
+     * @return ID студента
+     */
+    public String getStudentId() {
+        return studentId;
+    }
+
+    /**
+     * Получить имя студента.
+     *
+     * @return имя студента.
+     */
+    public String getStudentName() {
+        return studentName;
+    }
+
+    /**
+     * Получить форму обучения.
+     *
+     * @return форма обучения.
+     */
+    public StudyForm getStudyForm() {
+        return studyForm;
+    }
+
+    /**
+     * Получить все записи об оценках.
+     *
+     * @return список записей.
+     */
+    public List<AcademicRecord> getRecords() {
+        return new ArrayList<>(records);
+    }
+
+    /**
+     * Получить оценку за выпускную работу.
+     *
+     * @return оценка за выпускную работу.
+     */
+    public Grade getGraduationWorkGrade() {
+        return graduationWorkGrade;
     }
 }
