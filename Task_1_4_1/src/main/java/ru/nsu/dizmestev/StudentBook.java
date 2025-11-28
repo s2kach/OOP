@@ -52,44 +52,39 @@ public class StudentBook {
      * Вычисляет текущий средний балл.
      *
      * @return Средний балл.
-     * @throws EmptyRecordException При отсутствии оценок.
+     * @throws AcademicBaseException При отсутствии оценок.
      */
-    public double calculateAverage() throws EmptyRecordException {
+    public double calculateAverage() throws AcademicBaseException {
         if (records.isEmpty()) {
-            throw new EmptyRecordException("Нет оценок для расчета.");
+            throw new AcademicBaseException("Нет оценок для расчета.");
         }
 
         OptionalDouble average = records.stream()
                 .mapToInt(record -> record.getGrade().getValue())
                 .average();
 
-        return average.orElseThrow(() -> new EmptyRecordException("Нет оценок для расчета."));
+        return average.orElseThrow(() -> new AcademicBaseException("Нет оценок для расчета."));
     }
 
     /**
      * Проверяет возможность перевода на бюджет.
      *
      * @return Возможность перевода.
-     * @throws AcademicBaseException При ошибке анализа.
      */
-    public boolean canTransferToBudget() throws AcademicBaseException {
-        try {
-            if (studyForm == StudyForm.BUDGET) {
-                return false;
-            }
-
-            int lastSemester = getLastSemester();
-
-            boolean hasSatisfactoryInLastTwoSemesters = records.stream()
-                    .filter(record -> record.getSemester() >= lastSemester - 1
-                            && record.getSemester() <= lastSemester)
-                    .filter(record -> record.getType() == ControlType.EXAM)
-                    .anyMatch(record -> record.getGrade() == Grade.SATISFACTORY);
-
-            return !hasSatisfactoryInLastTwoSemesters;
-        } catch (Exception e) {
-            throw new AcademicBaseException("Ошибка проверки перевода.", e);
+    public boolean canTransferToBudget() {
+        if (studyForm == StudyForm.BUDGET) {
+            return false;
         }
+
+        int lastSemester = getLastSemester();
+
+        boolean hasSatisfactoryInLastTwoSemesters = records.stream()
+                .filter(record -> record.getSemester() >= lastSemester - 1
+                        && record.getSemester() <= lastSemester)
+                .filter(record -> record.getType() == ControlType.EXAM)
+                .anyMatch(record -> record.getGrade() == Grade.SATISFACTORY);
+
+        return !hasSatisfactoryInLastTwoSemesters;
     }
 
     /**
@@ -97,26 +92,20 @@ public class StudentBook {
      * Исключаем все ситуации когда студент уже не может улучшить оценки в будущем.
      *
      * @return Потенциальная возможность получения.
-     * @throws AcademicBaseException При ошибке анализа.
      */
-    public boolean canGetRedDiploma() throws AcademicBaseException {
-        try {
-            boolean hasSatisfactory = records.stream()
-                    .anyMatch(record -> record.getGrade() == Grade.SATISFACTORY);
+    public boolean canGetRedDiploma() {
+        boolean hasSatisfactory = records.stream()
+                .anyMatch(record -> record.getGrade() == Grade.SATISFACTORY);
 
-            if (hasSatisfactory) {
-                return false;
-            }
-
-            if (graduationWorkGrade != null && graduationWorkGrade != Grade.EXCELLENT) {
-                return false;
-            }
-
-            return true;
-
-        } catch (Exception e) {
-            throw new DiplomaCheckException("Ошибка проверки диплома.", e);
+        if (hasSatisfactory) {
+            return false;
         }
+
+        if (graduationWorkGrade != null && graduationWorkGrade != Grade.EXCELLENT) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -124,29 +113,24 @@ public class StudentBook {
      *
      * @param currentSemester Текущий семестр.
      * @return Возможность получения.
-     * @throws AcademicBaseException При ошибке анализа.
      */
-    public boolean canGetIncreasedScholarship(int currentSemester) throws AcademicBaseException {
-        try {
-            if (studyForm != StudyForm.BUDGET) {
-                return false;
-            }
-
-            List<AcademicRecord> currentSemesterRecords = records.stream()
-                    .filter(record -> record.getSemester() == currentSemester)
-                    .collect(Collectors.toList());
-
-            if (currentSemesterRecords.isEmpty()) {
-                return false;
-            }
-
-            boolean allExcellent = currentSemesterRecords.stream()
-                    .allMatch(record -> record.getGrade() == Grade.EXCELLENT);
-
-            return allExcellent;
-        } catch (Exception e) {
-            throw new AcademicBaseException("Ошибка проверки стипендии.", e);
+    public boolean canGetIncreasedScholarship(int currentSemester) {
+        if (studyForm != StudyForm.BUDGET) {
+            return false;
         }
+
+        List<AcademicRecord> currentSemesterRecords = records.stream()
+                .filter(record -> record.getSemester() == currentSemester)
+                .collect(Collectors.toList());
+
+        if (currentSemesterRecords.isEmpty()) {
+            return false;
+        }
+
+        boolean allExcellent = currentSemesterRecords.stream()
+                .allMatch(record -> record.getGrade() == Grade.EXCELLENT);
+
+        return allExcellent;
     }
 
     /**

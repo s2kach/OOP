@@ -29,7 +29,7 @@ class StudentBookTest {
 
     @Test
     void testCalculateAverageWithNoRecords() {
-        assertThrows(EmptyRecordException.class, () -> studentBook.calculateAverage());
+        assertThrows(AcademicBaseException.class, () -> studentBook.calculateAverage());
     }
 
     @Test
