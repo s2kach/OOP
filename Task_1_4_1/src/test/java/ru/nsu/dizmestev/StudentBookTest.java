@@ -147,7 +147,8 @@ class StudentBookTest {
     @Test
     void testCanGetIncreasedScholarshipWithBadGrades() throws Exception {
         budgetStudentBook.addRecord(new AcademicRecord(1, ControlType.EXAM, Grade.GOOD));
-        budgetStudentBook.addRecord(new AcademicRecord(1, ControlType.DIFF_CREDIT, Grade.EXCELLENT));
+        budgetStudentBook.addRecord(new AcademicRecord(1,
+                ControlType.DIFF_CREDIT, Grade.EXCELLENT));
 
         assertFalse(budgetStudentBook.canGetIncreasedScholarship(1));
     }
