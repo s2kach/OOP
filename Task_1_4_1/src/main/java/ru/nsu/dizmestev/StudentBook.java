@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class StudentBook {
 
     private final List<AcademicRecord> records;
-    private final StudyForm studyForm;
+    private StudyForm studyForm; // IDE подсказала добавить final а я согласился случайно
     private final int totalDiplomaGrades;
     private Grade graduationWorkGrade;
     private final String studentId;
@@ -88,6 +88,24 @@ public class StudentBook {
                 .anyMatch(record -> record.getGrade() == Grade.SATISFACTORY);
 
         return !hasSatisfactoryInLastTwoSemesters;
+    }
+
+    /**
+     * Переводит студента на бюджетную форму обучения.
+     *
+     * @throws AcademicBaseException если перевод невозможен.
+     */
+    public void transferToBudget() throws AcademicBaseException {
+        if (studyForm == StudyForm.BUDGET) {
+            throw new AcademicBaseException("Студент уже учится на бюджете.");
+        }
+
+        if (!canTransferToBudget()) {
+            throw new AcademicBaseException("Перевод на бюджет невозможен: "
+                    + "в последних двух сессиях есть экзамены с оценкой 'удовлетворительно'.");
+        }
+
+        this.studyForm = StudyForm.BUDGET;
     }
 
     /**

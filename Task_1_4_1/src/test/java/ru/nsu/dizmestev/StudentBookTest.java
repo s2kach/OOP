@@ -230,4 +230,25 @@ class StudentBookTest {
         assertEquals(4.5, studentBook.calculateAverage(), 0.01);
         assertTrue(studentBook.canGetRedDiploma());
     }
+
+    @Test
+    void testTransferToBudgetSuccess() throws Exception {
+        StudentBook sb = new StudentBook("1", "A", StudyForm.PAID, 10);
+
+        sb.addRecord(new AcademicRecord(2, ControlType.EXAM, Grade.EXCELLENT));
+        sb.addRecord(new AcademicRecord(3, ControlType.EXAM, Grade.EXCELLENT));
+
+        sb.transferToBudget();
+        assertEquals(StudyForm.BUDGET, sb.getStudyForm());
+    }
+
+    @Test
+    void testTransferToBudgetFailure() {
+        StudentBook sb = new StudentBook("1", "A", StudyForm.PAID, 10);
+
+        sb.addRecord(new AcademicRecord(2, ControlType.EXAM, Grade.SATISFACTORY));
+        sb.addRecord(new AcademicRecord(3, ControlType.EXAM, Grade.EXCELLENT));
+
+        assertThrows(AcademicBaseException.class, sb::transferToBudget);
+    }
 }
