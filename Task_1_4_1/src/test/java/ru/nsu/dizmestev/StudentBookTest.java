@@ -16,8 +16,8 @@ class StudentBookTest {
 
     @BeforeEach
     void setUp() {
-        studentBook = new StudentBook("12345", "Иванов Иван", StudyForm.PAID);
-        budgetStudentBook = new StudentBook("67890", "Петров Петр", StudyForm.BUDGET);
+        studentBook = new StudentBook("12345", "Иванов Иван", StudyForm.PAID, 40);
+        budgetStudentBook = new StudentBook("67890", "Петров Петр", StudyForm.BUDGET, 12);
     }
 
     @Test
@@ -135,6 +135,45 @@ class StudentBookTest {
         studentBook.addRecord(new AcademicRecord(4, ControlType.DIFF_CREDIT, Grade.GOOD));
 
         assertTrue(studentBook.canGetRedDiploma());
+    }
+
+    @Test
+    void testRedDiplomaExactly75PercentExcellent() {
+        for (int i = 0; i < 9; i++) {
+            budgetStudentBook.addRecord(new AcademicRecord(1, ControlType.EXAM, Grade.EXCELLENT));
+        }
+        for (int i = 0; i < 3; i++) {
+            budgetStudentBook.addRecord(new AcademicRecord(1, ControlType.EXAM, Grade.GOOD));
+        }
+
+        budgetStudentBook.setGraduationWorkGrade(Grade.EXCELLENT);
+        assertTrue(budgetStudentBook.canGetRedDiploma());
+    }
+
+    @Test
+    void testRedDiplomaBelow75Percent() {
+        for (int i = 0; i < 8; i++) {
+            budgetStudentBook.addRecord(new AcademicRecord(1, ControlType.EXAM, Grade.EXCELLENT));
+        }
+        for (int i = 0; i < 4; i++) {
+            budgetStudentBook.addRecord(new AcademicRecord(1, ControlType.EXAM, Grade.GOOD));
+        }
+
+        budgetStudentBook.setGraduationWorkGrade(Grade.EXCELLENT);
+        assertFalse(budgetStudentBook.canGetRedDiploma());
+    }
+
+    @Test
+    void testRedDiplomaExactly75PercentExcellentButGraduationBookNotExcellent() {
+        for (int i = 0; i < 9; i++) {
+            budgetStudentBook.addRecord(new AcademicRecord(1, ControlType.EXAM, Grade.EXCELLENT));
+        }
+        for (int i = 0; i < 3; i++) {
+            budgetStudentBook.addRecord(new AcademicRecord(1, ControlType.EXAM, Grade.GOOD));
+        }
+
+        budgetStudentBook.setGraduationWorkGrade(Grade.GOOD);
+        assertFalse(budgetStudentBook.canGetRedDiploma());
     }
 
     @Test

@@ -11,7 +11,8 @@ import java.util.stream.Collectors;
 public class StudentBook {
 
     private final List<AcademicRecord> records;
-    private StudyForm studyForm;
+    private final StudyForm studyForm;
+    private final int totalDiplomaGrades;
     private Grade graduationWorkGrade;
     private final String studentId;
     private final String studentName;
@@ -23,7 +24,9 @@ public class StudentBook {
      * @param studentName Имя студента
      * @param studyForm Форма обучения.
      */
-    public StudentBook(String studentId, String studentName, StudyForm studyForm) {
+    public StudentBook(String studentId, String studentName, StudyForm studyForm,
+                       int totalDiplomaGrades) {
+        this.totalDiplomaGrades = totalDiplomaGrades;
         this.records = new ArrayList<>();
         this.studyForm = studyForm;
         this.studentId = studentId;
@@ -105,7 +108,23 @@ public class StudentBook {
             return false;
         }
 
-        return true;
+        List<AcademicRecord> forDiploma = records.stream()
+                .filter(r -> r.getType() == ControlType.EXAM
+                        || r.getType() == ControlType.DIFF_CREDIT)
+                .collect(Collectors.toList());
+
+        int done = forDiploma.size();
+        int excellent = (int) forDiploma.stream()
+                .filter(r -> r.getGrade() == Grade.EXCELLENT)
+                .count();
+
+        int remaining = totalDiplomaGrades - done;
+        if (remaining < 0) {
+            return false;
+        }
+
+        int maxExcellent = excellent + remaining;
+        return maxExcellent >= 0.75 * totalDiplomaGrades;
     }
 
     /**
