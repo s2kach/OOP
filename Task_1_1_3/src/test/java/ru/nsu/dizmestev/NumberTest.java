@@ -1,6 +1,7 @@
 package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,5 +48,16 @@ class NumberTest {
         Number number = new Number(3);
         int result = number.evaluate(new HashMap<>());
         assertEquals(3, result);
+    }
+
+    @Test
+    void testEquals() {
+        Number num1 = new Number(5);
+        Number num2 = new Number(5);
+        Number num3 = new Number(3);
+
+        assertEquals(num1, num2);
+        assertNotEquals(num1, num3);
+        assertEquals(num1.hashCode(), num2.hashCode());
     }
 }

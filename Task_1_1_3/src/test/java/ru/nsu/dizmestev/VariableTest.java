@@ -1,6 +1,7 @@
 package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashMap;
@@ -83,5 +84,16 @@ class VariableTest {
         assertThrows(ExpressionEvaluateException.class, () -> {
             variable.evaluate(vars);
         });
+    }
+
+    @Test
+    void testEquals() {
+        Variable var1 = new Variable("x");
+        Variable var2 = new Variable("x");
+        Variable var3 = new Variable("y");
+
+        assertEquals(var1, var2);
+        assertNotEquals(var1, var3);
+        assertEquals(var1.hashCode(), var2.hashCode());
     }
 }

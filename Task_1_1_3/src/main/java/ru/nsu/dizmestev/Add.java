@@ -6,8 +6,34 @@ import java.util.Map;
  * Класс для представления операции сложения двух выражений.
  */
 public class Add extends Expression {
-    private final Expression left;
-    private final Expression right;
+    public final Expression left;
+    public final Expression right;
+
+    @Override
+    public Expression simplify() {
+        Expression leftSimplified = left.simplify();
+        Expression rightSimplified = right.simplify();
+
+        if (leftSimplified instanceof Number && rightSimplified instanceof Number) {
+            int leftValue = ((Number) leftSimplified).value;
+            int rightValue = ((Number) rightSimplified).value;
+            return new Number(leftValue + rightValue);
+        }
+
+        if (leftSimplified instanceof Number && ((Number) leftSimplified).value == 0) {
+            return rightSimplified;
+        }
+
+        if (rightSimplified instanceof Number && ((Number) rightSimplified).value == 0) {
+            return leftSimplified;
+        }
+
+        if (leftSimplified == left && rightSimplified == right) {
+            return this;
+        }
+
+        return new Add(leftSimplified, rightSimplified);
+    }
 
     /**
      * Создает новую операцию сложения.
@@ -55,5 +81,18 @@ public class Add extends Expression {
     @Override
     public int evaluate(Map<String, Integer> vars) {
         return left.evaluate(vars) + right.evaluate(vars);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Add other = (Add) obj;
+        return left.equals(other.left) && right.equals(other.right);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * left.hashCode() + right.hashCode();
     }
 }

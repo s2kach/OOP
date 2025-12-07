@@ -10,6 +10,13 @@ import java.util.Map;
 public abstract class Expression {
 
     /**
+     * Функция для упрощения выражения.
+     *
+     * @return Возвращает эквивалентное математическое выражение.
+     */
+    public abstract Expression simplify();
+
+    /**
      * Возвращает строковое представление выражения.
      *
      * @return Строковое представление выражения в формате со скобками.
@@ -160,6 +167,115 @@ public abstract class Expression {
             default: throw new ExpressionParseException("Неизвестный оператор: "
                     + operator);
         }
+    }
+
+    /**
+     * Парсит математическое выражение из строки без обязательных скобок.
+     * Поддерживает приоритет операций: * и / выполняются до + и -.
+     *
+     * @param expressionStr Строка с математическим выражением.
+     * @return Распарсенное выражение.
+     * @throws ExpressionParseException Если строка выражения имеет неверный формат.
+     */
+    public static Expression parseWithoutParentheses(String expressionStr)
+            throws ExpressionParseException {
+        if (expressionStr == null || expressionStr.trim().isEmpty()) {
+            throw new ExpressionParseException("Строка выражения не может быть пустой.");
+        }
+
+        return parseExpressionWithPriority(expressionStr.trim());
+    }
+
+    /**
+     * Рекурсивно парсит выражение с учетом приоритета операций.
+     *
+     * @param str Строка с выражением.
+     */
+    private static Expression parseExpressionWithPriority(String str) {
+        str = str.trim();
+
+        if (str.isEmpty()) {
+            throw new ExpressionParseException("Пустое выражение");
+        }
+
+        if (str.charAt(0) == '(' && str.charAt(str.length() - 1) == ')') {
+            int bracketCount = 0;
+            boolean isFullyEnclosed = true;
+
+            for (int i = 0; i < str.length(); i++) {
+                char c = str.charAt(i);
+                if (c == '(') {
+                    bracketCount++;
+                } else if (c == ')') {
+                    bracketCount--;
+                    if (bracketCount == 0 && i < str.length() - 1) {
+                        isFullyEnclosed = false;
+                        break;
+                    }
+                }
+            }
+
+            if (isFullyEnclosed) {
+                String content = str.substring(1, str.length() - 1).trim();
+                return parseExpressionWithPriority(content);
+            }
+        }
+
+        int index = findLowestPriorityOperator(str, '+', '-');
+        if (index != -1) {
+            char operator = str.charAt(index);
+            String leftStr = str.substring(0, index).trim();
+            String rightStr = str.substring(index + 1).trim();
+
+            Expression left = parseExpressionWithPriority(leftStr);
+            Expression right = parseExpressionWithPriority(rightStr);
+
+            if (operator == '+') {
+                return new Add(left, right);
+            } else {
+                return new Sub(left, right);
+            }
+        }
+
+        index = findLowestPriorityOperator(str, '*', '/');
+        if (index != -1) {
+            char operator = str.charAt(index);
+            String leftStr = str.substring(0, index).trim();
+            String rightStr = str.substring(index + 1).trim();
+
+            Expression left = parseExpressionWithPriority(leftStr);
+            Expression right = parseExpressionWithPriority(rightStr);
+
+            if (operator == '*') {
+                return new Mul(left, right);
+            } else {
+                return new Div(left, right);
+            }
+        }
+
+        return parseSimpleExpression(str);
+    }
+
+    /**
+     * Находит оператор с наименьшим приоритетом, учитывая скобки.
+     *
+     * @param str Строка с выражением.
+     * @param op1 Первый оператор.
+     * @param op2 Второй оператор.
+     */
+    private static int findLowestPriorityOperator(String str, char op1, char op2) {
+        int bracketCount = 0;
+        for (int i = str.length() - 1; i >= 0; i--) {
+            char c = str.charAt(i);
+            if (c == ')') {
+                bracketCount++;
+            } else if (c == '(') {
+                bracketCount--;
+            } else if (bracketCount == 0 && (c == op1 || c == op2)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**

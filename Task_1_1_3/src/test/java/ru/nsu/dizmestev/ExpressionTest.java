@@ -62,4 +62,34 @@ class ExpressionTest {
             expr.eval("x=5;y=");
         });
     }
+
+    @Test
+    void testParseWithoutParenthesesSimple() {
+        Expression expr = Expression.parseWithoutParentheses("3+2");
+        assertEquals("(3+2)", expr.print());
+    }
+
+    @Test
+    void testParseWithoutParenthesesWithPriority() {
+        Expression expr = Expression.parseWithoutParentheses("3+2*4");
+        assertEquals("(3+(2*4))", expr.print());
+    }
+
+    @Test
+    void testParseWithoutParenthesesComplex() {
+        Expression expr = Expression.parseWithoutParentheses("a+b*c-d/e");
+        assertEquals("((a+(b*c))-(d/e))", expr.print());
+    }
+
+    @Test
+    void testParseWithoutParenthesesWithVariables() {
+        Expression expr = Expression.parseWithoutParentheses("x*y+10/z");
+        assertEquals("((x*y)+(10/z))", expr.print());
+    }
+
+    @Test
+    void testParseWithoutParenthesesWithParentheses() {
+        Expression expr = Expression.parseWithoutParentheses("(a+b)*(c-d)");
+        assertEquals("((a+b)*(c-d))", expr.print());
+    }
 }

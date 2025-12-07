@@ -6,8 +6,41 @@ import java.util.Map;
  * Класс для представления операции деления двух выражений.
  */
 public class Div extends Expression {
-    private final Expression left;
-    private final Expression right;
+    public final Expression left;
+    public final Expression right;
+
+    @Override
+    public Expression simplify() {
+        Expression leftSimplified = left.simplify();
+        Expression rightSimplified = right.simplify();
+
+        if (leftSimplified instanceof Number && rightSimplified instanceof Number) {
+            int leftValue = ((Number) leftSimplified).value;
+            int rightValue = ((Number) rightSimplified).value;
+            if (rightValue == 0) {
+                throw new ExpressionEvaluateException("Деление на ноль");
+            }
+            return new Number(leftValue / rightValue);
+        }
+
+        if (rightSimplified instanceof Number && ((Number) rightSimplified).value == 1) {
+            return leftSimplified;
+        }
+
+        if (leftSimplified instanceof Number && ((Number) leftSimplified).value == 0) {
+            return new Number(0);
+        }
+
+        if (leftSimplified.equals(rightSimplified)) {
+            return new Number(1);
+        }
+
+        if (leftSimplified == left && rightSimplified == right) {
+            return this;
+        }
+
+        return new Div(leftSimplified, rightSimplified);
+    }
 
     /**
      * Создает новую операцию деления.
@@ -66,5 +99,18 @@ public class Div extends Expression {
             throw new ExpressionEvaluateException("Деление на ноль в выражении: " + this.print());
         }
         return left.evaluate(vars) / denominator;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Div other = (Div) obj;
+        return left.equals(other.left) && right.equals(other.right);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * left.hashCode() + right.hashCode();
     }
 }
