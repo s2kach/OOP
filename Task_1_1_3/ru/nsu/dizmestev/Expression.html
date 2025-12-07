@@ -129,10 +129,20 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Парсит математическое выражение из строки.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#print()" class="member-name-link">print</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Expression.html" title="class in ru.nsu.dizmestev">Expression</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#parseWithoutParentheses(java.lang.String)" class="member-name-link">parseWithoutParentheses</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;expressionStr)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Парсит математическое выражение из строки без обязательных скобок.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#print()" class="member-name-link">print</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Возвращает строковое представление выражения.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract <a href="Expression.html" title="class in ru.nsu.dizmestev">Expression</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#simplify()" class="member-name-link">simplify</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Функция для упрощения выражения.</div>
 </div>
 </div>
 </div>
@@ -165,6 +175,17 @@ loadScripts(document, 'script');</script>
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="simplify()">
+<h3>simplify</h3>
+<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type"><a href="Expression.html" title="class in ru.nsu.dizmestev">Expression</a></span>&nbsp;<span class="element-name">simplify</span>()</div>
+<div class="block">Функция для упрощения выражения.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>Возвращает эквивалентное математическое выражение.</dd>
+</dl>
+</section>
+</li>
 <li>
 <section class="detail" id="print()">
 <h3>print</h3>
@@ -222,6 +243,23 @@ loadScripts(document, 'script');</script>
 <h3>parse</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Expression.html" title="class in ru.nsu.dizmestev">Expression</a></span>&nbsp;<span class="element-name">parse</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;expressionStr)</span></div>
 <div class="block">Парсит математическое выражение из строки.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>expressionStr</code> - Строка с математическим выражением.</dd>
+<dt>Returns:</dt>
+<dd>Распарсенное выражение.</dd>
+<dt>Throws:</dt>
+<dd><code><a href="ExpressionParseException.html" title="class in ru.nsu.dizmestev">ExpressionParseException</a></code> - Если строка выражения имеет неверный формат.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="parseWithoutParentheses(java.lang.String)">
+<h3>parseWithoutParentheses</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Expression.html" title="class in ru.nsu.dizmestev">Expression</a></span>&nbsp;<span class="element-name">parseWithoutParentheses</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;expressionStr)</span>
+                                          throws <span class="exceptions"><a href="ExpressionParseException.html" title="class in ru.nsu.dizmestev">ExpressionParseException</a></span></div>
+<div class="block">Парсит математическое выражение из строки без обязательных скобок.
+ Поддерживает приоритет операций: * и / выполняются до + и -.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>expressionStr</code> - Строка с математическим выражением.</dd>
