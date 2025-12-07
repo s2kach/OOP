@@ -20,8 +20,8 @@ public class Mul extends Expression {
             return new Number(leftValue * rightValue);
         }
 
-        if ((leftSimplified instanceof Number && ((Number) leftSimplified).value == 0) ||
-                (rightSimplified instanceof Number && ((Number) rightSimplified).value == 0)) {
+        if ((leftSimplified instanceof Number && ((Number) leftSimplified).value == 0)
+                || (rightSimplified instanceof Number && ((Number) rightSimplified).value == 0)) {
             return new Number(0);
         }
 
