@@ -8,6 +8,11 @@ import java.util.Map;
 public class Variable extends Expression {
     private final String name;
 
+    @Override
+    public Expression simplify() {
+        return this;
+    }
+
     /**
      * Создает новую переменную.
      *
@@ -67,5 +72,22 @@ public class Variable extends Expression {
                     + name + "' не найдена в заданных значениях.");
         }
         return vars.get(name);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Variable variable = (Variable) obj;
+        return name.equals(variable.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 }

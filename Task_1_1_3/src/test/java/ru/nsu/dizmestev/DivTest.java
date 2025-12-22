@@ -1,6 +1,7 @@
 package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashMap;
@@ -68,5 +69,16 @@ class DivTest {
         Map<String, Integer> vars = new HashMap<>();
         int result = div.evaluate(vars);
         assertEquals(3, result); // 7 / 2 = 3 (integer division)
+    }
+
+    @Test
+    void testEquals() {
+        Expression add1 = new Div(new Number(1), new Variable("x"));
+        Expression add2 = new Div(new Number(1), new Variable("x"));
+        Expression add3 = new Div(new Variable("x"), new Number(1));
+
+        assertEquals(add1, add2);
+        assertNotEquals(add1, add3);
+        assertEquals(add1.hashCode(), add2.hashCode());
     }
 }

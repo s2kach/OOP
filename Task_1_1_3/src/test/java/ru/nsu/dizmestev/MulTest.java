@@ -1,6 +1,7 @@
 package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashMap;
@@ -67,5 +68,16 @@ class MulTest {
         vars.put("x", 100);
         int result = mul.evaluate(vars);
         assertEquals(0, result);
+    }
+
+    @Test
+    void testEquals() {
+        Expression add1 = new Mul(new Number(1), new Variable("x"));
+        Expression add2 = new Mul(new Number(1), new Variable("x"));
+        Expression add3 = new Mul(new Variable("x"), new Number(1));
+
+        assertEquals(add1, add2);
+        assertNotEquals(add1, add3);
+        assertEquals(add1.hashCode(), add2.hashCode());
     }
 }

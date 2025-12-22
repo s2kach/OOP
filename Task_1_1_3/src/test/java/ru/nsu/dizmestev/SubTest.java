@@ -1,6 +1,7 @@
 package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashMap;
@@ -59,5 +60,16 @@ class SubTest {
         Map<String, Integer> vars = new HashMap<>();
         int result = sub.evaluate(vars);
         assertEquals(-5, result);
+    }
+
+    @Test
+    void testEquals() {
+        Expression add1 = new Sub(new Number(1), new Variable("x"));
+        Expression add2 = new Sub(new Number(1), new Variable("x"));
+        Expression add3 = new Sub(new Variable("x"), new Number(1));
+
+        assertEquals(add1, add2);
+        assertNotEquals(add1, add3);
+        assertEquals(add1.hashCode(), add2.hashCode());
     }
 }
