@@ -1,6 +1,7 @@
 package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -22,5 +23,11 @@ public class StreamFinderTest {
         int[] numbers = {};
         NonPrimeFinder finder = new StreamFinder();
         assertFalse(finder.hasNonPrime(numbers));
+    }
+
+    @Test
+    public void testStreamThrowsException() throws Exception {
+        NonPrimeFinder finder = new StreamFinder();
+        assertThrows(TaskExecutionException.class, () -> finder.hasNonPrime(null));
     }
 }

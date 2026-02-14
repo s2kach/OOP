@@ -31,7 +31,8 @@ public class BenchmarkTest {
             boolean resultThread = threaded.hasNonPrime(data);
             endTime = System.currentTimeMillis();
             assertFalse(resultThread);
-            System.out.println("2." + (threads - 1) + ". Параллельно (" + threads + " потоков): " + (endTime - startTime) + " мс");
+            System.out.println("2." + (threads - 1) + ". Параллельно (" + threads + " потоков): "
+                    + (endTime - startTime) + " мс");
         }
 
         NonPrimeFinder streamFinder = new StreamFinder();

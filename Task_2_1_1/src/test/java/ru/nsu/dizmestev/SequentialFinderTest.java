@@ -1,6 +1,7 @@
 package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -22,5 +23,11 @@ public class SequentialFinderTest {
         int[] numbers = {20319251, 6997901, 6997927};
         NonPrimeFinder finder = new SequentialFinder();
         assertFalse(finder.hasNonPrime(numbers));
+    }
+
+    @Test
+    public void testHasNonPrimeThrowsException() throws Exception {
+        NonPrimeFinder finder = new SequentialFinder();
+        assertThrows(TaskExecutionException.class, () -> finder.hasNonPrime(null));
     }
 }

@@ -38,11 +38,15 @@ public class ThreadedFinder implements NonPrimeFinder {
                 final int start = i * chunkSize;
                 final int end = Math.min(start + chunkSize, numbers.length);
 
-                if (start >= numbers.length) break;
+                if (start >= numbers.length) {
+                    break;
+                }
 
                 Thread thread = new Thread(() -> {
                     for (int j = start; j < end; j++) {
-                        if (foundNonPrime.get()) return;
+                        if (foundNonPrime.get()) {
+                            return;
+                        }
                         if (!PrimeChecker.isPrime(numbers[j])) {
                             foundNonPrime.set(true);
                             return;
