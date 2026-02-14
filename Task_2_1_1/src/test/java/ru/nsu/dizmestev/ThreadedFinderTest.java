@@ -1,0 +1,26 @@
+package ru.nsu.dizmestev;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Тесты для многопоточной реализации поиска.
+ */
+public class ThreadedFinderTest {
+
+    @Test
+    public void testHasNonPrimeWithThreads() throws Exception {
+        int[] numbers = {2, 3, 5, 7, 11, 12};
+        NonPrimeFinder finder = new ThreadedFinder(4);
+        assertTrue(finder.hasNonPrime(numbers));
+    }
+
+    @Test
+    public void testAllPrimesWithThreads() throws Exception {
+        int[] numbers = {2, 3, 5, 7, 11, 13, 17, 19};
+        NonPrimeFinder finder = new ThreadedFinder(2);
+        assertFalse(finder.hasNonPrime(numbers));
+    }
+}
