@@ -31,9 +31,10 @@ public class ThreadedFinder implements NonPrimeFinder {
     public boolean hasNonPrime(int[] numbers) throws TaskExecutionException {
         AtomicBoolean foundNonPrime = new AtomicBoolean(false);
         List<Thread> threads = new ArrayList<>();
-        int chunkSize = (numbers.length + threadCount - 1) / threadCount;
 
         try {
+            int chunkSize = (numbers.length + threadCount - 1) / threadCount;
+
             for (int i = 0; i < threadCount; i++) {
                 final int start = i * chunkSize;
                 final int end = Math.min(start + chunkSize, numbers.length);

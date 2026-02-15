@@ -26,7 +26,20 @@ public class StreamFinderTest {
     }
 
     @Test
+    public void testArrayWith1Elem() throws Exception {
+        int[] numbers = {3};
+        NonPrimeFinder finder = new StreamFinder();
+        assertFalse(finder.hasNonPrime(numbers));
+    }
+
+    @Test
     public void testStreamThrowsException() throws Exception {
+        NonPrimeFinder finder = new StreamFinder();
+        assertThrows(TaskExecutionException.class, () -> finder.hasNonPrime(null));
+    }
+
+    @Test
+    public void testWithNull() throws Exception {
         NonPrimeFinder finder = new StreamFinder();
         assertThrows(TaskExecutionException.class, () -> finder.hasNonPrime(null));
     }

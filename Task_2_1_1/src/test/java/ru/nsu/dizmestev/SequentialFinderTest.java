@@ -30,4 +30,24 @@ public class SequentialFinderTest {
         NonPrimeFinder finder = new SequentialFinder();
         assertThrows(TaskExecutionException.class, () -> finder.hasNonPrime(null));
     }
+
+    @Test
+    public void testHasNonPrimeWith1Elem() throws Exception {
+        int[] numbers = {6};
+        NonPrimeFinder finder = new SequentialFinder();
+        assertTrue(finder.hasNonPrime(numbers));
+    }
+
+    @Test
+    public void testEmptyArray() throws Exception {
+        int[] numbers = {};
+        NonPrimeFinder finder = new SequentialFinder();
+        assertFalse(finder.hasNonPrime(numbers));
+    }
+
+    @Test
+    public void testWithNull() throws Exception {
+        NonPrimeFinder finder = new SequentialFinder();
+        assertThrows(TaskExecutionException.class, () -> finder.hasNonPrime(null));
+    }
 }
