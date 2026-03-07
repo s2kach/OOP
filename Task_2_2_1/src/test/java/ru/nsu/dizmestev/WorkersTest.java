@@ -51,4 +51,47 @@ public class WorkersTest {
             throw new PizzeriaInterruptedException("Тест прерван", e);
         }
     }
+
+    @Test
+    public void testBakerInterruptionDuringSleep() throws PizzeriaInterruptedException {
+        OrderQueue queue = new OrderQueue();
+        Storage storage = new Storage(5);
+        queue.addOrder(new Order(99));
+
+        Baker baker = new Baker(10000, queue, storage);
+        Thread bakerThread = new Thread(baker);
+        bakerThread.start();
+
+        try {
+            Thread.sleep(100);
+            bakerThread.interrupt();
+            bakerThread.join(2000);
+
+            assertFalse(bakerThread.isAlive());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new PizzeriaInterruptedException("Тест прерван", e);
+        }
+    }
+
+    @Test
+    public void testCourierInterruptionDuringDelivery() throws PizzeriaInterruptedException {
+        Storage storage = new Storage(5);
+        storage.putPizza(new Order(100));
+
+        Courier courier = new Courier(2, storage);
+        Thread courierThread = new Thread(courier);
+        courierThread.start();
+
+        try {
+            Thread.sleep(100);
+            courierThread.interrupt();
+            courierThread.join(2000);
+
+            assertFalse(courierThread.isAlive());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new PizzeriaInterruptedException("Тест прерван", e);
+        }
+    }
 }

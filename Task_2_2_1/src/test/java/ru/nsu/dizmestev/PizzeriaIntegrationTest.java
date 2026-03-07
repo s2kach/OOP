@@ -1,5 +1,6 @@
 package ru.nsu.dizmestev;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -41,6 +42,49 @@ public class PizzeriaIntegrationTest {
             assertTrue(true);
         } catch (IOException e) {
             throw new PizzeriaConfigurationException("Ошибка записи тестового конфига.", e);
+        } finally {
+            if (configFile.exists()) {
+                configFile.delete();
+            }
+        }
+    }
+
+    @Test
+    public void testMainMissingConfigFile() {
+        File configFile = new File("config.json");
+        // Убеждаемся, что файла нет
+        if (configFile.exists()) {
+            configFile.delete();
+        }
+
+        assertThrows(PizzeriaConfigurationException.class, () -> Main.main(new String[]{}));
+    }
+
+    @Test
+    public void testMainInvalidJsonConfig() throws PizzeriaConfigurationException {
+        File configFile = new File("config.json");
+        try {
+            Files.writeString(Paths.get(configFile.toURI()), "это не json");
+            assertThrows(PizzeriaConfigurationException.class, () -> Main.main(new String[]{}));
+        } catch (IOException e) {
+            throw new PizzeriaConfigurationException("Ошибка подготовки тестового файла.", e);
+        } finally {
+            if (configFile.exists()) {
+                configFile.delete();
+            }
+        }
+    }
+
+    @Test
+    public void testMainEmptyConfigData() throws PizzeriaConfigurationException {
+        File configFile = new File("config.json");
+        String emptyConfig = "{\"bakersSpeed\": [], \"couriersCapacity\": [],"
+                + " \"storageCapacity\": 0}";
+        try {
+            Files.writeString(Paths.get(configFile.toURI()), emptyConfig);
+            assertThrows(PizzeriaConfigurationException.class, () -> Main.main(new String[]{}));
+        } catch (IOException e) {
+            throw new PizzeriaConfigurationException("Ошибка подготовки тестового файла.", e);
         } finally {
             if (configFile.exists()) {
                 configFile.delete();
