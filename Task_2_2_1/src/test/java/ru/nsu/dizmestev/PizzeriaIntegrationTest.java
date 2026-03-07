@@ -15,7 +15,8 @@ public class PizzeriaIntegrationTest {
 
     @Test
     public void testPizzeriaFullCycle() throws PizzeriaException {
-        Config config = new Config("{\"bakersSpeed\": [10], \"couriersCapacity\": [1], \"storageCapacity\": 2}");
+        Config config = new Config("{\"bakersSpeed\": [10], \"couriersCapacity\": [1],"
+                + " \"storageCapacity\": 2}");
         Pizzeria pizzeria = new Pizzeria(config);
 
         pizzeria.start();
@@ -24,7 +25,6 @@ public class PizzeriaIntegrationTest {
 
         pizzeria.shutdown();
 
-        // Если shutdown прошел успешно и не завис, тест считается пройденным
         assertTrue(true);
     }
 
@@ -36,7 +36,6 @@ public class PizzeriaIntegrationTest {
         try {
             Files.writeString(Paths.get(configFile.toURI()), json);
 
-            // Вызываем main, он создаст заказы и штатно завершится (в Main.java мы делали 10 заказов)
             Main.main(new String[]{});
 
             assertTrue(true);

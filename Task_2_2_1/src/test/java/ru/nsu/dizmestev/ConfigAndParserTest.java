@@ -12,7 +12,8 @@ public class ConfigAndParserTest {
 
     @Test
     public void testValidJsonParsing() {
-        String json = "{\"bakersSpeed\": [1000, 2000], \"couriersCapacity\": [2], \"storageCapacity\": 5}";
+        String json = "{\"bakersSpeed\": [1000, 2000], \"couriersCapacity\": [2],"
+                + " \"storageCapacity\": 5}";
         Config config = new Config(json);
 
         assertArrayEquals(new int[]{1000, 2000}, config.getBakersSpeed());

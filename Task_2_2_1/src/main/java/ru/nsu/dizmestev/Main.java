@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * Точка входа в программу
+ * Точка входа в программу.
  */
 public class Main {
 

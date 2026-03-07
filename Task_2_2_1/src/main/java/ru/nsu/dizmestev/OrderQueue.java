@@ -34,7 +34,7 @@ public class OrderQueue {
             if (orders.isEmpty() && !isOpen) {
                 return null;
             }
-            return orders.removeFirst();
+            return orders.remove(0);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new PizzeriaInterruptedException("Поток ожидания нового заказа прерван.", e);
