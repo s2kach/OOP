@@ -48,7 +48,7 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="ru/nsu/dizmestev/Pizzeria.html#addOrder()" class="member-name-link">addOrder()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Pizzeria.html" title="class in ru.nsu.dizmestev">Pizzeria</a></dt>
@@ -81,9 +81,9 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Класс конфигурации пиццерии, заполняемый вручную из JSON строки.</div>
 </dd>
-<dt><a href="ru/nsu/dizmestev/Config.html#%3Cinit%3E(java.lang.String)" class="member-name-link">Config(String)</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Config.html" title="class in ru.nsu.dizmestev">Config</a></dt>
+<dt><a href="ru/nsu/dizmestev/Config.html#%3Cinit%3E()" class="member-name-link">Config()</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Config.html" title="class in ru.nsu.dizmestev">Config</a></dt>
 <dd>
-<div class="block">Конструктор, инициализирующий поля через парсинг строки.</div>
+<div class="block">Конструктор.</div>
 </dd>
 <dt><a href="ru/nsu/dizmestev/OrderState.html#COOKING" class="member-name-link">COOKING</a> - Enum constant in enum class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/OrderState.html" title="enum class in ru.nsu.dizmestev">OrderState</a></dt>
 <dd>&nbsp;</dd>
@@ -103,6 +103,13 @@ loadScripts(document, 'script');</script>
 <dt><a href="ru/nsu/dizmestev/OrderState.html#DELIVERING" class="member-name-link">DELIVERING</a> - Enum constant in enum class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/OrderState.html" title="enum class in ru.nsu.dizmestev">OrderState</a></dt>
 <dd>&nbsp;</dd>
 </dl>
+<h2 class="title" id="I:F">F</h2>
+<dl class="index">
+<dt><a href="ru/nsu/dizmestev/Config.html#fromJson(java.lang.String)" class="member-name-link">fromJson(String)</a> - Static method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Config.html" title="class in ru.nsu.dizmestev">Config</a></dt>
+<dd>
+<div class="block">Создает конфигурацию из JSON строки с помощью Gson.</div>
+</dd>
+</dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
 <dt><a href="ru/nsu/dizmestev/Config.html#getBakersSpeed()" class="member-name-link">getBakersSpeed()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Config.html" title="class in ru.nsu.dizmestev">Config</a></dt>
@@ -117,27 +124,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Возвращает уникальный номер заказа.</div>
 </dd>
-<dt><a href="ru/nsu/dizmestev/JsonParser.html#getInt(java.lang.String,java.lang.String)" class="member-name-link">getInt(String, String)</a> - Static method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/JsonParser.html" title="class in ru.nsu.dizmestev">JsonParser</a></dt>
-<dd>
-<div class="block">Извлекает одиночное целое число по ключу из JSON строки.</div>
-</dd>
-<dt><a href="ru/nsu/dizmestev/JsonParser.html#getIntArray(java.lang.String,java.lang.String)" class="member-name-link">getIntArray(String, String)</a> - Static method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/JsonParser.html" title="class in ru.nsu.dizmestev">JsonParser</a></dt>
-<dd>
-<div class="block">Извлекает массив целых чисел по ключу из JSON строки.</div>
-</dd>
 <dt><a href="ru/nsu/dizmestev/Config.html#getStorageCapacity()" class="member-name-link">getStorageCapacity()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Config.html" title="class in ru.nsu.dizmestev">Config</a></dt>
 <dd>
 <div class="block">Возвращает максимальную вместимость склада.</div>
 </dd>
-</dl>
-<h2 class="title" id="I:J">J</h2>
-<dl class="index">
-<dt><a href="ru/nsu/dizmestev/JsonParser.html" class="type-name-link" title="class in ru.nsu.dizmestev">JsonParser</a> - Class in <a href="ru/nsu/dizmestev/package-summary.html">ru.nsu.dizmestev</a></dt>
-<dd>
-<div class="block">Простой парсер для извлечения данных из JSON конфигурации.</div>
-</dd>
-<dt><a href="ru/nsu/dizmestev/JsonParser.html#%3Cinit%3E()" class="member-name-link">JsonParser()</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/JsonParser.html" title="class in ru.nsu.dizmestev">JsonParser</a></dt>
-<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:M">M</h2>
 <dl class="index">
@@ -218,6 +208,14 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="ru/nsu/dizmestev/OrderState.html#READY_FOR_DELIVERY" class="member-name-link">READY_FOR_DELIVERY</a> - Enum constant in enum class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/OrderState.html" title="enum class in ru.nsu.dizmestev">OrderState</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="ru/nsu/dizmestev/OrderQueue.html#returnOrder(ru.nsu.dizmestev.Order)" class="member-name-link">returnOrder(Order)</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/OrderQueue.html" title="class in ru.nsu.dizmestev">OrderQueue</a></dt>
+<dd>
+<div class="block">Экстренно возвращает заказ обратно в очередь.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/Storage.html#returnPizzas(java.util.List)" class="member-name-link">returnPizzas(List&lt;Order&gt;)</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Storage.html" title="class in ru.nsu.dizmestev">Storage</a></dt>
+<dd>
+<div class="block">Экстренно возвращает пиццы обратно на склад.</div>
+</dd>
 <dt><a href="ru/nsu/dizmestev/package-summary.html">ru.nsu.dizmestev</a> - package ru.nsu.dizmestev</dt>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/dizmestev/Baker.html#run()" class="member-name-link">run()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Baker.html" title="class in ru.nsu.dizmestev">Baker</a></dt>
@@ -279,7 +277,7 @@ loadScripts(document, 'script');</script>
 the order they are declared.</div>
 </dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
 </div>
 </div>
 </body>
