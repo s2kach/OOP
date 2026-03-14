@@ -3,7 +3,7 @@ package ru.nsu.dizmestev;
 import com.google.gson.Gson;
 
 /**
- * Класс конфигурации пиццерии, заполняемый вручную из JSON строки.
+ * Класс конфигурации пиццерии, заполняемый автоматически из JSON строки.
  */
 public class Config {
     private int[] bakersSpeed;
@@ -18,8 +18,8 @@ public class Config {
     /**
      * Создает конфигурацию из JSON строки с помощью Gson.
      *
-     * @param jsonContent
-     * @return
+     * @param jsonContent строка в формате JSON, содержащая параметры пиццерии
+     * @return заполненный объект конфигурации
      */
     public static Config fromJson(String jsonContent) {
         return new Gson().fromJson(jsonContent, Config.class);
