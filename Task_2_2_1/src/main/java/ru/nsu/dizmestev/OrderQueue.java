@@ -48,4 +48,12 @@ public class OrderQueue {
         isOpen = false;
         notifyAll();
     }
+
+    /**
+     * Экстренно возвращает заказ обратно в очередь.
+     */
+    public synchronized void returnOrder(Order order) {
+        orders.add(0, order);
+        notifyAll();
+    }
 }

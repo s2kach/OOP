@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -17,8 +19,10 @@ public class PizzeriaIntegrationTest {
 
     @Test
     public void testPizzeriaFullCycle() throws PizzeriaException {
-        Config config = new Config("{\"bakersSpeed\": [10], \"couriersCapacity\": [1],"
-                + " \"storageCapacity\": 2}");
+        String json = "{\"bakersSpeed\": [10], \"couriersCapacity\": [1],"
+                + " \"storageCapacity\": 2}";
+        Gson gson = new Gson();
+        Config config = gson.fromJson(json, Config.class);
         Pizzeria pizzeria = new Pizzeria(config);
 
         pizzeria.start();
@@ -53,7 +57,6 @@ public class PizzeriaIntegrationTest {
     @Test
     public void testMainMissingConfigFile() {
         File configFile = new File("config.json");
-        // Убеждаемся, что файла нет
         if (configFile.exists()) {
             configFile.delete();
         }

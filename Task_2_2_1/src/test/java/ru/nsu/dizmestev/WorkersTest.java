@@ -2,6 +2,7 @@ package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -53,7 +54,7 @@ public class WorkersTest {
     }
 
     @Test
-    public void testBakerInterruptionDuringSleep() throws PizzeriaInterruptedException {
+    public void testBakerInterruptionReturnsOrder() throws PizzeriaInterruptedException {
         OrderQueue queue = new OrderQueue();
         Storage storage = new Storage(5);
         queue.addOrder(new Order(99));
@@ -63,11 +64,14 @@ public class WorkersTest {
         bakerThread.start();
 
         try {
-            Thread.sleep(100);
+            Thread.sleep(150);
             bakerThread.interrupt();
             bakerThread.join(2000);
 
-            assertFalse(bakerThread.isAlive());
+            queue.close();
+            Order returnedOrder = queue.takeOrder();
+            assertNotNull(returnedOrder);
+            assertEquals(99, returnedOrder.getId());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new PizzeriaInterruptedException("Тест прерван", e);
@@ -75,7 +79,7 @@ public class WorkersTest {
     }
 
     @Test
-    public void testCourierInterruptionDuringDelivery() throws PizzeriaInterruptedException {
+    public void testCourierInterruptionReturnsPizzas() throws PizzeriaInterruptedException {
         Storage storage = new Storage(5);
         storage.putPizza(new Order(100));
 
@@ -84,11 +88,15 @@ public class WorkersTest {
         courierThread.start();
 
         try {
-            Thread.sleep(100);
+            Thread.sleep(150);
             courierThread.interrupt();
             courierThread.join(2000);
 
-            assertFalse(courierThread.isAlive());
+            storage.setBakersFinished();
+            List<Order> returnedPizzas = storage.takePizzas(2);
+            assertNotNull(returnedPizzas);
+            assertEquals(1, returnedPizzas.size());
+            assertEquals(100, returnedPizzas.get(0).getId());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new PizzeriaInterruptedException("Тест прерван", e);

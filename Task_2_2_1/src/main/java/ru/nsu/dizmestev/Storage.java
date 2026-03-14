@@ -76,4 +76,12 @@ public class Storage {
         bakersWorking = false;
         notifyAll();
     }
+
+    /**
+     * Экстренно возвращает пиццы обратно на склад.
+     */
+    public synchronized void returnPizzas(List<Order> returnedOrders) {
+        pizzas.addAll(0, returnedOrders);
+        notifyAll();
+    }
 }

@@ -26,9 +26,10 @@ public class Baker implements Runnable {
      */
     @Override
     public void run() {
-        try {
-            while (true) {
-                Order order = orderQueue.takeOrder();
+        while (!Thread.currentThread().isInterrupted()) {
+            Order order = null;
+            try {
+                order = orderQueue.takeOrder();
                 if (order == null) {
                     break;
                 }
@@ -36,12 +37,17 @@ public class Baker implements Runnable {
                 Thread.sleep(speed);
                 order.setState(OrderState.READY_FOR_DELIVERY);
                 storage.putPizza(order);
+            } catch (PizzeriaInterruptedException e) {
+                System.err.println("Ошибка в работе очередей у пекаря: " + e.getMessage());
+            } catch (InterruptedException e) {
+                if (order != null) {
+                    order.setState(OrderState.PENDING);
+                    orderQueue.returnOrder(order);
+                }
+                System.err.println("Поток пекаря был принудительно прерван во время сна.");
+                Thread.currentThread().interrupt();
+                break;
             }
-        } catch (PizzeriaInterruptedException e) {
-            System.err.println("Ошибка в работе очередей у пекаря: " + e.getMessage());
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            System.err.println("Поток пекаря был принудительно прерван во время сна.");
         }
     }
 }

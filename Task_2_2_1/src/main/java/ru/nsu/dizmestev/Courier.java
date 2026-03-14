@@ -25,9 +25,10 @@ public class Courier implements Runnable {
      */
     @Override
     public void run() {
-        try {
-            while (true) {
-                List<Order> orders = storage.takePizzas(trunkCapacity);
+        while (!Thread.currentThread().isInterrupted()) {
+            List<Order> orders = null;
+            try {
+                orders = storage.takePizzas(trunkCapacity);
                 if (orders == null) {
                     break;
                 }
@@ -38,12 +39,20 @@ public class Courier implements Runnable {
                 for (Order order : orders) {
                     order.setState(OrderState.DELIVERED);
                 }
+
+            } catch (PizzeriaInterruptedException e) {
+                System.err.println("Ошибка в работе очередей у курьера: " + e.getMessage());
+            } catch (InterruptedException e) {
+                if (orders != null && !orders.isEmpty()) {
+                    for (Order order : orders) {
+                        order.setState(OrderState.READY_FOR_DELIVERY);
+                    }
+                    storage.returnPizzas(orders);
+                }
+                System.err.println("Поток курьера был принудительно прерван во время доставки.");
+                Thread.currentThread().interrupt();
+                break;
             }
-        } catch (PizzeriaInterruptedException e) {
-            System.err.println("Ошибка в работе очередей у курьера: " + e.getMessage());
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            System.err.println("Поток курьера был принудительно прерван во время доставки.");
         }
     }
 }

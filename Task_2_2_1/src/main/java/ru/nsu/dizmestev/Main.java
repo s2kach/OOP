@@ -26,7 +26,7 @@ public class Main {
 
         Config config;
         try {
-            config = new Config(configJson);
+            config = Config.fromJson(configJson);
         } catch (Exception e) {
             throw new PizzeriaConfigurationException("Ошибка при парсинге JSON конфигурации.", e);
         }

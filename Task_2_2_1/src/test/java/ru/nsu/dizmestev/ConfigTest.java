@@ -2,20 +2,24 @@ package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
+import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 
 /**
  * Тесты для проверки логики извлечения данных из JSON и создания конфигурации.
  */
-public class ConfigAndParserTest {
-
+public class ConfigTest {
     @Test
     public void testValidJsonParsing() {
         String json = "{\"bakersSpeed\": [1000, 2000], \"couriersCapacity\": [2],"
                 + " \"storageCapacity\": 5}";
-        Config config = new Config(json);
+        Gson gson = new Gson();
+        Config config = gson.fromJson(json, Config.class);
 
+        assertNotNull(config);
         assertArrayEquals(new int[]{1000, 2000}, config.getBakersSpeed());
         assertArrayEquals(new int[]{2}, config.getCouriersCapacity());
         assertEquals(5, config.getStorageCapacity());
@@ -23,18 +27,13 @@ public class ConfigAndParserTest {
 
     @Test
     public void testEmptyJsonParsing() {
-        String json = "{\"bakersSpeed\": [], \"couriersCapacity\": []}";
-        Config config = new Config(json);
+        String json = "{}";
+        Gson gson = new Gson();
+        Config config = gson.fromJson(json, Config.class);
 
-        assertArrayEquals(new int[]{}, config.getBakersSpeed());
-        assertArrayEquals(new int[]{}, config.getCouriersCapacity());
+        assertNotNull(config);
+        assertNull(config.getBakersSpeed());
+        assertNull(config.getCouriersCapacity());
         assertEquals(0, config.getStorageCapacity());
-    }
-
-    @Test
-    public void testParserGetInt() {
-        String json = "{\"testKey\": 42}";
-        int result = JsonParser.getInt(json, "testKey");
-        assertEquals(42, result);
     }
 }

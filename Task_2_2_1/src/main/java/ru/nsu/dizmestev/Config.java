@@ -1,22 +1,28 @@
 package ru.nsu.dizmestev;
 
+import com.google.gson.Gson;
+
 /**
  * Класс конфигурации пиццерии, заполняемый вручную из JSON строки.
  */
 public class Config {
-    private final int[] bakersSpeed;
-    private final int[] couriersCapacity;
-    private final int storageCapacity;
+    private int[] bakersSpeed;
+    private int[] couriersCapacity;
+    private int storageCapacity;
 
     /**
-     * Конструктор, инициализирующий поля через парсинг строки.
-     *
-     * @param jsonContent содержимое конфигурационного файла
+     * Конструктор.
      */
-    public Config(String jsonContent) {
-        this.bakersSpeed = JsonParser.getIntArray(jsonContent, "bakersSpeed");
-        this.couriersCapacity = JsonParser.getIntArray(jsonContent, "couriersCapacity");
-        this.storageCapacity = JsonParser.getInt(jsonContent, "storageCapacity");
+    public Config() {}
+
+    /**
+     * Создает конфигурацию из JSON строки с помощью Gson.
+     *
+     * @param jsonContent
+     * @return
+     */
+    public static Config fromJson(String jsonContent) {
+        return new Gson().fromJson(jsonContent, Config.class);
     }
 
     /**
