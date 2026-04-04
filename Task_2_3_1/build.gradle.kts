@@ -1,10 +1,8 @@
 plugins {
     id("java")
-    id("jacoco")
     id("application")
-    id("org.javamodularity.moduleplugin") version "1.8.15"
-    id("org.openjfx.javafxplugin") version "0.0.13"
-    id("org.beryx.jlink") version "2.25.0"
+    id("jacoco")
+    id("org.openjfx.javafxplugin") version "0.1.0" // Как у друга
 }
 
 group = "ru.nsu.dizmestev"
@@ -14,52 +12,43 @@ repositories {
     mavenCentral()
 }
 
-val junitVersion = "5.12.1"
-
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
-configure<JacocoPluginExtension> {
+jacoco {
     toolVersion = "0.8.12"
 }
 
-tasks.named<JacocoReport>("jacocoTestReport") {
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
     reports {
         xml.required.set(true)
         html.required.set(true)
     }
 }
 
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-}
-
 application {
-    mainModule.set("ru.nsu.dizmestev")
     mainClass.set("ru.nsu.dizmestev.SnakeApp")
 }
 
 javafx {
     version = "21.0.6"
-    modules = listOf("javafx.controls", "javafx.fxml")
+    modules = listOf("javafx.controls", "javafx.fxml", "javafx.graphics")
 }
 
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-jlink {
-    imageZip.set(layout.buildDirectory.file("distributions/app-${javafx.platform.classifier}.zip"))
-    options.set(listOf("--strip-debug", "--compress", "2", "--no-header-files", "--no-man-pages"))
-    launcher {
-        name = "app"
-    }
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
 }
