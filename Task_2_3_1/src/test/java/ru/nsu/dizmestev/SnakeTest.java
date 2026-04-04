@@ -1,6 +1,8 @@
 package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -36,5 +38,28 @@ class SnakeTest {
         snake.setDirection(Direction.LEFT);
 
         assertEquals(Direction.RIGHT, snake.getCurrentDirection());
+    }
+
+    @Test
+    void testSelfCollision() {
+        Snake snake = new Snake(10, 10);
+
+        snake.grow(); snake.move();
+        snake.grow(); snake.move();
+
+        snake.setDirection(Direction.DOWN);
+        snake.move();
+        snake.setDirection(Direction.LEFT);
+        snake.move();
+        snake.setDirection(Direction.UP);
+        snake.move();
+
+        assertTrue(snake.checkSelfCollision());
+    }
+
+    @Test
+    void testNoSelfCollision() {
+        Snake snake = new Snake(10, 10);
+        assertFalse(snake.checkSelfCollision());
     }
 }
