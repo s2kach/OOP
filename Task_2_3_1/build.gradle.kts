@@ -2,7 +2,7 @@ plugins {
     id("java")
     id("application")
     id("jacoco")
-    id("org.openjfx.javafxplugin") version "0.1.0" // Как у друга
+    id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
 group = "ru.nsu.dizmestev"
@@ -23,7 +23,6 @@ jacoco {
 }
 
 tasks.jacocoTestReport {
-    dependsOn(tasks.test)
     reports {
         xml.required.set(true)
         html.required.set(true)

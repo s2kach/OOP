@@ -29,6 +29,7 @@ public class GameModel {
      * @param height Высота поля в клетках (M).
      * @param targetLength Целевая длина для победы (L).
      * @param foodCount Количество еды на поле (T).
+     * @param obstaclesCount Количество препятствий на поле.
      */
     public GameModel(int width, int height, int targetLength, int foodCount, int obstaclesCount) {
         this.width = width;

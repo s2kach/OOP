@@ -56,7 +56,7 @@ public class Snake {
             case DOWN -> newY++;
             case LEFT -> newX--;
             case RIGHT -> newX++;
-            default -> {}
+            default -> { }
         }
         return new Point(newX, newY);
     }

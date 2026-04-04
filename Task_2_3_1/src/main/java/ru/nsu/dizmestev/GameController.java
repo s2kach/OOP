@@ -53,6 +53,11 @@ public class GameController implements Initializable {
         timer.start();
     }
 
+    /**
+     * Обработчик нажатий.
+     *
+     * @param event Событие нажатия.
+     */
     public void handleKeyPressed(KeyEvent event) {
         Snake snake = model.getSnake();
         switch (event.getCode()) {

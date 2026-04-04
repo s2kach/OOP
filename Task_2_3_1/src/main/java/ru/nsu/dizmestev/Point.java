@@ -12,8 +12,8 @@ public class Point {
     /**
      * Конструктор для создания точки.
      *
-     * @param x Координата по оси X.
-     * @param y Координата по оси Y.
+     * @param posX Координата по оси X.
+     * @param posY Координата по оси Y.
      */
     public Point(int posX, int posY) {
         this.posX = posX;
@@ -46,7 +46,9 @@ public class Point {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o){
+            return true;
+        }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
