@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.dizmestev","l":"Direction"},{"p":"ru.nsu.dizmestev","l":"GameController"},{"p":"ru.nsu.dizmestev","l":"GameModel"},{"p":"ru.nsu.dizmestev","l":"Point"},{"p":"ru.nsu.dizmestev","l":"Snake"},{"p":"ru.nsu.dizmestev","l":"SnakeApp"}];updateSearchResults();
