@@ -56,6 +56,7 @@ public class Snake {
             case DOWN -> newY++;
             case LEFT -> newX--;
             case RIGHT -> newX++;
+            default -> {}
         }
         return new Point(newX, newY);
     }
@@ -70,10 +71,18 @@ public class Snake {
             return;
         }
 
-        if (currentDirection == Direction.UP && newDirection == Direction.DOWN) return;
-        if (currentDirection == Direction.DOWN && newDirection == Direction.UP) return;
-        if (currentDirection == Direction.LEFT && newDirection == Direction.RIGHT) return;
-        if (currentDirection == Direction.RIGHT && newDirection == Direction.LEFT) return;
+        if (currentDirection == Direction.UP && newDirection == Direction.DOWN) {
+            return;
+        }
+        if (currentDirection == Direction.DOWN && newDirection == Direction.UP) {
+            return;
+        }
+        if (currentDirection == Direction.LEFT && newDirection == Direction.RIGHT) {
+            return;
+        }
+        if (currentDirection == Direction.RIGHT && newDirection == Direction.LEFT) {
+            return;
+        }
 
         this.currentDirection = newDirection;
         this.directionChangedInThisTick = true;
@@ -81,6 +90,7 @@ public class Snake {
 
     /**
      * Получает текущее направление движения змейки.
+     *
      * @return Направление.
      */
     public Direction getCurrentDirection() {

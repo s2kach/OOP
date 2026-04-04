@@ -6,9 +6,8 @@ import java.util.Objects;
  * Класс, представляющий координаты на игровом поле.
  */
 public class Point {
-
-    private final int x;
-    private final int y;
+    private final int posX;
+    private final int posY;
 
     /**
      * Конструктор для создания точки.
@@ -16,9 +15,9 @@ public class Point {
      * @param x Координата по оси X.
      * @param y Координата по оси Y.
      */
-    public Point(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Point(int posX, int posY) {
+        this.posX = posX;
+        this.posY = posY;
     }
 
     /**
@@ -27,7 +26,7 @@ public class Point {
      * @return Значение X.
      */
     public int getX() {
-        return x;
+        return posX;
     }
 
     /**
@@ -36,7 +35,7 @@ public class Point {
      * @return Значение Y.
      */
     public int getY() {
-        return y;
+        return posY;
     }
 
     /**
@@ -48,9 +47,11 @@ public class Point {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Point point = (Point) o;
-        return x == point.x && y == point.y;
+        return posX == point.posX && posY == point.posY;
     }
 
     /**
@@ -60,6 +61,6 @@ public class Point {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Objects.hash(posX, posY);
     }
 }

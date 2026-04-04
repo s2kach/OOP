@@ -62,12 +62,14 @@ public class GameModel {
      * Выполняет один игровой такт (тик).
      */
     public void tick() {
-        if (isGameOver || isGameWon) return;
+        if (isGameOver || isGameWon) {
+            return;
+        }
 
         Point nextHead = snake.calculateNextHead();
 
-        if (nextHead.getX() < 0 || nextHead.getX() >= width ||
-                nextHead.getY() < 0 || nextHead.getY() >= height) {
+        if (nextHead.getX() < 0 || nextHead.getX() >= width
+                || nextHead.getY() < 0 || nextHead.getY() >= height) {
             isGameOver = true;
             return;
         }

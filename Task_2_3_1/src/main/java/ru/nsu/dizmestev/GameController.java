@@ -65,6 +65,7 @@ public class GameController implements Initializable {
                 timer.start();
                 lastUpdate = 0;
             }
+            default -> { }
         }
     }
 
@@ -136,7 +137,9 @@ public class GameController implements Initializable {
         Snake snake = model.getSnake();
         java.util.LinkedList<Point> body = snake.getBody();
 
-        if (body.isEmpty()) return;
+        if (body.isEmpty()) {
+            return;
+        }
 
         gc.setFill(COLOR_SNAKE_BODY);
         for (int i = 1; i < body.size(); i++) {
@@ -172,7 +175,10 @@ public class GameController implements Initializable {
         double x = head.getX() * TILE_SIZE;
         double y = head.getY() * TILE_SIZE;
 
-        double eye1X, eye1Y, eye2X, eye2Y;
+        double eye1X;
+        double eye1Y;
+        double eye2X;
+        double eye2Y;
 
         switch (direction) {
             case UP -> {
