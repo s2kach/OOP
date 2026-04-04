@@ -44,8 +44,10 @@ class SnakeTest {
     void testSelfCollision() {
         Snake snake = new Snake(10, 10);
 
-        snake.grow(); snake.move();
-        snake.grow(); snake.move();
+        snake.grow();
+        snake.move();
+        snake.grow();
+        snake.move();
 
         snake.setDirection(Direction.DOWN);
         snake.move();
