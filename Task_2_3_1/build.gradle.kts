@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("jacoco")
     id("application")
     id("org.javamodularity.moduleplugin") version "1.8.15"
     id("org.openjfx.javafxplugin") version "0.0.13"
@@ -18,6 +19,17 @@ val junitVersion = "5.12.1"
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configure<JacocoPluginExtension> {
+    toolVersion = "0.8.12"
+}
+
+tasks.named<JacocoReport>("jacocoTestReport") {
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
     }
 }
 
