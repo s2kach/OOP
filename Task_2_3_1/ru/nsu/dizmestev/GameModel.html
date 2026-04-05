@@ -102,12 +102,11 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,int,int,int,int,ru.nsu.dizmestev.WinCondition)" class="member-name-link">GameModel</a><wbr>(int&nbsp;width,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,int,ru.nsu.dizmestev.WinCondition,int,int)" class="member-name-link">GameModel</a><wbr>(int&nbsp;width,
  int&nbsp;height,
- int&nbsp;targetLength,
+ <a href="WinCondition.html" title="interface in ru.nsu.dizmestev">WinCondition</a>&nbsp;winCondition,
  int&nbsp;foodCount,
- int&nbsp;obstaclesCount,
- <a href="WinCondition.html" title="interface in ru.nsu.dizmestev">WinCondition</a>&nbsp;winCondition)</code></div>
+ int&nbsp;obstaclesCount)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Инициализирует модель игры.</div>
 </div>
@@ -168,20 +167,19 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(int,int,int,int,int,ru.nsu.dizmestev.WinCondition)">
+<section class="detail" id="&lt;init&gt;(int,int,ru.nsu.dizmestev.WinCondition,int,int)">
 <h3>GameModel</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">GameModel</span><wbr><span class="parameters">(int&nbsp;width,
  int&nbsp;height,
- int&nbsp;targetLength,
+ <a href="WinCondition.html" title="interface in ru.nsu.dizmestev">WinCondition</a>&nbsp;winCondition,
  int&nbsp;foodCount,
- int&nbsp;obstaclesCount,
- <a href="WinCondition.html" title="interface in ru.nsu.dizmestev">WinCondition</a>&nbsp;winCondition)</span></div>
+ int&nbsp;obstaclesCount)</span></div>
 <div class="block">Инициализирует модель игры.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>width</code> - Ширина поля в клетках (N).</dd>
 <dd><code>height</code> - Высота поля в клетках (M).</dd>
-<dd><code>targetLength</code> - Целевая длина для победы (L).</dd>
+<dd><code>winCondition</code> - Условия победы.</dd>
 <dd><code>foodCount</code> - Количество еды на поле (T).</dd>
 <dd><code>obstaclesCount</code> - Количество препятствий на поле.</dd>
 </dl>
