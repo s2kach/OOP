@@ -11,7 +11,6 @@ public class GameModel {
 
     private final int width;
     private final int height;
-    private final int targetLength;
     private final int foodCount;
     private final int obstaclesCount;
     private final Random random;
@@ -29,15 +28,13 @@ public class GameModel {
      *
      * @param width Ширина поля в клетках (N).
      * @param height Высота поля в клетках (M).
-     * @param targetLength Целевая длина для победы (L).
+     * @param winCondition Условия победы.
      * @param foodCount Количество еды на поле (T).
      * @param obstaclesCount Количество препятствий на поле.
      */
-    public GameModel(int width, int height, int targetLength, int foodCount,
-                     int obstaclesCount, WinCondition winCondition) {
+    public GameModel(int width, int height, WinCondition winCondition, int foodCount, int obstaclesCount) {
         this.width = width;
         this.height = height;
-        this.targetLength = targetLength;
         this.foodCount = foodCount;
         this.obstaclesCount = obstaclesCount;
         this.winCondition = winCondition;
