@@ -141,19 +141,24 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Получает текущее направление движения змейки.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#grow()" class="member-name-link">grow</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Point.html" title="class in ru.nsu.dizmestev">Point</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getHead()" class="member-name-link">getHead</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Устанавливает флаг роста.</div>
+<div class="block">Получает голову змейки.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#move()" class="member-name-link">move</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#grow()" class="member-name-link">grow</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Двигает змейку.</div>
+<div class="block">Устанавливает флаг роста.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setDirection(ru.nsu.dizmestev.Direction)" class="member-name-link">setDirection</a><wbr>(<a href="Direction.html" title="enum class in ru.nsu.dizmestev">Direction</a>&nbsp;newDirection)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#move()" class="member-name-link">move</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Двигает змейку.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setDirection(ru.nsu.dizmestev.Direction)" class="member-name-link">setDirection</a><wbr>(<a href="Direction.html" title="enum class in ru.nsu.dizmestev">Direction</a>&nbsp;newDirection)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Задает новое направление движения с защитой от двойного поворота за тик.</div>
 </div>
 </div>
@@ -241,10 +246,21 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getBody()">
 <h3>getBody</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/LinkedList.html" title="class or interface in java.util" class="external-link">LinkedList</a>&lt;<a href="Point.html" title="class in ru.nsu.dizmestev">Point</a>&gt;</span>&nbsp;<span class="element-name">getBody</span>()</div>
-<div class="block">Получает тело змейки.</div>
+<div class="block">Получает тело змейки. Первый элемент - голова.</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>Список точек.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getHead()">
+<h3>getHead</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in ru.nsu.dizmestev">Point</a></span>&nbsp;<span class="element-name">getHead</span>()</div>
+<div class="block">Получает голову змейки.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>Точка головы.</dd>
 </dl>
 </section>
 </li>
