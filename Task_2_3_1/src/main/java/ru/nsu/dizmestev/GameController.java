@@ -8,9 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 /**
  * Контроллер для связи интерфейса FXML и игровой модели.
@@ -31,6 +30,10 @@ public class GameController implements Initializable {
 
     @FXML
     private Canvas gameCanvas;
+    @FXML
+    private VBox gameOverOverlay;
+    @FXML
+    private VBox gameWinOverlay;
 
     private GameModel model;
     private AnimationTimer timer;
@@ -38,7 +41,8 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        model = new GameModel(GRID_WIDTH, GRID_HEIGHT, 15, 3, 5);
+        model = new GameModel(GRID_WIDTH, GRID_HEIGHT, 15, 3, 5,
+                new TargetLengthWinCondition(5));
 
         timer = new AnimationTimer() {
             @Override
@@ -65,14 +69,22 @@ public class GameController implements Initializable {
             case S, DOWN -> snake.setDirection(Direction.DOWN);
             case A, LEFT -> snake.setDirection(Direction.LEFT);
             case D, RIGHT -> snake.setDirection(Direction.RIGHT);
-            case R -> {
-                model.resetGame();
-                timer.start();
-                lastUpdate = 0;
-            }
+            case R -> restart();
             default -> { }
         }
     }
+
+    /**
+     * Перезапуск игры.
+     */
+    private void restart() {
+        model.resetGame();
+        gameOverOverlay.setVisible(false);
+        gameWinOverlay.setVisible(false);
+        timer.start();
+        lastUpdate = 0;
+    }
+
 
     /**
      * Отрисовывает текущее состояние модели на холсте.
@@ -85,9 +97,12 @@ public class GameController implements Initializable {
         drawFood(gc);
         drawSnake(gc);
 
-        if (model.isGameOver() || model.isGameWon()) {
+        if (model.isGameOver()) {
+            gameOverOverlay.setVisible(true);
             timer.stop();
-            drawGameOverScreen(gc);
+        } else if (model.isGameWon()) {
+            gameWinOverlay.setVisible(true);
+            timer.stop();
         }
     }
 
@@ -126,10 +141,11 @@ public class GameController implements Initializable {
      */
     private void drawFood(GraphicsContext gc) {
         gc.setFill(COLOR_FOOD);
-        for (Point food : model.getFoods()) {
+        for (Food food : model.getFoods()) {
+            Point pos = food.getPosition();
             double margin = TILE_SIZE * 0.1;
-            gc.fillOval(food.getX() * TILE_SIZE + margin,
-                    food.getY() * TILE_SIZE + margin,
+            gc.fillOval(pos.getX() * TILE_SIZE + margin,
+                    pos.getY() * TILE_SIZE + margin,
                     TILE_SIZE - 2 * margin,
                     TILE_SIZE - 2 * margin);
         }
@@ -157,7 +173,7 @@ public class GameController implements Initializable {
                     TILE_SIZE * 0.3);
         }
 
-        Point head = body.getFirst();
+        Point head = snake.getHead();
         gc.setFill(COLOR_SNAKE_HEAD);
         gc.fillRoundRect(head.getX() * TILE_SIZE,
                 head.getY() * TILE_SIZE,
@@ -213,23 +229,5 @@ public class GameController implements Initializable {
 
         gc.fillOval(eye1X, eye1Y, eyeSize, eyeSize);
         gc.fillOval(eye2X, eye2Y, eyeSize, eyeSize);
-    }
-
-    /**
-     * Отрисовывает экран окончания игры поверх поля.
-     */
-    private void drawGameOverScreen(GraphicsContext gc) {
-        gc.setFill(new Color(0, 0, 0, 0.5));
-        gc.fillRect(0, 0, gameCanvas.getWidth(), gameCanvas.getHeight());
-
-        gc.setFill(Color.WHITE);
-        gc.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
-
-        String title = model.isGameWon() ? "ПОБЕДА!" : "ПОРАЖЕНИЕ!";
-        String subtitle = "Нажми R для рестарта";
-
-        gc.fillText(title, 110, 180);
-        gc.setFont(Font.font("Verdana", FontWeight.NORMAL, 16));
-        gc.fillText(subtitle, 115, 210);
     }
 }

@@ -105,12 +105,21 @@ public class Snake {
     }
 
     /**
-     * Получает тело змейки.
+     * Получает тело змейки. Первый элемент - голова.
      *
      * @return Список точек.
      */
     public LinkedList<Point> getBody() {
         return body;
+    }
+
+    /**
+     * Получает голову змейки.
+     *
+     * @return Точка головы.
+     */
+    public Point getHead() {
+        return body.getFirst();
     }
 
     /**

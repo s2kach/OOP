@@ -16,8 +16,10 @@ public class GameModel {
     private final int obstaclesCount;
     private final Random random;
 
+    private final WinCondition winCondition;
+
     private Snake snake;
-    private List<Point> foods;
+    private List<Food> foods;
     private List<Point> obstacles;
     private boolean isGameOver;
     private boolean isGameWon;
@@ -31,12 +33,14 @@ public class GameModel {
      * @param foodCount Количество еды на поле (T).
      * @param obstaclesCount Количество препятствий на поле.
      */
-    public GameModel(int width, int height, int targetLength, int foodCount, int obstaclesCount) {
+    public GameModel(int width, int height, int targetLength, int foodCount,
+                     int obstaclesCount, WinCondition winCondition) {
         this.width = width;
         this.height = height;
         this.targetLength = targetLength;
         this.foodCount = foodCount;
         this.obstaclesCount = obstaclesCount;
+        this.winCondition = winCondition;
         this.random = new Random();
         this.foods = new ArrayList<>();
         this.obstacles = new ArrayList<>();
@@ -84,7 +88,7 @@ public class GameModel {
 
         checkFoodCollision(snake.getBody().getFirst());
 
-        if (snake.getBody().size() >= targetLength) {
+        if (winCondition.isWon(snake)) {
             isGameWon = true;
         }
     }
@@ -96,8 +100,9 @@ public class GameModel {
      */
     private void checkFoodCollision(Point head) {
         for (int i = 0; i < foods.size(); i++) {
-            if (foods.get(i).equals(head)) {
-                snake.grow();
+            Food food = foods.get(i);
+            if (food.getPosition().equals(head)) {
+                food.applyEffect(snake);
                 foods.remove(i);
                 spawnFood();
                 break;
@@ -129,11 +134,11 @@ public class GameModel {
         while (foods.size() < foodCount) {
             int x = random.nextInt(width);
             int y = random.nextInt(height);
-            Point newFood = new Point(x, y);
+            Point newFoodPoint = new Point(x, y);
 
-            if (!snake.getBody().contains(newFood) && !foods.contains(newFood)
-                    && !obstacles.contains(newFood)) {
-                foods.add(newFood);
+            if (!snake.getBody().contains(newFoodPoint) && !obstacles.contains(newFoodPoint)
+                    && foods.stream().noneMatch(f -> f.getPosition().equals(newFoodPoint))) {
+                foods.add(new SimpleFood(newFoodPoint));
             }
         }
     }
@@ -142,7 +147,7 @@ public class GameModel {
         return snake;
     }
 
-    public List<Point> getFoods() {
+    public List<Food> getFoods() {
         return foods;
     }
 
