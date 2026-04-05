@@ -64,8 +64,7 @@ class GameModelTest {
     void testSimpleFoodEffect() {
         GameModel model = new GameModel(20, 20, new TargetLengthWinCondition(5), 0, 0);
         Snake snake = model.getSnake();
-        int initialSize = snake.getBody().size();
-
+        
         Point nextHead = snake.calculateNextHead();
 
         SimpleFood food = new SimpleFood(nextHead);
@@ -73,7 +72,7 @@ class GameModelTest {
 
         model.tick();
         model.tick();
-
+        int initialSize = snake.getBody().size();
         assertEquals(initialSize + 1, snake.getBody().size());
         assertTrue(model.getFoods().isEmpty());
     }

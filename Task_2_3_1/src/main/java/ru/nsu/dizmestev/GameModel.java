@@ -32,7 +32,8 @@ public class GameModel {
      * @param foodCount Количество еды на поле (T).
      * @param obstaclesCount Количество препятствий на поле.
      */
-    public GameModel(int width, int height, WinCondition winCondition, int foodCount, int obstaclesCount) {
+    public GameModel(int width, int height, WinCondition winCondition,
+                     int foodCount, int obstaclesCount) {
         this.width = width;
         this.height = height;
         this.foodCount = foodCount;
