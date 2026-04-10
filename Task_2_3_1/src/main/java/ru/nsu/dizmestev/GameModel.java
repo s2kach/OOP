@@ -2,7 +2,6 @@ package ru.nsu.dizmestev;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Главный класс логики, управляющий правилами и состоянием игры.
