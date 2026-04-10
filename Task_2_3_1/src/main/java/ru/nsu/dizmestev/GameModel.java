@@ -8,12 +8,11 @@ import java.util.Random;
  * Главный класс логики, управляющий правилами и состоянием игры.
  */
 public class GameModel {
-
+    private final FieldSpawner spawner;
     private final int width;
     private final int height;
     private final int foodCount;
     private final int obstaclesCount;
-    private final Random random;
 
     private final WinCondition winCondition;
 
@@ -34,12 +33,12 @@ public class GameModel {
      */
     public GameModel(int width, int height, WinCondition winCondition,
                      int foodCount, int obstaclesCount) {
+        this.spawner = new FieldSpawner(width, height);
         this.width = width;
         this.height = height;
         this.foodCount = foodCount;
         this.obstaclesCount = obstaclesCount;
         this.winCondition = winCondition;
-        this.random = new Random();
         this.foods = new ArrayList<>();
         this.obstacles = new ArrayList<>();
         resetGame();
@@ -57,8 +56,10 @@ public class GameModel {
         obstacles.clear();
         isGameOver = false;
         isGameWon = false;
-        spawnObstacles(startX, startY);
-        spawnFood();
+        obstacles = spawner.generateObstacles(obstaclesCount, snake);
+        while (foods.size() < foodCount) {
+            foods.add(spawner.spawnFood(snake, obstacles, foods));
+        }
     }
 
     /**
@@ -102,41 +103,10 @@ public class GameModel {
             if (food.getPosition().equals(head)) {
                 food.applyEffect(snake);
                 foods.remove(i);
-                spawnFood();
+                while (foods.size() < foodCount) {
+                    foods.add(spawner.spawnFood(snake, obstacles, foods));
+                }
                 break;
-            }
-        }
-    }
-
-    /**
-     * Генерирует препятствия.
-     */
-    private void spawnObstacles(int startX, int startY) {
-        while (obstacles.size() < obstaclesCount) {
-            int x = random.nextInt(width);
-            int y = random.nextInt(height);
-            Point obs = new Point(x, y);
-
-            boolean isOnSnakeLine = (y == startY && x >= startX);
-
-            if (!snake.getBody().contains(obs) && !obstacles.contains(obs) && !isOnSnakeLine) {
-                obstacles.add(obs);
-            }
-        }
-    }
-
-    /**
-     * Генерирует недостающую еду на свободных клетках.
-     */
-    private void spawnFood() {
-        while (foods.size() < foodCount) {
-            int x = random.nextInt(width);
-            int y = random.nextInt(height);
-            Point newFoodPoint = new Point(x, y);
-
-            if (!snake.getBody().contains(newFoodPoint) && !obstacles.contains(newFoodPoint)
-                    && foods.stream().noneMatch(f -> f.getPosition().equals(newFoodPoint))) {
-                foods.add(new SimpleFood(newFoodPoint));
             }
         }
     }
