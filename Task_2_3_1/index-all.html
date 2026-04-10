@@ -87,6 +87,18 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:F">F</h2>
 <dl class="index">
+<dt><a href="ru/nsu/dizmestev/FieldSpawner.html" class="type-name-link" title="class in ru.nsu.dizmestev">FieldSpawner</a> - Class in <a href="ru/nsu/dizmestev/package-summary.html">ru.nsu.dizmestev</a></dt>
+<dd>
+<div class="block">Отвечает за размещение объектов на игровом поле.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/FieldSpawner.html#%3Cinit%3E(int,int)" class="member-name-link">FieldSpawner(int, int)</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/FieldSpawner.html" title="class in ru.nsu.dizmestev">FieldSpawner</a></dt>
+<dd>
+<div class="block">Конструктор задающий ширину и высоту поля.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/FieldSpawner.html#findEmptyPoint(ru.nsu.dizmestev.Snake,java.util.List,java.util.List)" class="member-name-link">findEmptyPoint(Snake, List&lt;Point&gt;, List&lt;Food&gt;)</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/FieldSpawner.html" title="class in ru.nsu.dizmestev">FieldSpawner</a></dt>
+<dd>
+<div class="block">Ищет свободную точку на поле, не занятую змейкой, препятствиями или едой.</div>
+</dd>
 <dt><a href="ru/nsu/dizmestev/Food.html" class="type-name-link" title="interface in ru.nsu.dizmestev">Food</a> - Interface in <a href="ru/nsu/dizmestev/package-summary.html">ru.nsu.dizmestev</a></dt>
 <dd>
 <div class="block">Интерфейс для различных типов еды.</div>
@@ -107,6 +119,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="ru/nsu/dizmestev/GameModel.html#%3Cinit%3E(int,int,ru.nsu.dizmestev.WinCondition,int,int)" class="member-name-link">GameModel(int, int, WinCondition, int, int)</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/GameModel.html" title="class in ru.nsu.dizmestev">GameModel</a></dt>
 <dd>
 <div class="block">Инициализирует модель игры.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/FieldSpawner.html#generateObstacles(int,ru.nsu.dizmestev.Snake)" class="member-name-link">generateObstacles(int, Snake)</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/FieldSpawner.html" title="class in ru.nsu.dizmestev">FieldSpawner</a></dt>
+<dd>
+<div class="block">Генерирует список начальных препятствий, избегая линии появления змейки.</div>
 </dd>
 <dt><a href="ru/nsu/dizmestev/Snake.html#getBody()" class="member-name-link">getBody()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Snake.html" title="class in ru.nsu.dizmestev">Snake</a></dt>
 <dd>
@@ -233,6 +249,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="ru/nsu/dizmestev/SnakeApp.html#%3Cinit%3E()" class="member-name-link">SnakeApp()</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/SnakeApp.html" title="class in ru.nsu.dizmestev">SnakeApp</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="ru/nsu/dizmestev/FieldSpawner.html#spawnFood(ru.nsu.dizmestev.Snake,java.util.List,java.util.List)" class="member-name-link">spawnFood(Snake, List&lt;Point&gt;, List&lt;Food&gt;)</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/FieldSpawner.html" title="class in ru.nsu.dizmestev">FieldSpawner</a></dt>
+<dd>
+<div class="block">Создает новую еду на свободной клетке.</div>
+</dd>
 <dt><a href="ru/nsu/dizmestev/SnakeApp.html#start(javafx.stage.Stage)" class="member-name-link">start(Stage)</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/SnakeApp.html" title="class in ru.nsu.dizmestev">SnakeApp</a></dt>
 <dd>
 <div class="block">Инициализирует и показывает главное окно приложения.</div>
