@@ -41,7 +41,9 @@ public class SystemRunner {
 
         try {
             File parent = targetDir.getParentFile();
-            if (!parent.exists()) parent.mkdirs();
+            if (!parent.exists()) {
+                parent.mkdirs();
+            }
 
             System.out.println(">>> Клонируем репозиторий: " + repoUrl);
             ProcessBuilder pb = new ProcessBuilder("git", "clone",

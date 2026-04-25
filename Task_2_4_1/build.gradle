@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
 }
 
 group = 'ru.nsu.dizmestev'
@@ -7,6 +8,12 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
 }
 
 dependencies {
