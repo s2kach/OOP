@@ -1,6 +1,9 @@
 package ru.nsu.dizmestev;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Главный класс конфигурации курса.
@@ -15,7 +18,9 @@ public class CourseConfig {
     /**
      * Добавляет контрольную точку в план курса.
      */
-    public void addCheckpoint(Checkpoint cp) { checkpoints.add(cp); }
+    public void addCheckpoint(Checkpoint cp) {
+        checkpoints.add(cp);
+    }
 
     /**
      * Выставляет дополнительные баллы студенту за конкретную задачу.

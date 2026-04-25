@@ -87,7 +87,9 @@ public class Main {
                         .findFirst()
                         .orElse(null);
 
-                if (student == null) continue;
+                if (student == null) {
+                    continue;
+                }
 
                 File studentDir = new File(workspacesDir, student.getGithub());
                 runner.cloneRepo(student.getRepoUrl(), studentDir);

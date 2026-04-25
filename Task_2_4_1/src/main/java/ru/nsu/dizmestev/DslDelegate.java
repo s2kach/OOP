@@ -49,7 +49,9 @@ public class DslDelegate {
                 script = (DelegatingScript) shell.parse(externalFile);
             } else {
                 var resource = getClass().getClassLoader().getResource(filename);
-                if (resource == null) throw new IOException("Файл не найден: " + filename);
+                if (resource == null) {
+                    throw new IOException("Файл не найден: " + filename);
+                }
                 script = (DelegatingScript)
                         shell.parse(new InputStreamReader(resource.openStream()));
             }

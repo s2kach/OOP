@@ -20,7 +20,11 @@ public class Checkpoint {
         this.date = date;
     }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public LocalDate getDate() { return date; }
+    public LocalDate getDate() {
+        return date;
+    }
 }

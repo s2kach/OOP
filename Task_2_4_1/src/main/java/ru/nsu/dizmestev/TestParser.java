@@ -21,14 +21,19 @@ public class TestParser {
      */
     public TestResult parse(File taskDir) throws Exception {
         File resultsDir = new File(taskDir, "build/test-results/test");
-        int total = 0, failures = 0, errors = 0, skipped = 0;
+        int total = 0;
+        int failures = 0;
+        int errors = 0;
+        int skipped = 0;
 
         if (!resultsDir.exists() || !resultsDir.isDirectory()) {
             return new TestResult(0, 0, 0, 0);
         }
 
         File[] xmlFiles = resultsDir.listFiles((dir, name) -> name.endsWith(".xml"));
-        if (xmlFiles == null) return new TestResult(0, 0, 0, 0);
+        if (xmlFiles == null) {
+            return new TestResult(0, 0, 0, 0);
+        }
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
