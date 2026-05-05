@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
+
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="ru.nsu.dizmestev.GameController">
+    <Canvas fx:id="gameCanvas" height="400.0" width="400.0" />
+
+    <VBox fx:id="gameOverOverlay" alignment="CENTER" visible="false" style="-fx-background-color: rgba(0, 0, 0, 0.5);">
+        <Label text="GAME OVER!" textFill="WHITE" style="-fx-font-size: 40; -fx-font-weight: bold;"/>
+        <Label text="Press R to Restart" textFill="WHITE" style="-fx-font-size: 20;"/>
+    </VBox>
+
+    <VBox fx:id="gameWinOverlay" alignment="CENTER" visible="false" style="-fx-background-color: rgba(0, 100, 0, 0.5);">
+        <Label text="YOU WIN!" textFill="YELLOW" style="-fx-font-size: 40; -fx-font-weight: bold;"/>
+        <Label text="Press R to Restart" textFill="WHITE" style="-fx-font-size: 20;"/>
+    </VBox>
+</StackPane>
