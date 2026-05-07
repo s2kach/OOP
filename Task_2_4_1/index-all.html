@@ -48,7 +48,7 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="ru/nsu/dizmestev/CourseConfig.html#addCheckpoint(ru.nsu.dizmestev.Checkpoint)" class="member-name-link">addCheckpoint(Checkpoint)</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/CourseConfig.html" title="class in ru.nsu.dizmestev">CourseConfig</a></dt>
@@ -110,6 +110,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Блок описания контрольных точек в DSL.</div>
 </dd>
+<dt><a href="ru/nsu/dizmestev/CheckResult.html" class="type-name-link" title="class in ru.nsu.dizmestev">CheckResult</a> - Class in <a href="ru/nsu/dizmestev/package-summary.html">ru.nsu.dizmestev</a></dt>
+<dd>
+<div class="block">Контейнер для хранения результатов проверки одной задачи конкретного студента.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/CheckResult.html#%3Cinit%3E(ru.nsu.dizmestev.Student,java.lang.String,boolean,ru.nsu.dizmestev.TestResult,int,java.time.LocalDate,double)" class="member-name-link">CheckResult(Student, String, boolean, TestResult, int, LocalDate, double)</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/CheckResult.html" title="class in ru.nsu.dizmestev">CheckResult</a></dt>
+<dd>
+<div class="block">Создает объект результата проверки.</div>
+</dd>
 <dt><a href="ru/nsu/dizmestev/SystemRunner.html#cloneRepo(java.lang.String,java.io.File)" class="member-name-link">cloneRepo(String, File)</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/SystemRunner.html" title="class in ru.nsu.dizmestev">SystemRunner</a></dt>
 <dd>
 <div class="block">Скачивает репозиторий студента.</div>
@@ -145,6 +153,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
+<dt><a href="ru/nsu/dizmestev/HtmlReportGenerator.html#generate(java.util.List,java.util.List)" class="member-name-link">generate(List&lt;CheckResult&gt;, List&lt;Checkpoint&gt;)</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/HtmlReportGenerator.html" title="class in ru.nsu.dizmestev">HtmlReportGenerator</a></dt>
+<dd>
+<div class="block">Генерирует полный HTML-документ отчета.</div>
+</dd>
 <dt><a href="ru/nsu/dizmestev/CourseConfig.html#getAssignments()" class="member-name-link">getAssignments()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/CourseConfig.html" title="class in ru.nsu.dizmestev">CourseConfig</a></dt>
 <dd>
 <div class="block">Возвращает все назначения.</div>
@@ -187,13 +199,25 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="ru/nsu/dizmestev/Task.html#getSoftDeadline()" class="member-name-link">getSoftDeadline()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/Task.html" title="class in ru.nsu.dizmestev">Task</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="ru/nsu/dizmestev/CheckResult.html#getStudent()" class="member-name-link">getStudent()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/CheckResult.html" title="class in ru.nsu.dizmestev">CheckResult</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="ru/nsu/dizmestev/CourseConfig.html#getStudents()" class="member-name-link">getStudents()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/CourseConfig.html" title="class in ru.nsu.dizmestev">CourseConfig</a></dt>
 <dd>
 <div class="block">Возвращает всех студентов.</div>
 </dd>
+<dt><a href="ru/nsu/dizmestev/CheckResult.html#getStyleErrors()" class="member-name-link">getStyleErrors()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/CheckResult.html" title="class in ru.nsu.dizmestev">CheckResult</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/dizmestev/CheckResult.html#getSubmissionDate()" class="member-name-link">getSubmissionDate()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/CheckResult.html" title="class in ru.nsu.dizmestev">CheckResult</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/dizmestev/CheckResult.html#getTaskId()" class="member-name-link">getTaskId()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/CheckResult.html" title="class in ru.nsu.dizmestev">CheckResult</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="ru/nsu/dizmestev/CourseConfig.html#getTasks()" class="member-name-link">getTasks()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/CourseConfig.html" title="class in ru.nsu.dizmestev">CourseConfig</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="ru/nsu/dizmestev/CheckResult.html#getTestResult()" class="member-name-link">getTestResult()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/CheckResult.html" title="class in ru.nsu.dizmestev">CheckResult</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="ru/nsu/dizmestev/TestResult.html#getTotal()" class="member-name-link">getTotal()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/TestResult.html" title="class in ru.nsu.dizmestev">TestResult</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/dizmestev/CheckResult.html#getTotalScore()" class="member-name-link">getTotalScore()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/CheckResult.html" title="class in ru.nsu.dizmestev">CheckResult</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/dizmestev/DslDelegate.html#group(java.util.Map,groovy.lang.Closure)" class="member-name-link">group(Map&lt;String, Object&gt;, Closure&lt;?&gt;)</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/DslDelegate.html" title="class in ru.nsu.dizmestev">DslDelegate</a></dt>
 <dd>
@@ -204,12 +228,23 @@ loadScripts(document, 'script');</script>
 <div class="block">Блок групп.</div>
 </dd>
 </dl>
+<h2 class="title" id="I:H">H</h2>
+<dl class="index">
+<dt><a href="ru/nsu/dizmestev/HtmlReportGenerator.html" class="type-name-link" title="class in ru.nsu.dizmestev">HtmlReportGenerator</a> - Class in <a href="ru/nsu/dizmestev/package-summary.html">ru.nsu.dizmestev</a></dt>
+<dd>
+<div class="block">Класс, отвечающий за формирование визуального представления результатов.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/HtmlReportGenerator.html#%3Cinit%3E()" class="member-name-link">HtmlReportGenerator()</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/HtmlReportGenerator.html" title="class in ru.nsu.dizmestev">HtmlReportGenerator</a></dt>
+<dd>&nbsp;</dd>
+</dl>
 <h2 class="title" id="I:I">I</h2>
 <dl class="index">
 <dt><a href="ru/nsu/dizmestev/DslDelegate.html#include(java.lang.String)" class="member-name-link">include(String)</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/DslDelegate.html" title="class in ru.nsu.dizmestev">DslDelegate</a></dt>
 <dd>
 <div class="block">Импортирует другой файл конфигурации.</div>
 </dd>
+<dt><a href="ru/nsu/dizmestev/CheckResult.html#isBuildSuccess()" class="member-name-link">isBuildSuccess()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/CheckResult.html" title="class in ru.nsu.dizmestev">CheckResult</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:M">M</h2>
 <dl class="index">
@@ -233,8 +268,20 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:R">R</h2>
 <dl class="index">
+<dt><a href="ru/nsu/dizmestev/RepositoryChecker.html" class="type-name-link" title="class in ru.nsu.dizmestev">RepositoryChecker</a> - Class in <a href="ru/nsu/dizmestev/package-summary.html">ru.nsu.dizmestev</a></dt>
+<dd>
+<div class="block">Сервис для выполнения проверок репозиториев.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/RepositoryChecker.html#%3Cinit%3E(ru.nsu.dizmestev.SystemRunner,ru.nsu.dizmestev.CourseConfig)" class="member-name-link">RepositoryChecker(SystemRunner, CourseConfig)</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/RepositoryChecker.html" title="class in ru.nsu.dizmestev">RepositoryChecker</a></dt>
+<dd>
+<div class="block">Конструктор чекера.</div>
+</dd>
 <dt><a href="ru/nsu/dizmestev/package-summary.html">ru.nsu.dizmestev</a> - package ru.nsu.dizmestev</dt>
 <dd>&nbsp;</dd>
+<dt><a href="ru/nsu/dizmestev/RepositoryChecker.html#runAll()" class="member-name-link">runAll()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/RepositoryChecker.html" title="class in ru.nsu.dizmestev">RepositoryChecker</a></dt>
+<dd>
+<div class="block">Запускает полный цикл проверки всех назначенных задач для всех студентов.</div>
+</dd>
 <dt><a href="ru/nsu/dizmestev/SystemRunner.html#runGradleChecks(java.io.File)" class="member-name-link">runGradleChecks(File)</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/SystemRunner.html" title="class in ru.nsu.dizmestev">SystemRunner</a></dt>
 <dd>
 <div class="block">Запускает Gradle проверки.</div>
@@ -304,7 +351,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Формирует строку в формате Успешно/Провалено/Пропущено.</div>
 </dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
 </div>
 </div>
 </body>
