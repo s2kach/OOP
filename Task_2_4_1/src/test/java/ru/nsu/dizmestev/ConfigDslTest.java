@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 class ConfigDslTest {
 
@@ -105,5 +110,34 @@ class ConfigDslTest {
         Checkpoint cp = new Checkpoint("KT1", LocalDate.now());
         config.addCheckpoint(cp);
         assertEquals("KT1", config.getCheckpoints().get(0).getName());
+    }
+
+    @Test
+    void testDelegateIncludeMethod(@TempDir Path tempDir) throws IOException, CheckerException {
+        File scriptFile = tempDir.resolve("config.groovy").toFile();
+        try (FileWriter writer = new FileWriter(scriptFile)) {
+            writer.write("student(github: 'user', name: 'Ivan', repoUrl: 'url')");
+        }
+
+        delegate.include(scriptFile.getAbsolutePath());
+
+        assertFalse(config.getStudents().isEmpty());
+        assertEquals("user", config.getStudents().get(0).getGithub());
+    }
+
+    @Test
+    void testDelegateTaskFull(@TempDir Path tempDir) {
+        Map<String, Object> p = new HashMap<>();
+        p.put("id", "Lab1");
+        p.put("name", "Intro");
+        p.put("maxPoints", 5);
+        p.put("softDeadline", "01.01.2025");
+        p.put("hardDeadline", "10.01.2025");
+
+        delegate.task(p);
+
+        Task task = config.getTasks().get(0);
+        assertEquals(5, task.getMaxPoints());
+        assertEquals(LocalDate.of(2025, 1, 1), task.getSoftDeadline());
     }
 }

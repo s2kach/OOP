@@ -25,7 +25,9 @@ public class RepositoryChecker {
         this.runner = runner;
         this.config = config;
         this.workspacesDir = new File("workspaces");
-        if (!workspacesDir.exists()) workspacesDir.mkdir();
+        if (!workspacesDir.exists()) {
+            workspacesDir.mkdir();
+        }
     }
 
     /**
@@ -39,12 +41,18 @@ public class RepositoryChecker {
 
         for (Map.Entry<String, List<String>> entry : config.getAssignments().entrySet()) {
             String taskId = entry.getKey();
-            Task task = config.getTasks().stream().filter(t -> t.getId().equals(taskId)).findFirst().orElse(null);
-            if (task == null) continue;
+            Task task = config.getTasks().stream()
+                    .filter(t -> t.getId().equals(taskId)).findFirst().orElse(null);
+            if (task == null) {
+                continue;
+            }
 
             for (String github : entry.getValue()) {
-                Student student = config.getStudents().stream().filter(s -> s.getGithub().equals(github)).findFirst().orElse(null);
-                if (student == null) continue;
+                Student student = config.getStudents().stream()
+                        .filter(s -> s.getGithub().equals(github)).findFirst().orElse(null);
+                if (student == null) {
+                    continue;
+                }
 
                 results.add(processSingle(student, task));
             }
@@ -75,19 +83,28 @@ public class RepositoryChecker {
             buildSuccess = runner.runGradleChecks(taskDir);
             try {
                 testResult = new TestParser().parse(taskDir);
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                System.err.println("Could not parse test results in " + taskDir.getName());
+            }
         }
 
         int styleErrors = new StyleParser().countStyleErrors(taskDir);
         LocalDate submissionDate = runner.getCommitDate(taskDir).toLocalDate();
 
         double multiplier = 1.0;
-        if (submissionDate.isAfter(task.getHardDeadline())) multiplier = 0.0;
-        else if (submissionDate.isAfter(task.getSoftDeadline())) multiplier = 0.5;
+        if (submissionDate.isAfter(task.getHardDeadline())) {
+            multiplier = 0.0;
+        }
+        else if (submissionDate.isAfter(task.getSoftDeadline())) {
+            multiplier = 0.5;
+        }
 
-        double baseScore = (buildSuccess && testResult.toString().contains("/0/")) ? task.getMaxPoints() : 0;
-        double totalScore = (baseScore * multiplier) + config.getExtra(student.getGithub(), task.getId());
+        double baseScore = (buildSuccess && testResult.toString().contains("/0/"))
+                ? task.getMaxPoints() : 0;
+        double totalScore = (baseScore * multiplier)
+                + config.getExtra(student.getGithub(), task.getId());
 
-        return new CheckResult(student, task.getId(), buildSuccess, testResult, styleErrors, submissionDate, totalScore);
+        return new CheckResult(student, task.getId(), buildSuccess, testResult,
+                styleErrors, submissionDate, totalScore);
     }
 }

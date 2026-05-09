@@ -1,10 +1,13 @@
 package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 class ModelsTest {
 
@@ -65,5 +68,26 @@ class ModelsTest {
 
         assertEquals("msg", ex.getMessage());
         assertEquals(cause, ex.getCause());
+    }
+
+    @Test
+    void testCheckerInitialization() {
+        CourseConfig config = new CourseConfig();
+        SystemRunner runner = new SystemRunner();
+        RepositoryChecker checker = new RepositoryChecker(runner, config);
+
+        assertNotNull(checker);
+    }
+
+    @Test
+    void testRunnerInstance() {
+        SystemRunner runner = new SystemRunner();
+        assertNotNull(runner);
+    }
+
+    @Test
+    void testGetCommitDateWithEmptyDir(@TempDir File tempDir) {
+        SystemRunner runner = new SystemRunner();
+        runner.getCommitDate(tempDir);
     }
 }

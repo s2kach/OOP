@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import org.junit.jupiter.api.Test;
 
 class LogicTest {
@@ -22,8 +21,12 @@ class LogicTest {
 
     private double calculateTestScore(Task task, LocalDateTime commitDate, double testRatio) {
         double multiplier = 1.0;
-        if (commitDate.toLocalDate().isAfter(task.getHardDeadline())) multiplier = 0.0;
-        else if (commitDate.toLocalDate().isAfter(task.getSoftDeadline())) multiplier = 0.5;
+        if (commitDate.toLocalDate().isAfter(task.getHardDeadline())) {
+            multiplier = 0.0;
+        }
+        else if (commitDate.toLocalDate().isAfter(task.getSoftDeadline())) {
+            multiplier = 0.5;
+        }
         return task.getMaxPoints() * testRatio * multiplier;
     }
 }

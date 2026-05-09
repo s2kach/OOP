@@ -37,11 +37,31 @@ public class CheckResult {
         this.totalScore = totalScore;
     }
 
-    public Student getStudent() { return student; }
-    public String getTaskId() { return taskId; }
-    public boolean isBuildSuccess() { return buildSuccess; }
-    public TestResult getTestResult() { return testResult; }
-    public int getStyleErrors() { return styleErrors; }
-    public LocalDate getSubmissionDate() { return submissionDate; }
-    public double getTotalScore() { return totalScore; }
+    public Student getStudent() {
+        return student;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public boolean isBuildSuccess() {
+        return buildSuccess;
+    }
+
+    public TestResult getTestResult() {
+        return testResult;
+    }
+
+    public int getStyleErrors() {
+        return styleErrors;
+    }
+
+    public LocalDate getSubmissionDate() {
+        return submissionDate;
+    }
+
+    public double getTotalScore() {
+        return totalScore;
+    }
 }
