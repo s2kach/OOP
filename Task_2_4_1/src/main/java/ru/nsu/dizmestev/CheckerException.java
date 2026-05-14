@@ -14,4 +14,13 @@ public class CheckerException extends Exception {
     public CheckerException(String message, Throwable cause) {
         super(message, cause);
     }
+
+    /**
+     * Конструктор с сообщением и без причины свыше.
+     *
+     * @param message Описание ошибки.
+     */
+    public CheckerException(String message) {
+        super(message);
+    }
 }

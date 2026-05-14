@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import groovy.lang.Closure;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +16,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import groovy.lang.Closure;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -193,4 +193,11 @@ class ConfigDslTest {
         assertThrows(CheckerException.class, () -> checker.runAll());
     }
 
+    @Test
+    void testIncludeNonExistentFile() {
+        CourseConfig config = new CourseConfig();
+        DslDelegate delegate = new DslDelegate(config);
+
+        assertThrows(CheckerException.class, () -> delegate.include("shadow_realm.groovy"));
+    }
 }

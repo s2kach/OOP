@@ -3,12 +3,14 @@ package ru.nsu.dizmestev;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -103,5 +105,20 @@ class ModelsTest {
         SystemRunner runner = new SystemRunner();
 
         assertDoesNotThrow(() -> runner.cloneRepo("any_url", tempDir.toFile()));
+    }
+
+    @Test
+    void testGetCommitDateWithInvalidDir(@TempDir File tempDir) {
+        SystemRunner runner = new SystemRunner();
+        LocalDateTime date = runner.getCommitDate(tempDir);
+        assertNotNull(date);
+        assertTrue(date.isBefore(LocalDateTime.now().plusSeconds(1)));
+    }
+
+    @Test
+    void testRunGradleChecksFailsOnMissingDir() {
+        SystemRunner runner = new SystemRunner();
+        File fake = new File("completely_wrong_path");
+        assertThrows(CheckerException.class, () -> runner.runGradleChecks(fake));
     }
 }

@@ -71,9 +71,8 @@ public class SystemRunner {
         File gradlewFile = new File(taskDir, "gradlew.bat");
 
         if (!gradlewFile.exists()) {
-            System.err.println("!!! Пропуск: " + taskDir.getName()
+            throw new CheckerException("!!! Пропуск: " + taskDir.getName()
                     + " не найдена (не склонировалась или путь неверный)");
-            return false;
         }
         try {
             ProcessBuilder pb = new ProcessBuilder(gradlewFile.getAbsolutePath());
