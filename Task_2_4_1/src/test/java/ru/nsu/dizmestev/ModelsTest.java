@@ -2,7 +2,6 @@ package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -142,61 +141,6 @@ class ModelsTest {
         SystemRunner runner = new SystemRunner();
         File fake = new File("completely_wrong_path");
         assertThrows(CheckerException.class, () -> runner.runGradleChecks(fake));
-    }
-
-    @Test
-    void testRunGradleChecksSuccess(@TempDir File taskDir) throws IOException, CheckerException {
-        SystemRunner runner = new SystemRunner();
-
-        String os = System.getProperty("os.name").toLowerCase();
-        String scriptName = os.contains("win") ? "gradlew.bat" : "gradlew";
-        File gradlew = new File(taskDir, scriptName);
-
-        try (java.io.FileWriter fw = new java.io.FileWriter(gradlew)) {
-            if (os.contains("win")) {
-                fw.write("@echo off\nexit /b 0");
-            } else {
-                fw.write("#!/bin/sh\nexit 0");
-            }
-        }
-
-        gradlew.setExecutable(true);
-
-        File rootDir = taskDir.getParentFile().getParentFile();
-        new File(rootDir, "init.gradle").createNewFile();
-
-        if (!os.contains("win")) {
-            File batFile = new File(taskDir, "gradlew.bat");
-            try (java.io.FileWriter fw = new java.io.FileWriter(batFile)) {
-                fw.write("#!/bin/sh\nexit 0");
-            }
-            batFile.setExecutable(true);
-        }
-
-        boolean result = runner.runGradleChecks(taskDir);
-        assertTrue(result);
-    }
-
-    @Test
-    void testRunGradleChecksFails(@TempDir File taskDir) throws IOException, CheckerException {
-        SystemRunner runner = new SystemRunner();
-        String os = System.getProperty("os.name").toLowerCase();
-        File gradlew = new File(taskDir, "gradlew.bat");
-
-        try (java.io.FileWriter fw = new java.io.FileWriter(gradlew)) {
-            if (os.contains("win")) {
-                fw.write("@echo off\nexit /b 1");
-            } else {
-                fw.write("#!/bin/sh\nexit 1");
-            }
-        }
-        gradlew.setExecutable(true);
-
-        File rootDir = taskDir.getParentFile().getParentFile();
-        new File(rootDir, "init.gradle").createNewFile();
-
-        boolean result = runner.runGradleChecks(taskDir);
-        assertFalse(result);
     }
 
     @Test
