@@ -70,4 +70,35 @@ class TestParserTest {
         assertNotNull(result);
         assertEquals("7/2/1", result.toString());
     }
+
+    @Test
+    void testStyleParserWithCorruptXml(@TempDir Path tempDir) throws IOException {
+        File reportDir = tempDir.resolve("build/reports/checkstyle").toFile();
+        reportDir.mkdirs();
+        File reportFile = new File(reportDir, "main.xml");
+
+        try (FileWriter writer = new FileWriter(reportFile)) {
+            writer.write("<?xml version=\"1.0\"?><checkstyle><error>");
+        }
+
+        StyleParser parser = new StyleParser();
+        int errors = parser.countStyleErrors(tempDir.toFile());
+
+        assertEquals(-1, errors);
+    }
+
+    @Test
+    void testStyleParserWithEmptyCheckstyleTag(@TempDir Path tempDir) throws IOException {
+        File reportDir = tempDir.resolve("build/reports/checkstyle").toFile();
+        reportDir.mkdirs();
+        File reportFile = new File(reportDir, "main.xml");
+
+        try (FileWriter writer = new FileWriter(reportFile)) {
+            writer.write("<?xml version=\"1.0\"?><checkstyle></checkstyle>");
+        }
+
+        StyleParser parser = new StyleParser();
+        int errors = parser.countStyleErrors(tempDir.toFile());
+        assertEquals(0, errors);
+    }
 }

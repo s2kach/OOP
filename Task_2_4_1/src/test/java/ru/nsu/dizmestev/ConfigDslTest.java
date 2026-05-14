@@ -3,6 +3,8 @@ package ru.nsu.dizmestev;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,6 +15,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import groovy.lang.Closure;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -140,4 +143,54 @@ class ConfigDslTest {
         assertEquals(5, task.getMaxPoints());
         assertEquals(LocalDate.of(2025, 1, 1), task.getSoftDeadline());
     }
+
+    @Test
+    void testCheckpointsClosureExecution() {
+        delegate.checkpoints(new Closure<Object>(delegate) {
+            public Object doCall() {
+                Map<String, Object> p = new HashMap<>();
+                p.put("name", "KT 1");
+                p.put("date", "01.01.2025");
+                ((DslDelegate) getDelegate()).checkpoint(p);
+                return null;
+            }
+        });
+
+        assertFalse(config.getCheckpoints().isEmpty());
+        assertEquals("KT 1", config.getCheckpoints().get(0).getName());
+    }
+
+    @Test
+    void testExtraPointsWithIntegerType() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("student", "nick");
+        params.put("task", "T1");
+        params.put("points", 10);
+
+        delegate.extraPoints(params);
+
+        assertEquals(10.0, config.getExtra("nick", "T1"));
+    }
+
+    @Test
+    void testRunAllWithNoAssignments() throws CheckerException {
+        CourseConfig config = new CourseConfig();
+        RepositoryChecker checker = new RepositoryChecker(new SystemRunner(), config);
+
+        List<CheckResult> results = checker.runAll();
+        assertTrue(results.isEmpty());
+    }
+
+    @Test
+    void testRunAllWithIncompleteData() {
+        CourseConfig config = new CourseConfig();
+        config.addStudent(new Student("user", "Name", "http://bad-url"));
+        config.addTask(new Task("Task_1_1_1", "Lab", 2, null, null));
+        config.assignCheck("Task_1_1_1", Collections.singletonList("user"));
+
+        RepositoryChecker checker = new RepositoryChecker(new SystemRunner(), config);
+
+        assertThrows(CheckerException.class, () -> checker.runAll());
+    }
+
 }

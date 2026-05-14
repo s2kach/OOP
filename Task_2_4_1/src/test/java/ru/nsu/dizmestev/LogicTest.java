@@ -23,8 +23,7 @@ class LogicTest {
         double multiplier = 1.0;
         if (commitDate.toLocalDate().isAfter(task.getHardDeadline())) {
             multiplier = 0.0;
-        }
-        else if (commitDate.toLocalDate().isAfter(task.getSoftDeadline())) {
+        } else if (commitDate.toLocalDate().isAfter(task.getSoftDeadline())) {
             multiplier = 0.5;
         }
         return task.getMaxPoints() * testRatio * multiplier;

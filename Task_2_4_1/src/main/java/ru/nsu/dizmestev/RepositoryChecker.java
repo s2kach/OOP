@@ -94,8 +94,7 @@ public class RepositoryChecker {
         double multiplier = 1.0;
         if (submissionDate.isAfter(task.getHardDeadline())) {
             multiplier = 0.0;
-        }
-        else if (submissionDate.isAfter(task.getSoftDeadline())) {
+        } else if (submissionDate.isAfter(task.getSoftDeadline())) {
             multiplier = 0.5;
         }
 

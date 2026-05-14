@@ -1,10 +1,13 @@
 package ru.nsu.dizmestev;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -89,5 +92,16 @@ class ModelsTest {
     void testGetCommitDateWithEmptyDir(@TempDir File tempDir) {
         SystemRunner runner = new SystemRunner();
         runner.getCommitDate(tempDir);
+    }
+
+    @Test
+    void testCloneRepoSkipsIfMarkerExists(@TempDir Path tempDir) throws IOException {
+        File taskDir = tempDir.resolve("Task_1_1_1").toFile();
+        taskDir.mkdirs();
+        new File(taskDir, "gradlew.bat").createNewFile();
+
+        SystemRunner runner = new SystemRunner();
+
+        assertDoesNotThrow(() -> runner.cloneRepo("any_url", tempDir.toFile()));
     }
 }
