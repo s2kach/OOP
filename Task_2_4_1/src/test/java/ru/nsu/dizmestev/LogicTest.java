@@ -60,7 +60,6 @@ class LogicTest {
 
     @Test
     void testRepositoryCheckerFullCycle(@TempDir File tempDir) throws CheckerException {
-        FakeSystemRunner fakeRunner = new FakeSystemRunner();
         Student s = new Student("test_user", "Test Student", "http://fake.url");
         Task t = new Task("Task_1", "Lab 1", 10, LocalDate.now().minusDays(5),
                 LocalDate.now().plusDays(5));
@@ -74,6 +73,7 @@ class LogicTest {
         File studentDir = new File("workspaces/test_user/Task_1");
         studentDir.mkdirs();
 
+        FakeSystemRunner fakeRunner = new FakeSystemRunner();
         RepositoryChecker checker = new RepositoryChecker(fakeRunner, config);
         List<CheckResult> results = checker.runAll();
 

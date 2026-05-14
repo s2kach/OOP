@@ -2,12 +2,14 @@ package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +17,37 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 class ModelsTest {
+
+    static class GradleMockRunner extends SystemRunner {
+        private final boolean buildResult;
+
+        GradleMockRunner(boolean buildResult) {
+            this.buildResult = buildResult;
+        }
+
+        @Override
+        public boolean runGradleChecks(File taskDir) throws CheckerException {
+            File gradlewFile = new File(taskDir, "gradlew.bat");
+            if (!gradlewFile.exists()) {
+                throw new CheckerException("Пропуск: " + taskDir.getName() + " не найдена");
+            }
+            return buildResult;
+        }
+    }
+
+    @Test
+    void testRunGradleChecksSuccess(@TempDir File tempDir) throws Exception {
+        new File(tempDir, "gradlew.bat").createNewFile();
+        SystemRunner runner = new GradleMockRunner(true);
+        assertTrue(runner.runGradleChecks(tempDir));
+    }
+
+    @Test
+    void testRunGradleChecksFailure(@TempDir File tempDir) throws Exception {
+        new File(tempDir, "gradlew.bat").createNewFile();
+        SystemRunner runner = new GradleMockRunner(false);
+        assertFalse(runner.runGradleChecks(tempDir));
+    }
 
     @Test
     void testStudentGetters() {
@@ -123,7 +156,8 @@ class ModelsTest {
         File targetDir = new File(tempDir, "sub1/sub2/myrepo");
 
         assertThrows(CheckerException.class, () -> {
-            runner.cloneRepo("invalid_url", targetDir);});
+            runner.cloneRepo("invalid_url", targetDir);
+        });
 
         assertTrue(new File(tempDir, "sub1/sub2").exists(), "Parent directories should be created");
     }
@@ -147,5 +181,39 @@ class ModelsTest {
     void testCheckGitAuthless() {
         SystemRunner runner = new SystemRunner();
         assertDoesNotThrow(() -> runner.checkGitAuthless());
+    }
+
+    @Test
+    void testCloneRepoSuccess(@TempDir Path tempDir) throws Exception {
+        File bareRepo = tempDir.resolve("bare.git").toFile();
+        bareRepo.mkdirs();
+        new ProcessBuilder("git", "init", "--bare", bareRepo.getAbsolutePath())
+                .start().waitFor();
+
+        SystemRunner runner = new SystemRunner();
+        File targetDir = tempDir.resolve("clone_target").toFile();
+
+        assertDoesNotThrow(()
+                -> runner.cloneRepo("file://" + bareRepo.getAbsolutePath(), targetDir));
+        assertTrue(new File(targetDir, ".git").exists());
+    }
+
+    @Test
+    void testGetCommitDateSuccess(@TempDir File tempDir) throws Exception {
+        new ProcessBuilder("git", "init").directory(tempDir).start().waitFor();
+        new ProcessBuilder("git", "config", "user.email", "test@test.com")
+                .directory(tempDir).start().waitFor();
+        new ProcessBuilder("git", "config", "user.name", "Test")
+                .directory(tempDir).start().waitFor();
+        Files.writeString(tempDir.toPath().resolve("file.txt"), "data");
+        new ProcessBuilder("git", "add", ".").directory(tempDir).start().waitFor();
+        new ProcessBuilder("git", "commit", "-m", "init").directory(tempDir).start().waitFor();
+
+        SystemRunner runner = new SystemRunner();
+        LocalDateTime date = runner.getCommitDate(tempDir);
+
+        assertNotNull(date);
+        assertTrue(date.isBefore(LocalDateTime.now().plusSeconds(2)));
+        assertTrue(date.isAfter(LocalDateTime.now().minusMinutes(1)));
     }
 }
