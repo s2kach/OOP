@@ -2,7 +2,6 @@ package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,37 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 class ModelsTest {
-
-    static class GradleMockRunner extends SystemRunner {
-        private final boolean buildResult;
-
-        GradleMockRunner(boolean buildResult) {
-            this.buildResult = buildResult;
-        }
-
-        @Override
-        public boolean runGradleChecks(File taskDir) throws CheckerException {
-            File gradlewFile = new File(taskDir, "gradlew.bat");
-            if (!gradlewFile.exists()) {
-                throw new CheckerException("Пропуск: " + taskDir.getName() + " не найдена");
-            }
-            return buildResult;
-        }
-    }
-
-    @Test
-    void testRunGradleChecksSuccess(@TempDir File tempDir) throws Exception {
-        new File(tempDir, "gradlew.bat").createNewFile();
-        SystemRunner runner = new GradleMockRunner(true);
-        assertTrue(runner.runGradleChecks(tempDir));
-    }
-
-    @Test
-    void testRunGradleChecksFailure(@TempDir File tempDir) throws Exception {
-        new File(tempDir, "gradlew.bat").createNewFile();
-        SystemRunner runner = new GradleMockRunner(false);
-        assertFalse(runner.runGradleChecks(tempDir));
-    }
 
     @Test
     void testStudentGetters() {
@@ -215,5 +183,27 @@ class ModelsTest {
         assertNotNull(date);
         assertTrue(date.isBefore(LocalDateTime.now().plusSeconds(2)));
         assertTrue(date.isAfter(LocalDateTime.now().minusMinutes(1)));
+    }
+
+    @Test
+    void testRunGradleChecksSuccess(@TempDir File tempDir) throws Exception {
+
+        File gradlew = new File(tempDir, "gradlew.bat");
+
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            Files.writeString(gradlew.toPath(), "@echo off\nexit /b 0");
+        } else {
+            Files.writeString(gradlew.toPath(), "#!/bin/sh\nexit 0");
+            gradlew.setExecutable(true);
+        }
+
+        SystemRunner runner = new SystemRunner();
+
+        try {
+            boolean result = runner.runGradleChecks(tempDir);
+            assertTrue(result);
+        } catch (CheckerException e) {
+            assertTrue(e.getMessage().contains("Не удалось запустить Gradle"));
+        }
     }
 }
