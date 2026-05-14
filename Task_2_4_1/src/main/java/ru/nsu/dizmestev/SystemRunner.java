@@ -118,9 +118,10 @@ public class SystemRunner {
                             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 }
             }
-        } catch (Exception e) {
+        } catch (IOException | java.time.format.DateTimeParseException e) {
             System.err.println("Ошибка получения даты Git для " + taskDir.getName());
         }
         return LocalDateTime.now();
     }
+
 }

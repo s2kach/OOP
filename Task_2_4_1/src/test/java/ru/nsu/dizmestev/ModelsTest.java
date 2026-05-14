@@ -2,6 +2,7 @@ package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -122,10 +123,8 @@ class ModelsTest {
         SystemRunner runner = new SystemRunner();
         File targetDir = new File(tempDir, "sub1/sub2/myrepo");
 
-        try {
-            runner.cloneRepo("invalid_url", targetDir);
-        } catch (CheckerException e) {
-        }
+        assertThrows(CheckerException.class, () -> {
+            runner.cloneRepo("invalid_url", targetDir);});
 
         assertTrue(new File(tempDir, "sub1/sub2").exists(), "Parent directories should be created");
     }
@@ -149,14 +148,30 @@ class ModelsTest {
     void testRunGradleChecksSuccess(@TempDir File taskDir) throws IOException, CheckerException {
         SystemRunner runner = new SystemRunner();
 
-        File gradlew = new File(taskDir, "gradlew.bat");
+        String os = System.getProperty("os.name").toLowerCase();
+        String scriptName = os.contains("win") ? "gradlew.bat" : "gradlew";
+        File gradlew = new File(taskDir, scriptName);
+
         try (java.io.FileWriter fw = new java.io.FileWriter(gradlew)) {
-            fw.write("@echo off\nexit /b 0");
+            if (os.contains("win")) {
+                fw.write("@echo off\nexit /b 0");
+            } else {
+                fw.write("#!/bin/sh\nexit 0");
+            }
         }
 
-        File parentDir = taskDir.getParentFile();
-        File rootDir = parentDir.getParentFile();
+        gradlew.setExecutable(true);
+
+        File rootDir = taskDir.getParentFile().getParentFile();
         new File(rootDir, "init.gradle").createNewFile();
+
+        if (!os.contains("win")) {
+            File batFile = new File(taskDir, "gradlew.bat");
+            try (java.io.FileWriter fw = new java.io.FileWriter(batFile)) {
+                fw.write("#!/bin/sh\nexit 0");
+            }
+            batFile.setExecutable(true);
+        }
 
         boolean result = runner.runGradleChecks(taskDir);
         assertTrue(result);
@@ -165,17 +180,23 @@ class ModelsTest {
     @Test
     void testRunGradleChecksFails(@TempDir File taskDir) throws IOException, CheckerException {
         SystemRunner runner = new SystemRunner();
-
+        String os = System.getProperty("os.name").toLowerCase();
         File gradlew = new File(taskDir, "gradlew.bat");
+
         try (java.io.FileWriter fw = new java.io.FileWriter(gradlew)) {
-            fw.write("@echo off\nexit /b 1");
+            if (os.contains("win")) {
+                fw.write("@echo off\nexit /b 1");
+            } else {
+                fw.write("#!/bin/sh\nexit 1");
+            }
         }
+        gradlew.setExecutable(true);
 
         File rootDir = taskDir.getParentFile().getParentFile();
         new File(rootDir, "init.gradle").createNewFile();
 
         boolean result = runner.runGradleChecks(taskDir);
-        assertTrue(!result);
+        assertFalse(result);
     }
 
     @Test

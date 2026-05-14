@@ -13,6 +13,30 @@ import org.junit.jupiter.api.io.TempDir;
 
 class LogicTest {
 
+    static class FakeSystemRunner extends SystemRunner {
+        public LocalDateTime mockDate = LocalDateTime.now();
+        public boolean mockBuildResult = true;
+
+        @Override
+        public void cloneRepo(String url, File dir) {
+            dir.mkdirs();
+        }
+
+        @Override
+        public LocalDateTime getCommitDate(File dir) {
+            return mockDate;
+        }
+
+        @Override
+        public boolean runGradleChecks(File dir) {
+            return mockBuildResult;
+        }
+
+        @Override
+        public void checkGitAuthless() {
+        }
+    }
+
     @Test
     void testScoreCalculationWithDeadlines() {
         LocalDate soft = LocalDate.now().minusDays(1);
@@ -37,12 +61,11 @@ class LogicTest {
     @Test
     void testRepositoryCheckerFullCycle(@TempDir File tempDir) throws CheckerException {
         FakeSystemRunner fakeRunner = new FakeSystemRunner();
-        CourseConfig config = new CourseConfig();
-
         Student s = new Student("test_user", "Test Student", "http://fake.url");
         Task t = new Task("Task_1", "Lab 1", 10, LocalDate.now().minusDays(5),
                 LocalDate.now().plusDays(5));
 
+        CourseConfig config = new CourseConfig();
         config.addStudent(s);
         config.addTask(t);
         config.assignCheck("Task_1", List.of("test_user"));
@@ -61,29 +84,5 @@ class LogicTest {
         assertTrue(res.isBuildSuccess());
 
         studentDir.delete();
-    }
-}
-
-class FakeSystemRunner extends SystemRunner {
-    public LocalDateTime mockDate = LocalDateTime.now();
-    public boolean mockBuildResult = true;
-
-    @Override
-    public void cloneRepo(String url, File dir) {
-        dir.mkdirs();
-    }
-
-    @Override
-    public LocalDateTime getCommitDate(File dir) {
-        return mockDate;
-    }
-
-    @Override
-    public boolean runGradleChecks(File dir) {
-        return mockBuildResult;
-    }
-
-    @Override
-    public void checkGitAuthless() {
     }
 }
