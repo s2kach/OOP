@@ -108,6 +108,29 @@ class ModelsTest {
     }
 
     @Test
+    void testCloneRepoFailsWithInvalidUrl(@TempDir File tempDir) {
+        SystemRunner runner = new SystemRunner();
+        File targetDir = new File(tempDir, "invalid_repo");
+
+        assertThrows(CheckerException.class, () ->
+                runner.cloneRepo("https://invalid-url-at-all.com/repo.git", targetDir)
+        );
+    }
+
+    @Test
+    void testCloneRepoCreatesParentDirs(@TempDir File tempDir) {
+        SystemRunner runner = new SystemRunner();
+        File targetDir = new File(tempDir, "sub1/sub2/myrepo");
+
+        try {
+            runner.cloneRepo("invalid_url", targetDir);
+        } catch (CheckerException e) {
+        }
+
+        assertTrue(new File(tempDir, "sub1/sub2").exists(), "Parent directories should be created");
+    }
+
+    @Test
     void testGetCommitDateWithInvalidDir(@TempDir File tempDir) {
         SystemRunner runner = new SystemRunner();
         LocalDateTime date = runner.getCommitDate(tempDir);
@@ -120,5 +143,44 @@ class ModelsTest {
         SystemRunner runner = new SystemRunner();
         File fake = new File("completely_wrong_path");
         assertThrows(CheckerException.class, () -> runner.runGradleChecks(fake));
+    }
+
+    @Test
+    void testRunGradleChecksSuccess(@TempDir File taskDir) throws IOException, CheckerException {
+        SystemRunner runner = new SystemRunner();
+
+        File gradlew = new File(taskDir, "gradlew.bat");
+        try (java.io.FileWriter fw = new java.io.FileWriter(gradlew)) {
+            fw.write("@echo off\nexit /b 0");
+        }
+
+        File parentDir = taskDir.getParentFile();
+        File rootDir = parentDir.getParentFile();
+        new File(rootDir, "init.gradle").createNewFile();
+
+        boolean result = runner.runGradleChecks(taskDir);
+        assertTrue(result);
+    }
+
+    @Test
+    void testRunGradleChecksFails(@TempDir File taskDir) throws IOException, CheckerException {
+        SystemRunner runner = new SystemRunner();
+
+        File gradlew = new File(taskDir, "gradlew.bat");
+        try (java.io.FileWriter fw = new java.io.FileWriter(gradlew)) {
+            fw.write("@echo off\nexit /b 1");
+        }
+
+        File rootDir = taskDir.getParentFile().getParentFile();
+        new File(rootDir, "init.gradle").createNewFile();
+
+        boolean result = runner.runGradleChecks(taskDir);
+        assertTrue(!result);
+    }
+
+    @Test
+    void testCheckGitAuthless() {
+        SystemRunner runner = new SystemRunner();
+        assertDoesNotThrow(() -> runner.checkGitAuthless());
     }
 }
