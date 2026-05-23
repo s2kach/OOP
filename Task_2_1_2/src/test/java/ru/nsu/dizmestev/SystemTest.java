@@ -82,4 +82,13 @@ class SystemTest {
 
         assertFalse(t.isAlive());
     }
+
+    @Test
+    void testStopServerDirectly() {
+        int[] numbers = {2, 3, 5};
+        MasterNode master = new MasterNode(numbers);
+
+        assertDoesNotThrow(master::stopServer);
+        assertDoesNotThrow(master::stopServer);
+    }
 }
