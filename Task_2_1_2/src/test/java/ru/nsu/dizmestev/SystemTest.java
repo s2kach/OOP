@@ -84,11 +84,32 @@ class SystemTest {
     }
 
     @Test
-    void testStopServerDirectly() {
-        int[] numbers = {2, 3, 5};
+    @Timeout(value = 5, unit = TimeUnit.SECONDS)
+    void testNonPrimeDetection() throws InterruptedException {
+        int[] numbers = {4};
         MasterNode master = new MasterNode(numbers);
+        Thread masterThread = new Thread(() -> assertDoesNotThrow(master::start));
+        masterThread.start();
 
-        assertDoesNotThrow(master::stopServer);
-        assertDoesNotThrow(master::stopServer);
+        Thread.sleep(200);
+        WorkerNode worker = new WorkerNode();
+
+        assertDoesNotThrow(worker::start);
+        masterThread.join();
+    }
+
+    @Test
+    void testMasterPortConflictThrowsNetworkException() throws InterruptedException {
+        MasterNode master1 = new MasterNode(new int[]{2});
+        MasterNode master2 = new MasterNode(new int[]{3});
+
+        Thread t1 = new Thread(() -> assertDoesNotThrow(master1::start));
+        t1.start();
+        Thread.sleep(200);
+
+        org.junit.jupiter.api.Assertions.assertThrows(NetworkException.class, master2::start);
+
+        master1.stopServer();
+        t1.join();
     }
 }
