@@ -2,8 +2,11 @@ package ru.nsu.dizmestev;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
@@ -107,7 +110,7 @@ class SystemTest {
         t1.start();
         Thread.sleep(200);
 
-        org.junit.jupiter.api.Assertions.assertThrows(NetworkException.class, master2::start);
+        assertThrows(NetworkException.class, master2::start);
 
         master1.stopServer();
         t1.join();
@@ -121,8 +124,8 @@ class SystemTest {
         Thread.sleep(200);
 
         java.net.Socket rawSocket = new java.net.Socket("localhost", 8080);
-        new java.io.ObjectOutputStream(rawSocket.getOutputStream());
-        java.io.ObjectInputStream testOis = new java.io.ObjectInputStream(rawSocket.getInputStream());
+        new ObjectOutputStream(rawSocket.getOutputStream());
+        ObjectInputStream testOis = new ObjectInputStream(rawSocket.getInputStream());
 
         testOis.readObject();
 
