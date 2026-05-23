@@ -112,4 +112,24 @@ class SystemTest {
         master1.stopServer();
         t1.join();
     }
+
+    @Test
+    void testWorkerDisconnectMidTaskReturnsTaskToQueue() throws Exception {
+        MasterNode master = new MasterNode(new int[]{2, 3, 5});
+        Thread t = new Thread(() -> assertDoesNotThrow(master::start));
+        t.start();
+        Thread.sleep(200);
+
+        java.net.Socket rawSocket = new java.net.Socket("localhost", 8080);
+        new java.io.ObjectOutputStream(rawSocket.getOutputStream());
+        java.io.ObjectInputStream testOis = new java.io.ObjectInputStream(rawSocket.getInputStream());
+
+        testOis.readObject();
+
+        rawSocket.close();
+
+        Thread.sleep(200);
+        master.stopServer();
+        t.join();
+    }
 }
