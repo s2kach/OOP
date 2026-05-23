@@ -1,9 +1,12 @@
 package ru.nsu.dizmestev;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
-import java.util.concurrent.TimeUnit;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
  * Интеграционный тест распределенной системы.
@@ -59,5 +62,24 @@ class SystemTest {
         for (int i = 0; i < workerCount; i++) {
             workerThreads[i].join();
         }
+    }
+
+    @Test
+    void testMasterStopGracefully() throws InterruptedException {
+        int[] numbers = {2, 3, 5};
+        MasterNode master = new MasterNode(numbers);
+
+        Thread t = new Thread(() -> {
+            assertDoesNotThrow(master::start);
+        });
+        t.start();
+        Thread.sleep(500);
+
+        assertTrue(t.isAlive());
+
+        master.stopServer();
+        t.join(1000);
+
+        assertFalse(t.isAlive());
     }
 }

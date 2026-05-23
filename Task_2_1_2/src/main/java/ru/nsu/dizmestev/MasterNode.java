@@ -71,12 +71,13 @@ public class MasterNode {
     /**
      * Вспомогательный метод остановки для удобства и читаемости.
      */
-    private void stopServer() {
+    void stopServer() {
         isFinished.set(true);
         if (serverSocket != null && !serverSocket.isClosed()) {
             try {
                 serverSocket.close();
-            } catch (IOException ignored) {
+            } catch (IOException e) {
+                System.err.println("close server socket: " + e.getMessage());
             }
         }
     }
@@ -127,7 +128,8 @@ public class MasterNode {
         } finally {
             try {
                 socket.close();
-            } catch (IOException ignored) {
+            } catch (IOException e) {
+                System.err.println("close server socket: " + e.getMessage());
             }
         }
     }
