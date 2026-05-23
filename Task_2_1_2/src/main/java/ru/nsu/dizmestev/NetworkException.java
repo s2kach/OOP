@@ -1,0 +1,17 @@
+package ru.nsu.dizmestev;
+
+/**
+ * Исключение, возникающее при ошибках сетевого взаимодействия.
+ */
+public class NetworkException extends DistributedException {
+
+    /**
+     * Создает сетевое исключение с сообщением и причиной.
+     *
+     * @param message Сообщение об ошибке.
+     * @param cause Исходное исключение.
+     */
+    public NetworkException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
