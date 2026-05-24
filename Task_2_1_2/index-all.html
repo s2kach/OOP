@@ -102,7 +102,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Главный узел, управляющий раздачей задач и агрегацией результатов.</div>
 </dd>
-<dt><a href="ru/nsu/dizmestev/MasterNode.html#%3Cinit%3E(int%5B%5D)" class="member-name-link">MasterNode(int[])</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/MasterNode.html" title="class in ru.nsu.dizmestev">MasterNode</a></dt>
+<dt><a href="ru/nsu/dizmestev/MasterNode.html#%3Cinit%3E(int%5B%5D,int,int,int)" class="member-name-link">MasterNode(int[], int, int, int)</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/MasterNode.html" title="class in ru.nsu.dizmestev">MasterNode</a></dt>
 <dd>
 <div class="block">Инициализирует мастер-узел исходным массивом.</div>
 </dd>
@@ -112,6 +112,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="ru/nsu/dizmestev/NetworkException.html" class="type-name-link" title="class in ru.nsu.dizmestev">NetworkException</a> - Exception Class in <a href="ru/nsu/dizmestev/package-summary.html">ru.nsu.dizmestev</a></dt>
 <dd>
 <div class="block">Исключение, возникающее при ошибках сетевого взаимодействия.</div>
+</dd>
+<dt><a href="ru/nsu/dizmestev/NetworkException.html#%3Cinit%3E(java.lang.String)" class="member-name-link">NetworkException(String)</a> - Constructor for exception class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/NetworkException.html" title="class in ru.nsu.dizmestev">NetworkException</a></dt>
+<dd>
+<div class="block">Создает сетевое исключение с сообщением.</div>
 </dd>
 <dt><a href="ru/nsu/dizmestev/NetworkException.html#%3Cinit%3E(java.lang.String,java.lang.Throwable)" class="member-name-link">NetworkException(String, Throwable)</a> - Constructor for exception class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/NetworkException.html" title="class in ru.nsu.dizmestev">NetworkException</a></dt>
 <dd>
@@ -144,11 +148,11 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="ru/nsu/dizmestev/MasterNode.html#start()" class="member-name-link">start()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/MasterNode.html" title="class in ru.nsu.dizmestev">MasterNode</a></dt>
 <dd>
-<div class="block">Запускает сервер и ожидает подключений от воркеров.</div>
+<div class="block">Запускает сервер, UDP-дискавери и ожидает подключений в пуле потоков.</div>
 </dd>
 <dt><a href="ru/nsu/dizmestev/WorkerNode.html#start()" class="member-name-link">start()</a> - Method in class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/WorkerNode.html" title="class in ru.nsu.dizmestev">WorkerNode</a></dt>
 <dd>
-<div class="block">Запускает цикл подключения и вычислений воркера.</div>
+<div class="block">Находит мастер-узел по UDP Broadcast и запускает рабочий цикл TCP.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:T">T</h2>
@@ -194,10 +198,12 @@ the order they are declared.</div>
 <dl class="index">
 <dt><a href="ru/nsu/dizmestev/WorkerNode.html" class="type-name-link" title="class in ru.nsu.dizmestev">WorkerNode</a> - Class in <a href="ru/nsu/dizmestev/package-summary.html">ru.nsu.dizmestev</a></dt>
 <dd>
-<div class="block">Вычислительный узел, подключающийся к мастеру для выполнения задач.</div>
+<div class="block">Вычислительный узел, динамически находящий мастера в подсети.</div>
 </dd>
-<dt><a href="ru/nsu/dizmestev/WorkerNode.html#%3Cinit%3E()" class="member-name-link">WorkerNode()</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/WorkerNode.html" title="class in ru.nsu.dizmestev">WorkerNode</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/dizmestev/WorkerNode.html#%3Cinit%3E(int)" class="member-name-link">WorkerNode(int)</a> - Constructor for class ru.nsu.dizmestev.<a href="ru/nsu/dizmestev/WorkerNode.html" title="class in ru.nsu.dizmestev">WorkerNode</a></dt>
+<dd>
+<div class="block">Конструктор принимающий порт приложения в котором искать мастера в сети.</div>
+</dd>
 </dl>
 <a href="#I:D">D</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
 </div>

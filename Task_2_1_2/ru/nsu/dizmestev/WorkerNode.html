@@ -90,7 +90,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">WorkerNode</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Вычислительный узел, подключающийся к мастеру для выполнения задач.</div>
+<div class="block">Вычислительный узел, динамически находящий мастера в подсети.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -102,8 +102,10 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">WorkerNode</a>()</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int)" class="member-name-link">WorkerNode</a><wbr>(int&nbsp;udpPort)</code></div>
+<div class="col-last even-row-color">
+<div class="block">Конструктор принимающий порт приложения в котором искать мастера в сети.</div>
+</div>
 </div>
 </section>
 </li>
@@ -121,7 +123,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#start()" class="member-name-link">start</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Запускает цикл подключения и вычислений воркера.</div>
+<div class="block">Находит мастер-узел по UDP Broadcast и запускает рабочий цикл TCP.</div>
 </div>
 </div>
 </div>
@@ -141,9 +143,14 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;()">
+<section class="detail" id="&lt;init&gt;(int)">
 <h3>WorkerNode</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">WorkerNode</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">WorkerNode</span><wbr><span class="parameters">(int&nbsp;udpPort)</span></div>
+<div class="block">Конструктор принимающий порт приложения в котором искать мастера в сети.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>udpPort</code> - Собственно сам порт.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -159,7 +166,7 @@ loadScripts(document, 'script');</script>
 <h3>start</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">start</span>()
            throws <span class="exceptions"><a href="NetworkException.html" title="class in ru.nsu.dizmestev">NetworkException</a></span></div>
-<div class="block">Запускает цикл подключения и вычислений воркера.</div>
+<div class="block">Находит мастер-узел по UDP Broadcast и запускает рабочий цикл TCP.</div>
 <dl class="notes">
 <dt>Throws:</dt>
 <dd><code><a href="NetworkException.html" title="class in ru.nsu.dizmestev">NetworkException</a></code> - Если нет связи с мастером.</dd>

@@ -102,7 +102,10 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int%5B%5D)" class="member-name-link">MasterNode</a><wbr>(int[]&nbsp;fullArray)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int%5B%5D,int,int,int)" class="member-name-link">MasterNode</a><wbr>(int[]&nbsp;fullArray,
+ int&nbsp;port,
+ int&nbsp;udpPort,
+ int&nbsp;chunkSize)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Инициализирует мастер-узел исходным массивом.</div>
 </div>
@@ -123,7 +126,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#start()" class="member-name-link">start</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Запускает сервер и ожидает подключений от воркеров.</div>
+<div class="block">Запускает сервер, UDP-дискавери и ожидает подключений в пуле потоков.</div>
 </div>
 </div>
 </div>
@@ -143,9 +146,12 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(int[])">
+<section class="detail" id="&lt;init&gt;(int[],int,int,int)">
 <h3>MasterNode</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">MasterNode</span><wbr><span class="parameters">(int[]&nbsp;fullArray)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">MasterNode</span><wbr><span class="parameters">(int[]&nbsp;fullArray,
+ int&nbsp;port,
+ int&nbsp;udpPort,
+ int&nbsp;chunkSize)</span></div>
 <div class="block">Инициализирует мастер-узел исходным массивом.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -166,7 +172,7 @@ loadScripts(document, 'script');</script>
 <h3>start</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">start</span>()
            throws <span class="exceptions"><a href="NetworkException.html" title="class in ru.nsu.dizmestev">NetworkException</a></span></div>
-<div class="block">Запускает сервер и ожидает подключений от воркеров.</div>
+<div class="block">Запускает сервер, UDP-дискавери и ожидает подключений в пуле потоков.</div>
 <dl class="notes">
 <dt>Throws:</dt>
 <dd><code><a href="NetworkException.html" title="class in ru.nsu.dizmestev">NetworkException</a></code> - Если не удалось запустить серверный сокет.</dd>
