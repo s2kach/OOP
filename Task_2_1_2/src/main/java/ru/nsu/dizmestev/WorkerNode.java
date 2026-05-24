@@ -3,25 +3,68 @@ package ru.nsu.dizmestev;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.Socket;
 
 /**
- * Вычислительный узел, подключающийся к мастеру для выполнения задач.
+ * Вычислительный узел, динамически находящий мастера в подсети.
  */
 public class WorkerNode {
 
-    private static final String HOST = "localhost";
-    private static final int PORT = 8080;
+    private final int udpPort;
 
     /**
-     * Запускает цикл подключения и вычислений воркера.
+     * Конструктор принимающий порт приложения в котором искать мастера в сети.
+     *
+     * @param udpPort Собственно сам порт.
+     */
+    public WorkerNode(int udpPort) {
+        this.udpPort = udpPort;
+    }
+
+    /**
+     * Находит мастер-узел по UDP Broadcast и запускает рабочий цикл TCP.
      *
      * @throws NetworkException Если нет связи с мастером.
      */
     public void start() throws NetworkException {
-        System.out.println("Воркер запущен. Подключение к мастеру...");
+        System.out.println("Воркер запущен. Поиск мастера в подсети...");
+
+        String masterHost;
+        int masterPort;
+
+        try (DatagramSocket udpSocket = new DatagramSocket()) {
+            udpSocket.setSoTimeout(5000);
+            byte[] requestData = "DISCOVER_MASTER".getBytes();
+
+            DatagramPacket sendPacket = new DatagramPacket(
+                    requestData, requestData.length,
+                    InetAddress.getByName("255.255.255.255"), udpPort
+            );
+            udpSocket.send(sendPacket);
+
+            byte[] buffer = new byte[1024];
+            DatagramPacket receivePacket = new DatagramPacket(buffer, buffer.length);
+            udpSocket.receive(receivePacket);
+
+            String response = new String(receivePacket.getData(), 0,
+                    receivePacket.getLength()).trim();
+            if (response.startsWith("I_AM_MASTER:")) {
+                masterHost = receivePacket.getAddress().getHostAddress();
+                masterPort = Integer.parseInt(response.split(":")[1]);
+                System.out.println("Мастер успешно найден по адресу: "
+                        + masterHost + ":" + masterPort);
+            } else {
+                throw new NetworkException("Получен некорректный ответ идентификации от мастера.");
+            }
+        } catch (IOException e) {
+            throw new NetworkException("Не удалось обнаружить мастер-узел в локальной сети.", e);
+        }
+
         try (
-                Socket socket = new Socket(HOST, PORT);
+                Socket socket = new Socket(masterHost, masterPort);
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())
         ) {

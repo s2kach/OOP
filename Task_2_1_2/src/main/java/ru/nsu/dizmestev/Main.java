@@ -37,7 +37,7 @@ public class Main {
         };
 
         System.out.println("Запуск Мастера. Исходный массив: " + Arrays.toString(numbers));
-        MasterNode master = new MasterNode(numbers);
+        MasterNode master = new MasterNode(numbers, 8080, 8880, 3);
 
         try {
             master.start();
@@ -53,7 +53,7 @@ public class Main {
      */
     private static void runWorker(String[] args) {
         System.out.println("Запуск Воркера...");
-        WorkerNode worker = new WorkerNode();
+        WorkerNode worker = new WorkerNode(8880);
 
         try {
             worker.start();

@@ -20,7 +20,7 @@ class SystemTest {
     @Timeout(value = 10, unit = TimeUnit.SECONDS)
     void testMasterWorkerIntegration() throws InterruptedException {
         int[] numbers = {2, 3, 5, 7, 11, 13};
-        MasterNode master = new MasterNode(numbers);
+        MasterNode master = new MasterNode(numbers, 8080, 8880, 3);
 
         Thread masterThread = new Thread(() -> {
             assertDoesNotThrow(master::start);
@@ -29,7 +29,7 @@ class SystemTest {
 
         Thread.sleep(500);
 
-        WorkerNode worker = new WorkerNode();
+        WorkerNode worker = new WorkerNode(8880);
         assertDoesNotThrow(worker::start);
 
         masterThread.join();
@@ -41,7 +41,7 @@ class SystemTest {
         int[] largePrimeArray = new int[100];
         java.util.Arrays.fill(largePrimeArray, 1000000007);
 
-        MasterNode master = new MasterNode(largePrimeArray);
+        MasterNode master = new MasterNode(largePrimeArray, 8081, 8881, 3);
 
         Thread masterThread = new Thread(() -> {
             assertDoesNotThrow(master::start);
@@ -55,7 +55,7 @@ class SystemTest {
 
         for (int i = 0; i < workerCount; i++) {
             workerThreads[i] = new Thread(() -> {
-                WorkerNode worker = new WorkerNode();
+                WorkerNode worker = new WorkerNode(8881);
                 assertDoesNotThrow(worker::start);
             });
             workerThreads[i].start();
@@ -70,7 +70,7 @@ class SystemTest {
     @Test
     void testMasterStopGracefully() throws InterruptedException {
         int[] numbers = {2, 3, 5};
-        MasterNode master = new MasterNode(numbers);
+        MasterNode master = new MasterNode(numbers, 8082, 8882, 3);
 
         Thread t = new Thread(() -> {
             assertDoesNotThrow(master::start);
@@ -90,12 +90,12 @@ class SystemTest {
     @Timeout(value = 5, unit = TimeUnit.SECONDS)
     void testNonPrimeDetection() throws InterruptedException {
         int[] numbers = {4};
-        MasterNode master = new MasterNode(numbers);
+        MasterNode master = new MasterNode(numbers, 8084, 8884, 3);
         Thread masterThread = new Thread(() -> assertDoesNotThrow(master::start));
         masterThread.start();
 
         Thread.sleep(200);
-        WorkerNode worker = new WorkerNode();
+        WorkerNode worker = new WorkerNode(8884);
 
         assertDoesNotThrow(worker::start);
         masterThread.join();
@@ -103,8 +103,8 @@ class SystemTest {
 
     @Test
     void testMasterPortConflictThrowsNetworkException() throws InterruptedException {
-        MasterNode master1 = new MasterNode(new int[]{2});
-        MasterNode master2 = new MasterNode(new int[]{3});
+        MasterNode master1 = new MasterNode(new int[]{2}, 8085, 8885, 3);
+        MasterNode master2 = new MasterNode(new int[]{3}, 8085, 8885, 3);
 
         Thread t1 = new Thread(() -> assertDoesNotThrow(master1::start));
         t1.start();
@@ -118,12 +118,12 @@ class SystemTest {
 
     @Test
     void testWorkerDisconnectMidTaskReturnsTaskToQueue() throws Exception {
-        MasterNode master = new MasterNode(new int[]{2, 3, 5});
+        MasterNode master = new MasterNode(new int[]{2, 3, 5}, 8086, 8886, 3);
         Thread t = new Thread(() -> assertDoesNotThrow(master::start));
         t.start();
         Thread.sleep(200);
 
-        java.net.Socket rawSocket = new java.net.Socket("localhost", 8080);
+        java.net.Socket rawSocket = new java.net.Socket("localhost", 8086);
         new ObjectOutputStream(rawSocket.getOutputStream());
         ObjectInputStream testOis = new ObjectInputStream(rawSocket.getInputStream());
 

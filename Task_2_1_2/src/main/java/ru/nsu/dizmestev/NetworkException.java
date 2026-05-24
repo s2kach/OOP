@@ -14,4 +14,13 @@ public class NetworkException extends DistributedException {
     public NetworkException(String message, Throwable cause) {
         super(message, cause);
     }
+
+    /**
+     * Создает сетевое исключение с сообщением.
+     *
+     * @param message Сообщение об ошибке.
+     */
+    public NetworkException(String message) {
+        super(message);
+    }
 }
