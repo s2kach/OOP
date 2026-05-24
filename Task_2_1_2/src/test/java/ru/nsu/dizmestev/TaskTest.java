@@ -37,9 +37,14 @@ class TaskTest {
         DistributedException ex1 = new DistributedException("error");
         DistributedException ex2 = new DistributedException("error", cause);
         NetworkException ex3 = new NetworkException("net error", cause);
+        NetworkException ex4 = new NetworkException("net error without cause");
 
         assertEquals("error", ex1.getMessage());
+        assertNull(ex1.getCause());
         assertEquals(cause, ex2.getCause());
         assertEquals("net error", ex3.getMessage());
+        assertEquals(cause, ex3.getCause());
+        assertEquals("net error without cause", ex4.getMessage());
+        assertNull(ex4.getCause());
     }
 }

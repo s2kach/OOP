@@ -31,7 +31,7 @@ public class MasterNode {
      *
      * @param fullArray Полный массив для распределенной проверки.
      */
-    public MasterNode(int[] fullArray,int port, int udpPort, int chunkSize) {
+    public MasterNode(int[] fullArray, int port, int udpPort, int chunkSize) {
         this.port = port;
         this.udpPort = udpPort;
         this.chunkSize = chunkSize;
