@@ -3,7 +3,7 @@ package ru.nsu.dizmestev;
 /**
  * Исключение, возникающее при ошибках сетевого взаимодействия.
  */
-public class NetworkException extends DistributedException {
+public class NetworkException extends Exception {
 
     /**
      * Создает сетевое исключение с сообщением и причиной.
